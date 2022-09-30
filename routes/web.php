@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function() {
   Route::resource('category', Category::class)->except(['show']);
   Route::resource('product', Product::class)->except(['edit']);
 
-  Route::resource('member', Member::class);
+  Route::resource('member', Member::class)->except('show');
   Route::get('transaction/new', [Transaction::class, 'create'])->name('transaction.new');  
   Route::resource('transaction', TransactionDetail::class)->except(['show']);
 });

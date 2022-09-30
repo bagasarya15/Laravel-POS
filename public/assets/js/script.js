@@ -1,34 +1,4 @@
 $(function () {
-    $(".tambahCustomer").on("click", function () {
-        $("#formModalLabel").html("Tambah Data Customer");
-        $(".modal-footer button[type=submit]").html("Tambah Data");
-    });
-
-    $(".modalUbahCustomer").on("click", function () {
-        $("#formModalLabel").html("Ubah Data Customer");
-        $(".modal-footer button[type=submit]").html("Ubah Data");
-        $(".modal-body form").attr(
-            "action",
-            "http://localhost/mvcpos/public/customer/ubah"
-        );
-
-        const id_customer = $(this).data("id_customer");
-        $.ajax({
-            url: "http://localhost/mvcpos/public/customer/getubah",
-            data: { id_customer: id_customer },
-            method: "post",
-            dataType: "json",
-            success: function (data) {
-                $("#namaCustomer").val(data.namaCustomer);
-                $("#alamatCustomer").val(data.alamatCustomer);
-                $("#tlpCustomer").val(data.tlpCustomer);
-                $("#id_customer").val(data.id_customer);
-            },
-        });
-    });
-});
-
-$(function () {
     //Start-Preview Image
     $("input[name=image]").change(function () {
         let img = $(this);
