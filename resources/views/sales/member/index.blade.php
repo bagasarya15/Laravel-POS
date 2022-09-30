@@ -132,12 +132,11 @@ $(function () {
         $(".modal-footer button[type=submit]").html("Ubah Data");
         $(".modal-body form").attr("action", "{{ route('member.update', $member->id) }}");
 
-        const id = $(this).data('id');
-        var url = '{{ route("member.edit", $member->id) }}';
-        url = url;
+        var id = $(this).data('id');
+        var url = '{{ route("member.edit", ":id") }}';
+        url = url.replace(":id", id);
         $.ajax({
-        url: url ,
-        data: { id: id },
+        url: url,
         method: 'post',
         dataType: 'json',
             success: function (data) {
