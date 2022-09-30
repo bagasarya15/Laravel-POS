@@ -41,7 +41,7 @@
                             <td>
                                 <div class="d-flex">
                                     {{-- <button type="button" class="fa-solid fa-pen-to-square btn btn-xs btn-warning mx-2 ubahMember" data-bs-toggle="modal" data-bs-target="#editCategoryModal" ></button> --}}
-                                    <a href="{{ route('member.show', $member->id) }}" class="fa-solid fa-pen-to-square btn btn-xs btn-warning mx-2 ubahMember" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-id="{{ $member->id }}"></a>
+                                    <a href="{{ route('member.show', $member->id) }}" class="fa-solid fa-pen-to-square btn btn-xs btn-warning mx-2 ubahMember" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-id="<?= $member['id']; ?>"></a>
                                     <form action="{{ route('member.destroy', $member->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -73,6 +73,7 @@
             <div class="modal-body">
             <form action="{{ route('member.store') }}" method="POST" class="form form-horizontal">
                 @csrf
+                @method('PUT')
                 <div class="form-body">
                     <div class="row">
                         <input type="hidden" name="id" id="id">
@@ -117,6 +118,7 @@
     </div>
 </div>
 {{-- End Modal Tambah --}}
+
 <script src="{{ asset('assets/extensions/jquery/jquery.min.js') }}"></script>
 <script>
 $(function () {
@@ -124,16 +126,17 @@ $(function () {
         $(".formModalLabel").html("Tambah Data Member");
         $(".modal-footer button[type=submit]").html("Tambah Data");
     });
+
     $(".ubahMember").on("click", function () {
         $(".formModalLabel").html("Ubah Data Member");
         $(".modal-footer button[type=submit]").html("Ubah Data");
-        $(".modal-body form").attr("action", "{{ route('member.update', $member) }}");
-        const id = $(this).data('id');
-        var url = '{{ route("member.edit", $member->id) }}';
-        url = url;
+        $(".modal-body form").attr("action", "{{ route('member.update', $member->id) }}");
+
+        var id = $(this).data('id');
+        var url = '{{ route("member.edit", ":id") }}';
+        url = url.replace(":id", id);
         $.ajax({
-        url: url ,
-        data: { id: id },
+        url: url,
         method: 'post',
         dataType: 'json',
             success: function (data) {

@@ -67,9 +67,16 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Members $member)
+    public function show($id)
     {
-        return view('sales.member.index', compact('member'));
+        $member = Member::findOrFail($id);
+        return response()->json([
+            "success" => true,
+            "message" => "Get dafa successfully",
+            "data" => $member,
+        ]);
+
+        // return view('sales.member.index', compact('member'));
     }
 
     /**
