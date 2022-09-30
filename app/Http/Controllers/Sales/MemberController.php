@@ -92,13 +92,12 @@ class MemberController extends Controller
      */
     public function update(Request $request, Members $member)
     {
-        $member => update([
+        $member->update([
             'code_member' => $request->code_member,
             'name' => $request->name,
             'address' => $request->address,
             'number_phone' => $request->number_phone,
         ]);
-
         return redirect()->route('member.index')->with('success', 'Member berhasil diubah !');
     }
 
