@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
 @section('menu-heading')
-    Member
+    Supplier
 @endsection
 
 @section('title')
-  Data Member
+    Data Supplier
 @endsection
 
 @section('content')
@@ -14,29 +14,29 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('member.create') }}"class="btn btn-xs btn-primary block" > Tambah Member</a>
+                <a href="{{ route('supplier.create') }}"class="btn btn-xs btn-primary block" > Tambah Supplier</a>
             </div>
             <div class="card-body">
                 <table class="table table-striped" id="table1">
                     <thead>
                         <tr>
-                            <th>Kode Member</th>
-                            <th>Nama</th>
+                            <th>Nama Supplier</th>
                             <th>Alamat</th>
                             <th>Nomer Tlp</th>
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                        @foreach ($member as $member)
-                            <td><span class="badge bg-success">{{ $member->code_member }}</span></td>
-                            <td>{{ $member->name }}</td>
-                            <td>{{ $member->address }}</td>
-                            <td>{{ $member->number_phone }}</td>
+                        @foreach ($supplier as $supplier)</span></td>
+                            <td>{{ $supplier->name }}</td>
+                            <td>{{ $supplier->address }}</td>
+                            <td>{{ $supplier->number_phone }}</td>
+                            <td>{{ $supplier->desc }}</td>
                             <td>
                                 <div class="d-flex">
-                                    <a href="{{ route('member.edit', $member->id) }}" class="btn btn-xs btn-warning fa-solid fa-edit edit-member"></a> 
-                                    <form action="{{ route('member.destroy', $member->id) }}" method="POST">
+                                    <a href="{{ route('supplier.edit', $supplier->id) }}" class="btn btn-xs btn-warning fa-solid fa-edit edit-supplier"></a> 
+                                    <form action="{{ route('supplier.destroy', $supplier->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="fa-solid fa-trash btn btn-xs btn-danger btn-delete mx-2" id="btn-delete"></button>

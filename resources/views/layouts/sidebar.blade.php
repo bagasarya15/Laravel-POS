@@ -6,8 +6,8 @@
                     <h1 class="fs-5 mt-3 mx-1 fw-bolder"><i class="fa-solid fa-code"></i> Lara-Pos</h1>
                 </a>
             </div>
-            @include('layouts.toogle-theme')
             <div class="sidebar-toggler x">
+                @include('layouts.toogle-theme')
                 <a
                     href="#"
                     class="sidebar-hide d-xl-none d-block"
@@ -38,6 +38,18 @@
                     </li>
                     <li class="submenu-item">
                         <a href="{{ route('product.index') }}">Data Produk</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item has-sub">
+                <a href="#" class="sidebar-link">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Supplier</span>
+                </a>
+                <ul class="submenu">
+                    <li class="submenu-item">
+                        <a href="{{ route('supplier.index') }}">Data Supplier</a>
                     </li>
                 </ul>
             </li>

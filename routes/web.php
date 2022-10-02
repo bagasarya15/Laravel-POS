@@ -10,6 +10,7 @@ Use App\Http\Controllers\Main\ {
 use App\Http\Controllers\Product\ {
   CategoryController as Category,
   ProductController as Product,
+  SupplierController as Supplier,
 };
 use App\Http\Controllers\Sales\ {
   MemberController as Member,
@@ -55,6 +56,7 @@ Route::middleware('auth')->group(function() {
   Route::resource('product', Product::class)->except(['edit']);
 
   Route::resource('member', Member::class)->except('show');
+  Route::resource('supplier', Supplier::class)->except('show');
   Route::get('transaction/new', [Transaction::class, 'create'])->name('transaction.new');  
   Route::resource('transaction', TransactionDetail::class)->except(['show']);
 });
