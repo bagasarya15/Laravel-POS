@@ -1,4 +1,46 @@
 $(function () {
+    //Start Show And Hide Password
+    $(document).ready(function () {
+        $("#check-login-pass").click(function () {
+            if ($(this).is(":checked")) {
+                $("#password-login").attr("type", "text");
+            } else {
+                $("#password-login").attr("type", "password");
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#check-current-pass").click(function () {
+            if ($(this).is(":checked")) {
+                $("#current_password").attr("type", "text");
+            } else {
+                $("#current_password").attr("type", "password");
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#check-new-pass").click(function () {
+            if ($(this).is(":checked")) {
+                $("#password").attr("type", "text");
+            } else {
+                $("#password").attr("type", "password");
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#check-confirm-pass").click(function () {
+            if ($(this).is(":checked")) {
+                $("#confirm_password").attr("type", "text");
+            } else {
+                $("#confirm_password").attr("type", "password");
+            }
+        });
+    });
+    //End Show And Hide Password
+
     //Start-Preview Image
     $("input[name=image]").change(function () {
         let img = $(this);

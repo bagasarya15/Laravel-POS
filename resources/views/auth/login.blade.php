@@ -31,14 +31,15 @@
                                         <i class="bi bi-person"></i>
                                     </div>
                                 </div>
-                                <div class="form-group position-relative has-icon-left mb-4">
-                                    <input  type="password" id="password" name="password" class="form-control form-control-xl" placeholder="Password">
+                                <div class="form-group position-relative has-icon-left">
+                                    <input  type="password" id="password-login" name="password" class="form-control form-control-xl" placeholder="Password">
                                     <div class="form-control-icon">
                                         <i class="bi bi-shield-lock"></i>
                                     </div>
-                                    {{-- <span>
-                                        <i class="fa fa-eye" id="see_pass"></i>
-                                    </span> --}}
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" id="check-login-pass" class="form-check-input form-check-primary">
+                                    <label class="form-check-label">Lihat Password</label>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block btn-xs shadow-lg mt-3">Log in</button>
                             </div>

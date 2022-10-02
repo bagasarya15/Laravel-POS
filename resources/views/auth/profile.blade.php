@@ -87,17 +87,31 @@
                                 <label for="current_password">Password Lama</label>
                                 <input type="password" id="current_password" class="form-control" name="current_password">
                             </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="check-current-pass" class="form-check-input form-check-primary">
+                              <label class="form-check-label">Lihat Password</label>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <div class="form-group">
                                 <label for="password">Password Baru</label>
                                 <input type="password" id="password" class="form-control" name="password" >
                             </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="check-new-pass" class="form-check-input form-check-primary">
+                              <label class="form-check-label">Lihat Password</label>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <div class="form-group">
                                 <label for="confirm_password">Konfirmasi Password</label>
                                 <input type="password" id="confirm_password" class="form-control" name="confirm_password" >
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" id="check-confirm-pass" class="form-check-input form-check-primary">
+                              <label class="form-check-label">Lihat Password</label>
                             </div>
                         </div>
                     </div>
