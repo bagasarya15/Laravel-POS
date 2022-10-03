@@ -41,22 +41,23 @@
                                     <input type="email" id="email" class="form-control" name="email" value="{{ auth()->user()->email }}" autocomplete="off">
                                 </div>
                             </div>
+
                             <input type="hidden" name="role_id" value="{{ auth()->user()->role_id  }}">
-                            
+                
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="user-profile">Foto Profile</label>
-                                    <img class="img-preview img-fluid d-block border border-4 my-3" src="{{ asset('storage/'. auth()->user()->image) }}" alt="User Image" width="100">
+                                    <img class="img-preview img-fluid d-block border border-4 mb-3 mt-1" src="{{ asset('storage/'. auth()->user()->image) }}" alt="User Image" width="100">
                                     <input type="file" class="d-none form-control" id="image" name="image">
-                                    <label for="image" class="btn btn-xs btn-square btn-primary w-50">
+                                    <label for="image" class="btn btn-sm btn-square btn-primary" width="100">
                                     <i class="fa fa-upload me-2"></i>Unggah Foto Profile
                                     </label>
                                 </div>
                             </div>
 
                             <div class="col-12 d-flex justify-content-start">
-                                <button type="submit" class="btn btn-primary mb-1"><i class="fa-solid fa-edit"></i> Update</button>
-                                <button type="button" class="btn btn-danger mb-1 mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-key"></i> Ubah Password</button>
+                                <button type="submit" class="btn btn-sm btn-primary mb-1"><i class="fa-solid fa-edit"></i> Update</button>
+                                <button type="button" class="btn btn-sm btn-danger mb-1 mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-key"></i> Ubah Password</button>
                             </div>
                         </div>
                         {{-- End Form Action Update Profile --}}
@@ -117,8 +118,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn btn-danger"> <i class="fa-solid fa-arrows-rotate"></i> Reset</button>
-                    <button type="submit" class="btn btn-primary"> <i class="fa-solid fa-edit"></i> Update</button>
+                    <button type="reset" class="btn btn-sm btn-danger"> <i class="fa-solid fa-arrows-rotate"></i> Reset</button>
+                    <button type="submit" class="btn btn-sm btn-primary"> <i class="fa-solid fa-edit"></i> Update</button>
                 </div>
                 </form>
             </div>

@@ -50,8 +50,8 @@
                                 placeholder="No Tlp" autocomplete="off">
                         </div>
                         <div class="col-sm-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary mb-1 mx-2"><i class="fa-solid fa-plus"></i> Tambah</button>
-                            <button type="reset" class="btn btn-warning mb-1"><i class="fa-solid fa-arrows-rotate"></i> Reset </button>
+                            <button type="submit" class="btn btn-sm btn-primary mb-1 mx-2"><i class="fa-solid fa-plus"></i> Tambah</button>
+                            <button type="reset" class="btn btn-sm btn-warning mb-1"><i class="fa-solid fa-arrows-rotate"></i> Reset </button>
                         </div>
                     </div>
                 </div>

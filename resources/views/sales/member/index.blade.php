@@ -14,7 +14,7 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('member.create') }}"class="btn btn-xs btn-primary block" > Tambah Member</a>
+                <a href="{{ route('member.create') }}"class="btn btn-sm btn-primary block" > Tambah Member</a>
             </div>
             <div class="card-body">
                 <table class="table table-striped" id="table1">

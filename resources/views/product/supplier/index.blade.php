@@ -14,7 +14,7 @@
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('supplier.create') }}"class="btn btn-xs btn-primary block" > Tambah Supplier</a>
+                <a href="{{ route('supplier.create') }}"class="btn btn-sm btn-primary block" > Tambah Supplier</a>
             </div>
             <div class="card-body">
                 <table class="table table-striped" id="table1">

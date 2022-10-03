@@ -37,8 +37,8 @@
                                 placeholder="Deskripsi" autocomplete="off" value="{{ old('desc',$category->desc) }}">
                         </div>
                         <div class="col-sm-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary me-1 mb-1"><i class="fa-solid fa-pen-to-square"></i> Ubah</button>
-                            <button type="reset" class="btn btn-warning me-1 mb-1"><i class="fa-solid fa-arrows-rotate"></i> Reset</button>
+                            <button type="submit" class="btn btn-sm btn-primary me-1 mb-1"><i class="fa-solid fa-pen-to-square"></i> Ubah</button>
+                            <button type="reset" class="btn btn-sm btn-warning me-1 mb-1"><i class="fa-solid fa-arrows-rotate"></i> Reset</button>
                         </div>
                     </div>
                 </div>
