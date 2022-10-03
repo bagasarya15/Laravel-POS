@@ -41,6 +41,12 @@ $(function () {
     });
     //End Show And Hide Password
 
+    //Start Select All CheckBox Product
+    $("#select_all").on("click", function () {
+        $(":checkbox").prop("checked", this.checked);
+    });
+    // End Select All CheckBox Product
+
     //Start-Preview Image
     $("input[name=image]").change(function () {
         let img = $(this);

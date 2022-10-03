@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function() {
 
   Route::resource('category', Category::class)->except(['show']);
   Route::resource('product', Product::class)->except(['edit']);
+  Route::post('product/delete-selected',[Product::class, 'deleteSelected'])->name('product.delete_selected');
 
   Route::resource('member', Member::class)->except('show');
   Route::resource('supplier', Supplier::class)->except('show');

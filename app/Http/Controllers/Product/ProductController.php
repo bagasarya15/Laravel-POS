@@ -223,4 +223,18 @@ class ProductController extends Controller
 
         return redirect()->route('product.index')->with('success', 'Produk berhasil dihapus !');
     }
+
+    public function deleteSelected(Request $request)
+    {
+        $products = Products::whereIn('id', $request->id)->get();
+
+        foreach ($products as $product) {
+
+            if($product->image != 'product/default.png'){
+                    Storage::disk('public')->delete($product->image);
+            }
+            $product->delete();
+        }
+        return redirect()->route('product.index')->with('success', 'Produk dipilih berhasil dihapus !');
+    }
 }
