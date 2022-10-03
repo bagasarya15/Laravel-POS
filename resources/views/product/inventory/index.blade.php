@@ -42,7 +42,7 @@
                             <td><a href="{{ route('product.show', $product->id) }}" class="badge bg-success text-light">{{ $product->code_product }}</a></td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->category->name }}</td>
-                            <td>Rp{{ number_format($product->price_sell) }}</td>
+                            <td>Rp {{ number_format($product->price_sell) }}</td>
                             <td><img class="rounded-circle" width="45px" src="{{ asset('storage/'.$product ->image) }}" alt="Foto Produk"></td>
                             <td>
                                 <div class="d-flex">

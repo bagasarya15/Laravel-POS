@@ -57,21 +57,22 @@ class ProductController extends Controller
         }
 
         $product = Products::with(['category'])->orderBy('id', 'desc')->get();
-        return  view('product.inventory.print', compact('product'));
-        // $html = view('product.inventory.print', compact('product'));
+        $html = view('product.inventory.print', compact('product'));
+        
+        // return  view('product.inventory.print', compact('product'));
 
-        // // instantiate and use the dompdf class
-        // $dompdf = new Dompdf();
-        // $dompdf->loadHtml($html);
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
 
-        // // (Optional) Setup the paper size and orientation
-        // $dompdf->setPaper('A4', 'landscape');
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
 
-        // // Render the HTML as PDF
-        // $dompdf->render();
+        // Render the HTML as PDF
+        $dompdf->render();
 
-        // // Output the generated PDF to Browser
-        // $dompdf->stream();
+        // Output the generated PDF to Browser
+        $dompdf->stream();
         
     }
 
