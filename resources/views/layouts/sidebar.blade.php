@@ -175,26 +175,6 @@
                 </ul>
             </li>    
             @endcan
-
-            <li class="sidebar-title">Pengaturan</li>
-            <li class="sidebar-item has-sub">
-                <a href="#" class="sidebar-link">
-                    <i class="fa-solid fa-user-gear"></i>
-                    <span>Kelola Akun</span>
-                </a>
-                <ul class="submenu">
-                    <li class="submenu-item">
-                        <a href="{{ route('user.index') }}">Profile</a>
-                    </li>
-                </ul>
-            </li>
-            
-            <li class="sidebar-item">
-                <a href="{{ route('logout') }}" class="sidebar-link btn-logout">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    <span>Logout</span>
-                </a>
-            </li>
         </ul>
     </div>
 </div>

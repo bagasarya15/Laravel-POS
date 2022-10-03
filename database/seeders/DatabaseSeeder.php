@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\ProductsSeeder;
 use Database\Seeders\UserRoleSeeder;
+use Database\Seeders\ProductsCategorySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserRoleSeeder::class,
             UserSeeder::class,
+            ProductsCategorySeeder::class,
+            ProductsSeeder::class
         ]);
     }
 }

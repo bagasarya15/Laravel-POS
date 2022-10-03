@@ -9,17 +9,13 @@
             <div id="sidebar" class="active">
                 @include('layouts.sidebar')
             </div>
-            <div id="main">
+            <div id="main" class="layout-navbar">
                 <header class="mb-3">
                     @include('layouts.header')
                 </header>
 
-                <div class="page-heading">
-                    @include('layouts.heading')
-                </div>
-                
-                <div class="page-content">
-                    @yield('content')
+                <div id="main-content">
+                    @include('layouts.main-content')
                 </div>
 
                 <footer>

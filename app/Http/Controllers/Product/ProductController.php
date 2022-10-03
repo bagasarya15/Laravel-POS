@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{ Products, ProductsCategory };
-use Illuminate\Support\Facades\{ Validator, Storage};
-use DB;
+use Illuminate\Support\Facades\{ Validator, Storage, DB};
 use Illuminate\Support\Facades\Auth;
+use Dompdf\Dompdf;
 
 class ProductController extends Controller
 {
     
     public function __construct() 
     {
-        
+        //
     }
 
     public function index() 
@@ -23,8 +23,7 @@ class ProductController extends Controller
             return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
         }
 
-        $product = Products::with(['category'])->latest()->get();
-        // $product = Products::orderBy('code_product', 'asc')->get();
+        $product = Products::with(['category'])->orderBy('id', 'desc')->get();
         return view('product.inventory.index',compact('product'));
     }
 
@@ -48,7 +47,32 @@ class ProductController extends Controller
             $AutoNumber = "00001";
         }
         // Auto Number End //
-        return view('product.inventory.create', compact('categories','AutoNumber'));
+        return view('product.inventory.create', compact('categories', 'AutoNumber'));
+    }
+
+    public function print() 
+    {
+        if ( auth()->user()->role_id == 3) {
+            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
+        }
+
+        $product = Products::with(['category'])->orderBy('id', 'desc')->get();
+        return  view('product.inventory.print', compact('product'));
+        // $html = view('product.inventory.print', compact('product'));
+
+        // // instantiate and use the dompdf class
+        // $dompdf = new Dompdf();
+        // $dompdf->loadHtml($html);
+
+        // // (Optional) Setup the paper size and orientation
+        // $dompdf->setPaper('A4', 'landscape');
+
+        // // Render the HTML as PDF
+        // $dompdf->render();
+
+        // // Output the generated PDF to Browser
+        // $dompdf->stream();
+        
     }
 
     public function store(Request $request) 
@@ -103,27 +127,11 @@ class ProductController extends Controller
         }else{
              $product->image= 'product/default.png';
         }
-        // $ext = $request->file('image')->getClientOriginalExtension();
 
-        // if ($request->hasFile('image')){
-        //     $product->image = Storage::disk('public')->putFileAs('product', $request->file('image'), Str::random(12).$ext);
-        // }else{
-        //     $product->image = 'product/default.png';
-        // }
+        $product->save();
 
-    $product->save();
-
-    return redirect()->route('product.index')
-                      ->with('success', 'Berhasil Menambahkan Produk Baru !');
-    }
-
-    public function edit(Product $product) 
-    {
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-
-        return view('product.edit.edit', compact('category'));
+        return redirect()->route('product.index')
+                    ->with('success', 'Berhasil Menambahkan Produk Baru !');
     }
 
     public function update(Request $request, Products $product)
