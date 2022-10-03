@@ -6,8 +6,8 @@
                     <h1 class="fs-5 mt-3 mx-1 fw-bolder"><i class="fa-solid fa-code"></i> Lara-Pos</h1>
                 </a>
             </div>
+            @include('layouts.toogle-theme')
             <div class="sidebar-toggler x">
-                @include('layouts.toogle-theme')
                 <a
                     href="#"
                     class="sidebar-hide d-xl-none d-block"

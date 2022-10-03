@@ -12,19 +12,16 @@
 
 @include('layouts.sweet-alert')
     <section class="section">
-
-        <div class="card">    
-            <div class="card-header">
-                <a href="{{ route('product.create') }}" class="btn btn-sm btn-primary block my-1">Tambah Produk</a>
-                <a href="" class="btn btn-sm btn-info block my-1" target="_blank">Cetak Data Produk</a>
-            
+        <div class="card">
             <form action="{{ route('product.delete_selected') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <button type="submit" class="btn btn-danger btn-sm btn-delete my-1"> Hapus Data Yang Dipilih</button>
+            <div class="card-header">
+                <a href="{{ route('product.create') }}" class="btn btn-sm btn-primary block mt-1">Tambah Produk</a>
+                <button type="submit" class="btn btn-danger btn-sm btn-delete block mt-1" > Hapus Data Yang Dipilih</button>
+                <a href="" class="btn btn-sm btn-info block mt-1" target="_blank">Cetak Data Produk</a>
             </div>
-
             <div class="card-body">
-                <div class="custom-control custom-checkbox"><input type="checkbox" name="select_all" id="select_all" class="form-check-input form-check-primary"> Pilih Semua</div>
+                <div class="custom-control custom-checkbox"><input  class="form-check-input form-check-primary" type="checkbox" name="select_all" id="select_all"> Pilih Semua</div>
                 <table class="table table-striped" id="table1">
                     <thead>
                         <tr>
@@ -39,7 +36,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                    @if (count($product) > 0)
+                        @if (count($product) > 0)
                         @foreach ($product as $product )
                             <td><input type="checkbox" name="id[{{ $product->id }}]" id="id" value="{{ $product->id }}"></td>
                             <td><a href="{{ route('product.show', $product->id) }}" class="badge bg-success text-light">{{ $product->code_product }}</a></td>
@@ -54,7 +51,7 @@
                             </td>
                         </tr>
                         @endforeach
-                    @endif
+                        @endif
                     </tbody>
                 </table>
             </form>

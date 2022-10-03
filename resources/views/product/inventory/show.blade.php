@@ -11,26 +11,24 @@
 @section('content')
 @include('layouts.sweet-alert')
 <div class="row">
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-4 col-sm-12">
         <div class="card">
             <div class="card-title mt-2 ms-3">
                 <a href="{{ route('product.index') }}" class="small"><i class="fa-solid fa-angles-left"></i> Kembali</a>
             </div>
             <div class="card-content">
-                <div class="col-md-6">
+                <div class="col-md-8">
                 {{-- Start Form Action  --}}
                 <form action="{{ route('product.update', $product) }}" method="POST" enctype="multipart/form-data" class="form form-horizontal">
                 @csrf
                 @method('PUT')
-
-                    <img class="img-preview card-img-top img-fluid d-block ms-4" src="{{ asset('storage/'.$product->image) }}" alt="Product Image">
-
-                    <div class="d-flex justify-content-start mx-3">
-                        <label for="image" class="btn btn-xs btn-square btn-primary w-100">
-                        <i class="fa fa-upload me-2"></i>Unggah Foto Produk
-                        </label>
-                        <input type="file" class="d-none" id="image" name="image">
-                    </div>
+                    <img class="img-preview card-img-top img-fluid d-block ms-4 " src="{{ asset('storage/'.$product->image) }}" alt="Product Image">
+                </div>
+                <div class="d-flex justify-content-start mx-3">
+                    <label for="image" class="btn btn-xs btn-square btn-primary w-100">
+                    <i class="fa fa-upload me-2"></i>Unggah Foto Produk
+                    </label>
+                    <input type="file" class="d-none" id="image" name="image">
                 </div>
                 <div class="card-body">
                     <h4 class="card-title">{{ $product->name }}</h4>
@@ -41,7 +39,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-8 col-sm-12">
         <div class="card">
             <div class="card-content">
                 <div class="card-body">
@@ -68,7 +66,7 @@
                                 <option selected disabled>Pilih kategori</option>
                                 @foreach ($categories as $category)
                                 {{-- <option value="{{ $category->id }}">{{ $category->name }}</option> --}}
-                                 <option {{ ($product->category_id == $category->id) ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option {{ ($product->category_id == $category->id) ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
