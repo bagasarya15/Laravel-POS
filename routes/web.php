@@ -39,13 +39,11 @@ use App\Http\Controllers\Sales\ {
 Route::get('/', [AuthController::class, 'redirectTo'])->name('home');
 
 Route::middleware('guest')->controller(AuthController::class)->group(function() {
-  
   Route::get('login', 'index')->name('login');
   Route::post('login', 'login')->name('login.post');
 });
 
 Route::middleware('auth')->group(function() {
-
   Route::resource('auth', AuthController::class)->except(['create', 'store', 'edit', 'show', 'destroy']);
   Route::get('logout', [AuthController::class, 'logout'])->name('logout');
   Route::resource('user', User::class)->except(['create', 'store','edit', 'show', 'destroy']);
@@ -54,7 +52,8 @@ Route::middleware('auth')->group(function() {
 
   Route::resource('category', Category::class)->except(['show']);
   Route::resource('product', Product::class)->except(['edit']);
-  Route::get('print', [Product::class, 'print'])->name('product.print');
+  Route::get('products/reports', [Product::class, 'reports'])->name('product.reports');
+  Route::get('products/print-pdf', [Product::class, 'printPDF'])->name('product.print_pdf');
   Route::post('product/delete-selected',[Product::class, 'deleteSelected'])->name('product.delete_selected');
 
   Route::resource('member', Member::class)->except('show');

@@ -88,7 +88,7 @@
                 </a>
                 <ul class="submenu">
                     <li class="submenu-item">
-                        <a href="#">Coming Soon</a>
+                        <a href="{{ route('product.reports') }}">Laporan Data Produk</a>
                     </li>
                 </ul>
             </li>
@@ -107,7 +107,7 @@
             @endcan
 
             @can('sub-admin')
-                <li class="sidebar-item has-sub">
+            <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
                     <i class="fa-solid fa-box-open"></i>
                     <span>Produk</span>
@@ -124,15 +124,39 @@
 
             <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Supplier</span>
+                </a>
+                <ul class="submenu">
+                    <li class="submenu-item">
+                        <a href="{{ route('supplier.index') }}">Data Supplier</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item has-sub">
+                <a href="#" class="sidebar-link">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Member</span>
+                </a>
+                <ul class="submenu">
+                    <li class="submenu-item">
+                        <a href="{{ route('member.index') }}">Data Member</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item has-sub">
+                <a href="#" class="sidebar-link">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span>Transaksi Penjualan</span>
                 </a>
                 <ul class="submenu">
                     <li class="submenu-item">
-                        <a href="#">Kasir</a>
+                        <a href="{{ route('transaction.index') }}">Kasir</a>
                     </li>
                     <li class="submenu-item">
-                        <a href="#">Kasir</a>
+                        <a href="{{ route('transaction.new') }}">Transaksi Baru</a>
                     </li>
                 </ul>
             </li>
@@ -144,14 +168,14 @@
                 </a>
                 <ul class="submenu">
                     <li class="submenu-item">
-                        <a href="#">Coming Soon</a>
+                        <a href="{{ route('product.reports') }}">Laporan Data Produk</a>
                     </li>
                 </ul>
             </li>
 
             <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
-                    <i class="fad fa-person-dolly"></i>
+                    <i class="fas fa-shipping-fast"></i>
                     <span>Pesan Antar</span>
                 </a>
                 <ul class="submenu">

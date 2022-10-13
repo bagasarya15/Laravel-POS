@@ -135,5 +135,135 @@ class ProductsSeeder extends Seeder
             'price_sell' => '3500',
             'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
         ]);
+        Products::create([    
+            'code_product' => 'PDK-00013',
+            'name' => 'Indomie 13',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
+        Products::create([    
+            'code_product' => 'PDK-00014',
+            'name' => 'Indomie 14',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
+        Products::create([    
+            'code_product' => 'PDK-00015',
+            'name' => 'Indomie 15',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
+        Products::create([    
+            'code_product' => 'PDK-00016',
+            'name' => 'Indomie 16',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
+        Products::create([    
+            'code_product' => 'PDK-00017',
+            'name' => 'Indomie 17',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
+        Products::create([    
+            'code_product' => 'PDK-00018',
+            'name' => 'Indomie 18',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
+        Products::create([    
+            'code_product' => 'PDK-00019',
+            'name' => 'Indomie 19',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
+        Products::create([    
+            'code_product' => 'PDK-00020',
+            'name' => 'Indomie 20',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
+        Products::create([    
+            'code_product' => 'PDK-00021',
+            'name' => 'Indomie 21',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
+        Products::create([    
+            'code_product' => 'PDK-00022',
+            'name' => 'Indomie 22',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
+        Products::create([    
+            'code_product' => 'PDK-00023',
+            'name' => 'Indomie 23',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
+        Products::create([    
+            'code_product' => 'PDK-00024',
+            'name' => 'Indomie 24',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
+        Products::create([    
+            'code_product' => 'PDK-00025',
+            'name' => 'Indomie 25',
+            'category_id' => 1,
+            'image' => 'product/default.png',
+            'stok'  => 20,
+            'price_buy' => '2900',
+            'price_sell' => '3500',
+            'desc'  => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, rem.',
+        ]);
     }
 }

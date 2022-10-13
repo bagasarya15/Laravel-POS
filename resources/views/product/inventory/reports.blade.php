@@ -10,10 +10,10 @@
 <body>
     <div class="card mt-3 mx-3">
         <div class="d-flex">
-            <img src="{{ 'storage/logo/logo.png' }}" alt="Logo" width="100" class="ms-5">
-            <div class="card-content m-auto">
+            <a href=""><img src="{{ asset('storage/logo/logo.png') }}" alt="Logo" width="100" class="ms-5"></a>
+            <div class="m-auto">
                 <h2 class="text-uppercase text-center mt-3">LAPORAN DATA PRODUK</h2>
-                <p class="text-sm text-muted">Kp.Rawageni, Perumahan Griya Sari Permai RT05 / RW02 Blok C11, Kel.Ratu Jaya, Kec.Cipayung, Kota Depok</p>
+                <h6 class="text-muted" width="100" style="font-size: 12px;">Kp.Rawageni, Perumahan Griya Sari Permai RT05 / RW02 Blok C11, Kel.Ratu Jaya, Kec.Cipayung, Kota Depok</h6>
             </div>
         </div>
     </div>
@@ -72,4 +72,5 @@
     </div>
 </body>
 @include('helpers.script')
+<script>window.print();</script>
 </html>

@@ -2,37 +2,34 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\Controller;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Access\Gate;
 use App\Models\{ Products, ProductsCategory };
 use Illuminate\Support\Facades\{ Validator, Storage, DB};
-use Illuminate\Support\Facades\Auth;
-use Dompdf\Dompdf;
 
 class ProductController extends Controller
 {
     
-    public function __construct() 
+    public function __construct(Gate $gate) 
     {
-        //
+        $gate->define('product', fn($user) => $user->role_id == 1 || $user->role_id == 2);
+
+        $this->middleware('can:product')->except(['edit']);
+
+        return view('layouts.403');
     }
 
     public function index() 
     {
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-
         $product = Products::with(['category'])->orderBy('id', 'desc')->get();
         return view('product.inventory.index',compact('product'));
     }
 
     public function create()
     {
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-
         $categories = ProductsCategory::all();
 
         // Auto Number Function Start // 
@@ -50,38 +47,8 @@ class ProductController extends Controller
         return view('product.inventory.create', compact('categories', 'AutoNumber'));
     }
 
-    public function print() 
-    {
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-
-        $product = Products::with(['category'])->orderBy('id', 'desc')->get();
-        $html = view('product.inventory.print', compact('product'));
-        
-        // return  view('product.inventory.print', compact('product'));
-
-        // instantiate and use the dompdf class
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
-
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4', 'landscape');
-
-        // Render the HTML as PDF
-        $dompdf->render();
-
-        // Output the generated PDF to Browser
-        $dompdf->stream();
-        
-    }
-
     public function store(Request $request) 
     {    
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-
         $rules = [
         'code_product' => 'required|string|max:255|unique:products,code_product',
         'name' => 'required|string|max:255|unique:products,name',
@@ -137,10 +104,6 @@ class ProductController extends Controller
 
     public function update(Request $request, Products $product)
     {
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-
         if ($request->code_product != $product->code_product){
         $code_product = ['required|string|max:255|unique:products,code_product'];
         }else{
@@ -210,20 +173,12 @@ class ProductController extends Controller
 
     public function show(Products $product)
     {
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-
         $categories = ProductsCategory::all();
         return view('product.inventory.show', compact('product', 'categories'));
     }
 
     public function destroy(Products $product)
     {  
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-        
         if ($product->image != 'product/default.png') {
             Storage::disk('public')->delete($product->image);
         }
@@ -245,5 +200,31 @@ class ProductController extends Controller
             $product->delete();
         }
         return redirect()->route('product.index')->with('success', 'Produk dipilih berhasil dihapus !');
+    }
+
+    public function reports() 
+    {
+        $product = Products::with(['category'])->orderBy('id', 'desc')->get();
+        
+        return  view('product.inventory.reports', compact('product'));
+    }
+
+    public function printPDF() 
+    {
+        $product = Products::with(['category'])->orderBy('id', 'desc')->get();
+        $html = view('product.inventory.reports', compact('product'));
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
     }
 }
