@@ -15,15 +15,15 @@
           <div class="text-center">
             <img
               class="img-error"
-              src="assets/images/samples/error-403.svg"
+              src="{{ asset('assets/images/samples/error-403.svg') }}"
               alt="Not Found"
             />
-            <h1 class="error-title">Forbidden</h1>
+            <h1 class="fs-1">Akses Dibatasi !</h1>
             <p class="fs-5 text-gray-600">
-              You are unauthorized to see this page.
+              Anda tidak diizinkan untuk melihat halaman ini.
             </p>
-            <a href="index.html" class="btn btn-lg btn-outline-primary mt-3"
-              >Go Home</a
+            <a href="{{ route('user.index') }}" class="btn btn-lg btn-outline-primary mt-3"
+              >Kembali</a
             >
           </div>
         </div>

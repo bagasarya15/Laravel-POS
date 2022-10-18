@@ -2,7 +2,7 @@
     <div class="sidebar-header position-relative">
         <div class="d-flex justify-content-between align-items-center" >
             <div class="logo">
-                <a href="{{ 'dashboard' }}">
+                <a href="{{ '/' }}">
                     <h1 class="fs-5 mt-3 mx-1 fw-bolder"><i class="fa-solid fa-code"></i> Lara-Pos</h1>
                 </a>
             </div>
@@ -88,7 +88,7 @@
                 </a>
                 <ul class="submenu">
                     <li class="submenu-item">
-                        <a href="{{ route('product.reports') }}">Laporan Data Produk</a>
+                        <a href="{{ route('product.reports') }}" target="_blank">Laporan Data Produk</a>
                     </li>
                 </ul>
             </li>
@@ -168,7 +168,7 @@
                 </a>
                 <ul class="submenu">
                     <li class="submenu-item">
-                        <a href="{{ route('product.reports') }}">Laporan Data Produk</a>
+                        <a href="{{ route('product.reports') }}" target="_blank">Laporan Data Produk</a>
                     </li>
                 </ul>
             </li>

@@ -18,8 +18,6 @@ class ProductController extends Controller
         $gate->define('product', fn($user) => $user->role_id == 1 || $user->role_id == 2);
 
         $this->middleware('can:product')->except(['edit']);
-
-        return view('layouts.403');
     }
 
     public function index() 

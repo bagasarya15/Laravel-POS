@@ -2,45 +2,37 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\Controller;
-use App\Models\ProductsCategory as Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\Access\Gate;
+use App\Models\ProductsCategory as Category;
 use Illuminate\Support\Facades\{ Validator, Storage };
 
 
 class CategoryController extends Controller
 {
     
-    public function __construct() 
+    public function __construct(Gate $gate) 
     {
-        //
+        $gate->define('product', fn($user) => $user->role_id == 1 || $user->role_id == 2);
+
+        $this->middleware('can:product')->except(['edit']);
     }
+
 
     public function index() 
     {
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-
         $categories = Category::orderBy('id', 'asc')->get();
         return view('product.categories.index',compact('categories'));
     }
 
     public function create() 
     {    
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-
         return view('product.categories.create');
     }
 
     public function store(Request $request)
     {
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-
         $rules = [
         'name' => 'required|string|max:255|unique:products_categories,name',
         'desc' => 'required|string|max:255'
@@ -67,19 +59,11 @@ class CategoryController extends Controller
 
     public function edit(Category $category) 
     {
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-
         return view('product.categories.edit', compact('category'));
     }
 
     public function update(Request $request, Category $category)
     {
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-        
         if ($request->name != $category->name){
             $name_rules = ['required', 'string', 'max:255', 'unique:products_categories,name'];
         }else{
@@ -112,10 +96,6 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        if ( auth()->user()->role_id == 3) {
-            return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-        }
-        
         $products = $category->products->count();
 
         if ($products > 0){
