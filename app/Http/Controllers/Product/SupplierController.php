@@ -6,9 +6,17 @@ use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Auth\Access\Gate;
 
 class SupplierController extends Controller
 {
+    public function __construct(Gate $gate) 
+    {
+        $gate->define('supplier', fn($user) => $user->role_id == 1 || $user->role_id == 2);
+
+        $this->middleware('can:supplier')->except(['show']);
+    }
+    
     public function index()
     {
         $supplier = Supplier::all();

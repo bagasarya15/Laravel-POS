@@ -4,12 +4,19 @@ namespace App\Http\Controllers\Sales;
 
 use App\Models\Members;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{ DB, Validator };
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Support\Facades\{ DB, Validator };
 
 class MemberController extends Controller
 {
+    public function __construct(Gate $gate) 
+    {
+        $gate->define('member', fn($user) => $user->role_id == 1 || $user->role_id == 2);
 
+        $this->middleware('can:member')->except(['show']);
+    }
+    
     public function index()
     {
         $member = Members::latest()->get();

@@ -103,15 +103,15 @@ class ProductController extends Controller
     public function update(Request $request, Products $product)
     {
         if ($request->code_product != $product->code_product){
-        $code_product = ['required|string|max:255|unique:products,code_product'];
+            $code_product = ['required|string|max:255|unique:products,code_product'];
         }else{
-        $code_product = ['required'];
+            $code_product = ['required'];
         }
 
         if ($request->name != $product->name){
-        $name = ['required', 'string', 'max:255', 'unique:products,name'];
+            $name = ['required', 'string', 'max:255', 'unique:products,name'];
         }else{
-        $name = ['required'];
+            $name = ['required'];
         }
 
         $rules = [
@@ -191,9 +191,8 @@ class ProductController extends Controller
         $products = Products::whereIn('id', $request->id)->get();
 
         foreach ($products as $product) {
-
             if($product->image != 'product/default.png'){
-                    Storage::disk('public')->delete($product->image);
+                Storage::disk('public')->delete($product->image);
             }
             $product->delete();
         }

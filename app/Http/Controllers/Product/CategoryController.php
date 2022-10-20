@@ -14,9 +14,9 @@ class CategoryController extends Controller
     
     public function __construct(Gate $gate) 
     {
-        $gate->define('product', fn($user) => $user->role_id == 1 || $user->role_id == 2);
+        $gate->define('category', fn($user) => $user->role_id == 1 || $user->role_id == 2);
 
-        $this->middleware('can:product')->except(['edit']);
+        $this->middleware('can:category')->except(['show']);
     }
 
 
