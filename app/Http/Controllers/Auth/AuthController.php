@@ -11,20 +11,16 @@ class AuthController extends Controller
 {
     public function redirectTo() 
     {
-        // if (Auth::check()){
-        //     return redirect()->route('dashboard');
-        // }
-        if( auth()->user()->role_id == 1)
-        {
-            return redirect()->route('dashboard');
+        if (auth()->check()) {
+            if (auth()->user()->role_id == 1) {
+                return redirect()->route('dashboard');
+            } else if (auth()->user()->role_id == 2) {
+                return redirect()->route('user.index');
+            } else if (auth()->user()->role_id == 3) {
+                return redirect()->route('user.index');
+            }
         }
-        else if( auth()->user()->role_id == 2) 
-        {
-            return redirect()->route('user.index');
-        }
-        else if( auth()->user()->role_id == 3) {
-            return redirect()->route('user.index');
-        } 
+         
         return redirect()->route('login');
     }
 
