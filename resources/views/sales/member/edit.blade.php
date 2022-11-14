@@ -39,8 +39,7 @@
                             <label>Alamat</label>
                         </div>
                         <div class="col-md-8 form-group">
-                            <input type="text" id="address" class="form-control" name="address"
-                                placeholder="Alamat" autocomplete="off" value="{{ old('address', $member->address) }}">
+                            <textarea class="form-control" id="address" name="address" placeholder="Alamat" rows="3">{{ old('address', $member->address) }}</textarea>
                         </div>
                         <div class="col-md-4">
                             <label>No Tlp</label>

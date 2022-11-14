@@ -103,8 +103,8 @@
                         {{-- End Form Action Update --}}
                         {{-- Start Form Action For Delete --}}
                         <form action="{{ route('product.destroy', $product) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
+                            @csrf
+                            @method('DELETE')
                             <button type="submit" class="btn btn-danger mb-1 btn-delete mx-2"><i class="fa-solid fa-trash"></i> Hapus</button>
                         </form>
                         {{-- End Form Action Delete --}}

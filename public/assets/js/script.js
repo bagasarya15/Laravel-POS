@@ -66,7 +66,7 @@ $(function () {
         e.preventDefault();
         let form = $(this).parents("form");
         Swal.fire({
-            title: "Konfirmasi Hapus!",
+            title: "Konfirmasi Hapus !",
             text: "Yakin ingin menghapus data ini ?",
             icon: "warning",
             showCancelButton: true,

@@ -69,14 +69,20 @@
             <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span>Transaksi Penjualan</span>
+                    <span>Transaksi</span>
                 </a>
                 <ul class="submenu">
                     <li class="submenu-item">
-                        <a href="{{ route('transaction.index') }}">Kasir</a>
+                        <a href="{{ route('spending.index') }}">Pengeluaran</a>
                     </li>
                     <li class="submenu-item">
-                        <a href="{{ route('transaction.new') }}">Transaksi Baru</a>
+                        <a href="">Pembelian</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="">Penjualan</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="">Transaksi Baru</a>
                     </li>
                 </ul>
             </li>
@@ -96,11 +102,14 @@
             <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
                     <i class="fas fa-shipping-fast"></i>
-                    <span>Pesan Antar</span>
+                    <span>Pengaturan</span>
                 </a>
                 <ul class="submenu">
                     <li class="submenu-item">
-                        <a href="#">Coming Soon</a>
+                        <a href="{{ route('user.index') }}">Profile Saya</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="{{ route('logout') }}" class="btn-logout">Logout</a>
                     </li>
                 </ul>
             </li>
@@ -149,17 +158,24 @@
             <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span>Transaksi Penjualan</span>
+                    <span>Transaksi</span>
                 </a>
                 <ul class="submenu">
                     <li class="submenu-item">
-                        <a href="{{ route('transaction.index') }}">Kasir</a>
+                        <a href="{{ route('spending.index') }}">Pengeluaran</a>
                     </li>
                     <li class="submenu-item">
-                        <a href="{{ route('transaction.new') }}">Transaksi Baru</a>
+                        <a href="">Pembelian</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="">Penjualan</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="">Transaksi Baru</a>
                     </li>
                 </ul>
             </li>
+
 
             <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
@@ -176,11 +192,14 @@
             <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
                     <i class="fas fa-shipping-fast"></i>
-                    <span>Pesan Antar</span>
+                    <span>Pengaturan</span>
                 </a>
                 <ul class="submenu">
                     <li class="submenu-item">
-                        <a href="#">Coming Soon</a>
+                        <a href="{{ route('user.index') }}">Profile Saya</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="{{ route('logout') }}" class="btn-logout">Logout</a>
                     </li>
                 </ul>
             </li>
@@ -189,12 +208,15 @@
             @can('user')
             <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
-                    <i class="fad fa-person-dolly"></i>
-                    <span>Pesan Antar</span>
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Pengaturan</span>
                 </a>
                 <ul class="submenu">
                     <li class="submenu-item">
-                        <a href="#">Coming Soon</a>
+                        <a href="{{ route('user.index') }}">Profile Saya</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="{{ route('logout') }}" class="btn-logout">Logout</a>
                     </li>
                 </ul>
             </li>    

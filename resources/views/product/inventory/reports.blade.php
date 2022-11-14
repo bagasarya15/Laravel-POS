@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    @include('helpers.head')
+    @include('helpers.helpers-head')
 </head>
-<body>
+<body onload="window.print()">
     <div class="card mt-3 mx-3">
         <div class="d-flex">
             <a href=""><img src="{{ asset('storage/logo/logo.png') }}" alt="Logo" width="100" class="ms-5"></a>
@@ -17,7 +17,6 @@
             </div>
         </div>
     </div>
-    
     <div class="container-fluid">
         <section class="section mx-3">
             <div class="row" id="table-bordered">
@@ -71,6 +70,5 @@
         </section>
     </div>
 </body>
-@include('helpers.script')
-<script>window.print();</script>
+@include('helpers.helpers-script')
 </html>

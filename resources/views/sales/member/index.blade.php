@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-  Data Member
+    Data Member
 @endsection
 
 @section('content')
@@ -27,8 +27,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
                         @foreach ($member as $member)
+                        <tr>
                             <td><span class="badge bg-success">{{ $member->code_member }}</span></td>
                             <td>{{ $member->name }}</td>
                             <td>{{ $member->address }}</td>
