@@ -6,7 +6,19 @@
                     <h1 class="fs-5 mt-3 mx-1 fw-bolder"><i class="fa-solid fa-code"></i> Lara-Pos</h1>
                 </a>
             </div>
-            @include('layouts.toogle-theme')
+
+            @can('admin')
+                @include('layouts.toogle-theme')
+            @endcan
+
+            @can('sub-admin')
+                @include('layouts.non-toogle')
+            @endcan
+
+            @can('user')
+                @include('layouts.non-toogle')
+            @endcan
+            
             <div class="sidebar-toggler x">
                 <a
                     href="#"
@@ -101,7 +113,7 @@
 
             <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
-                    <i class="fas fa-shipping-fast"></i>
+                    <i class="fas fa-user-gear"></i>
                     <span>Pengaturan</span>
                 </a>
                 <ul class="submenu">
@@ -191,7 +203,7 @@
 
             <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
-                    <i class="fas fa-shipping-fast"></i>
+                    <i class="fas fa-user-gear"></i>
                     <span>Pengaturan</span>
                 </a>
                 <ul class="submenu">
@@ -208,7 +220,7 @@
             @can('user')
             <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
-                    <i class="fas fa-shipping-fast"></i>
+                    <i class="fas fa-user-gear"></i>
                     <span>Pengaturan</span>
                 </a>
                 <ul class="submenu">
