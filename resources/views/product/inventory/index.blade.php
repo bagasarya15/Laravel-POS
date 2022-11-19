@@ -14,7 +14,7 @@
     <section class="section">
         <div class="card">
             <form action="{{ route('product.delete_selected') }}" method="POST" enctype="multipart/form-data">
-                @csrf
+            @csrf
             <div class="card-header">
                 <a href="{{ route('product.create') }}" class="btn btn-sm btn-primary block mt-1">Tambah Produk</a>
                 <a href="{{ route('product.reports') }}" class="btn btn-sm btn-info block mt-1" target="_blank">Print To Printer</a>

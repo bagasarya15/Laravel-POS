@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Access\Gate;
-use App\Models\ProductsCategory as Category;
+use App\Models\{
+    ProductsCategory as Category,
+    Settings
+};
 use Illuminate\Support\Facades\{ Validator, Storage };
 
 
@@ -22,13 +25,19 @@ class CategoryController extends Controller
 
     public function index() 
     {
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
+
         $categories = Category::orderBy('id', 'asc')->get();
-        return view('product.categories.index',compact('categories'));
+        return view('product.categories.index',compact('getTitle','categories'));
     }
 
     public function create() 
     {    
-        return view('product.categories.create');
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
+
+        return view('product.categories.create', compact('getTitle'));
     }
 
     public function store(Request $request)
@@ -59,7 +68,10 @@ class CategoryController extends Controller
 
     public function edit(Category $category) 
     {
-        return view('product.categories.edit', compact('category'));
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
+
+        return view('product.categories.edit', compact('getTitle','category'));
     }
 
     public function update(Request $request, Category $category)

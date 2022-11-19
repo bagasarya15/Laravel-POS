@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Sales;
 
-use App\Models\Spending;
+use App\Models\{Spending, Settings};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -19,13 +19,18 @@ class SpendingController extends Controller
 
     public function index()
     {
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
         $spending = Spending::orderBy('id', 'desc')->get();
-        return view('sales.spending.index', compact('spending'));
+        return view('sales.spending.index', compact('getTitle','spending'));
     }
 
     public function create()
     {
-        return view('sales.spending.create');
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
+
+        return view('sales.spending.create', compact('getTitle'));
     }
 
     public function store(Request $request)
@@ -57,7 +62,10 @@ class SpendingController extends Controller
 
     public function edit(Spending $spending)
     {
-        return view('sales.spending.edit', compact('spending'));
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
+
+        return view('sales.spending.edit', compact('getTitle','spending'));
     }
 
     public function update(Request $request, Spending $spending)

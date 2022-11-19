@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Main;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Products;
+use App\Http\Controllers\Controller;
+use App\Models\ {Products, Settings};
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Support\Facades\{DB, Auth};
 
 // use App\Models\{ Order, Product, ProductCategory };
@@ -13,25 +14,21 @@ use Illuminate\Support\Facades\{DB, Auth};
 class DashboardController extends Controller
 {
 
-  public function __construct()
+  public function __construct(Gate $gate) 
   {
-    // if(Auth::check() || auth()->user()->role_id !== 1) {
-    //   return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-    // }  
+    $gate->define('dashboard', fn($user) => $user->role_id == 1);
+    
+    $this->middleware('can:dashboard');
   }
 
   
   public function index()
   {
-
-    if( auth()->user()->role_id !== 1) {
-      return redirect()->back()->with('error', 'Halaman tidak ditemukan !');
-    }
-
+    //Variabel For Title Menu
+    $getTitle = Settings::findOrFail(1);
     $stock = Products::all()->sum('stok');
     $totalBeli = DB::table('products')->sum(DB::raw('price_buy*stok'));
     
-    return view('main.dashboard', compact('stock', 'totalBeli'));
+    return view('main.dashboard', compact('getTitle','stock', 'totalBeli'));
   }
-
 }

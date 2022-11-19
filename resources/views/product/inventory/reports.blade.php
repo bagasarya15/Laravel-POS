@@ -10,10 +10,10 @@
 <body onload="window.print()">
     <div class="card mt-3 mx-3">
         <div class="d-flex">
-            <a href=""><img src="{{ asset('storage/logo/logo.png') }}" alt="Logo" width="100" class="ms-5"></a>
+            <a href="{{ route('product.reports') }}"><img src="{{ asset('storage/' . $getTitle->image) }}" alt="Logo" width="100" class="ms-5"></a>
             <div class="m-auto">
                 <h2 class="text-uppercase text-center mt-3">LAPORAN DATA PRODUK</h2>
-                <h6 class="text-muted" width="100" style="font-size: 12px;">Kp.Rawageni, Perumahan Griya Sari Permai RT05 / RW02 Blok C11, Kel.Ratu Jaya, Kec.Cipayung, Kota Depok</h6>
+                <h6 class="text-muted" width="100" style="font-size: 12px;">{{ $getTitle->address }}</h6>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Sales;
 
-use App\Models\Members;
+use App\Models\{Members, Settings};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Access\Gate;
@@ -19,12 +19,17 @@ class MemberController extends Controller
     
     public function index()
     {
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);;
         $member = Members::latest()->get();
-        return view('sales.member.index', compact('member'));
+        return view('sales.member.index', compact('getTitle','member'));
     }
 
     public function create()
     {
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
+
         // Auto Number Function Start // 
         $table = DB::table('members')->select(DB::raw('MAX(RIGHT(code_member, 5)) AS code'));
         $AutoNumber = "";
@@ -37,7 +42,7 @@ class MemberController extends Controller
             $AutoNumber = "00001";
         }
         // Auto Number End //
-        return view('sales.member.create', compact('AutoNumber'));
+        return view('sales.member.create', compact('getTitle','AutoNumber'));
     }
 
     public function store(Request $request)
@@ -73,7 +78,10 @@ class MemberController extends Controller
 
     public function edit(Members $member)
     {
-        return view('sales.member.edit', compact('member'));
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
+
+        return view('sales.member.edit', compact('getTitle','member'));
     }
 
     public function update(Request $request, Members $member)

@@ -27,7 +27,9 @@
                                     <input type="text" id="username" class="form-control" name="username" value="{{ auth()->user()->username }}" autocomplete="off">
                                 </div>
                             </div>
+                            
                             <input type="hidden" name="password" value="{{ auth()->user()->password }}">
+                            
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="name">Nama Lengkap</label>

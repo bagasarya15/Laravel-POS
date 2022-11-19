@@ -8,6 +8,7 @@ use Database\Seeders\UserSeeder;
 use Database\Seeders\ProductsSeeder;
 use Database\Seeders\UserRoleSeeder;
 use Database\Seeders\ProductsCategorySeeder;
+use Database\Seeders\SettingsSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +24,8 @@ class DatabaseSeeder extends Seeder
             UserRoleSeeder::class,
             UserSeeder::class,
             ProductsCategorySeeder::class,
-            ProductsSeeder::class
+            ProductsSeeder::class,
+            SettingsSeeder::class
         ]);
     }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lara-Pos | Login</title>
+    <title>{{ $getTitle->name }} | Login</title>
     <link rel="stylesheet" href="{{ asset('assets/css/main/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/pages/auth.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}">
@@ -46,8 +46,8 @@
                         </div>
                     </form>
                     <div class="text-center mt-4 text-lg-12 text-lg-8 fs-6">
-                        <p class="text-gray-600 fs-6">Belum Punya Akun ? <a href="#" class="font-bold">Daftar Sekarang !</a></p>
-                        {{-- <p><a class="font-bold fs-6" href="#">Lupa Password</a></p> --}}
+                        {{-- <p class="text-gray-600 fs-6">Belum Punya Akun ? <a href="#" class="font-bold">Daftar Sekarang !</a></p>
+                        <p><a class="font-bold fs-6" href="#">Lupa Password</a></p> --}}
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Access\Gate;
-use App\Models\{ Products, ProductsCategory };
+use App\Models\{ Products, ProductsCategory, Settings };
 use Illuminate\Support\Facades\{ Validator, Storage, DB};
 
 class ProductController extends Controller
@@ -22,12 +22,18 @@ class ProductController extends Controller
 
     public function index() 
     {
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
+
         $product = Products::with(['category'])->orderBy('id', 'desc')->get();
-        return view('product.inventory.index',compact('product'));
+
+        return view('product.inventory.index',compact('product', 'getTitle'));
     }
 
     public function create()
     {
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
         $categories = ProductsCategory::all();
 
         // Auto Number Function Start // 
@@ -42,7 +48,7 @@ class ProductController extends Controller
             $AutoNumber = "00001";
         }
         // Auto Number End //
-        return view('product.inventory.create', compact('categories', 'AutoNumber'));
+        return view('product.inventory.create', compact('getTitle','categories', 'AutoNumber'));
     }
 
     public function store(Request $request) 
@@ -171,8 +177,11 @@ class ProductController extends Controller
 
     public function show(Products $product)
     {
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
+
         $categories = ProductsCategory::all();
-        return view('product.inventory.show', compact('product', 'categories'));
+        return view('product.inventory.show', compact('getTitle','product', 'categories'));
     }
 
     public function destroy(Products $product)
@@ -191,7 +200,8 @@ class ProductController extends Controller
         $products = Products::whereIn('id', $request->id)->get();
 
         foreach ($products as $product) {
-            if($product->image != 'product/default.png'){
+            if($product->image != 'product/default.png')
+            {
                 Storage::disk('public')->delete($product->image);
             }
             $product->delete();
@@ -201,9 +211,12 @@ class ProductController extends Controller
 
     public function reports() 
     {
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
+
         $product = Products::with(['category'])->orderBy('id', 'desc')->get();
         
-        return  view('product.inventory.reports', compact('product'));
+        return view('product.inventory.reports', compact('getTitle','product'));
     }
 
     public function printPDF() 

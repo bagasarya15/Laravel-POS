@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{ User };
+use App\Models\{ User, Settings };
 use Illuminate\Support\Facades\{ Auth, Validator, Storage, Hash };
 
 class AuthController extends Controller
@@ -25,7 +25,8 @@ class AuthController extends Controller
 
     public function index()
     {
-        return view('auth.login');
+        $getTitle = Settings::find(1);
+        return view('auth.login', compact('getTitle'));
     }
 
     public function login(Request $request) 

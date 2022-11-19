@@ -16,6 +16,9 @@ use App\Http\Controllers\Sales\ {
   MemberController as Member,
   SpendingController as Spending
 };
+use App\Http\Controllers\Settings\ {
+  SettingController as Settings,
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +41,7 @@ Route::middleware('auth')->group(function() {
   Route::resource('auth', AuthController::class)->except(['create', 'store', 'edit', 'show', 'destroy']);
   Route::get('logout', [AuthController::class, 'logout'])->name('logout');
   Route::resource('user', User::class)->except(['create', 'store','edit', 'show', 'destroy']);
-  Route::get('dashboard', [Dashboard::class, 'index'])->name('dashboard');
+  Route::get('dashboard', [Dashboard::class, 'index'])->name('dashboard.index');
 
   //Routes For Category
   Route::resource('category', Category::class)->except(['show']);
@@ -61,5 +64,9 @@ Route::middleware('auth')->group(function() {
   
   //Routes For Spending
   Route::resource('spending', Spending::class)->except('show');
+  //End Routes Spending
+
+  //Routes For Spending
+  Route::resource('settings', Settings::class)->except(['create','store','edit','destroy']);
   //End Routes Spending
 });

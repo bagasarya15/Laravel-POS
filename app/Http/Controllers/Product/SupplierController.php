@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Models\Supplier;
+use App\Models\{Supplier, Settings};
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -19,13 +19,19 @@ class SupplierController extends Controller
     
     public function index()
     {
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
         $supplier = Supplier::all();
-        return view('product.supplier.index', compact('supplier'));
+
+        return view('product.supplier.index', compact('getTitle','supplier'));
     }
 
     public function create()
     {
-        return view('product.supplier.create');
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
+
+        return view('product.supplier.create', compact('getTitle'));
     }
 
     public function store(Request $request)
@@ -61,7 +67,10 @@ class SupplierController extends Controller
 
     public function edit(Supplier $supplier)
     {
-        return view('product.supplier.edit', compact('supplier'));
+        //Variabel For Title Menu
+        $getTitle = Settings::findOrFail(1);
+
+        return view('product.supplier.edit', compact('getTitle','supplier'));
     }
 
     public function update(Request $request, Supplier $supplier)
