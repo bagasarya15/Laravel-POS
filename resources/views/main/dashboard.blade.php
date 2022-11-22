@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
 @section('menu-heading')
-    Menu Utama
+    Dashboard
 @endsection
 
 @section('title')
-    Dashboard
+    Statistics
 @endsection
 
 @section('content')

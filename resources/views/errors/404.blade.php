@@ -22,7 +22,7 @@
             <p class="fs-5 text-gray-600">
               Halaman yang anda cari tidak ditemukan.
             </p>
-            <a href="{{ route('user.index') }}" class="btn btn-lg btn-outline-primary mt-3"
+            <a href="{{ route('home') }}" class="btn btn-lg btn-outline-primary mt-3"
               >Kembali</a
             >
           </div>

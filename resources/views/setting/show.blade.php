@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('menu-heading')
-    Pengaturan
+    Kelola Toko
 @endsection
 
 @section('title')

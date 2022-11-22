@@ -36,13 +36,28 @@
             
             @can('admin')
             <section for="admin"> 
-                <li class="sidebar-item active">
+                {{-- <li class="sidebar-item active">
                     <a href="{{ ('/') }}" class="sidebar-link">
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
-                </li>
+                </li> --}}
                 
+                <li class="sidebar-item has-sub">
+                    <a href="#" class="sidebar-link">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <ul class="submenu">
+                        <li class="submenu-item">
+                            <a href="{{ route('dashboard') }}">Statistics</a>
+                        </li>
+                        <li class="submenu-item">
+                            <a href="{{ route('system-info.index') }}">Informasi Update</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="sidebar-item has-sub">
                     <a href="#" class="sidebar-link">
                         <i class="fa-solid fa-box-open"></i>
@@ -128,6 +143,9 @@
                             <a href="{{ route('settings.index') }}">Kelola Toko</a>
                         </li>
                         <li class="submenu-item">
+                            <a href="{{ route('user-access.index') }}">Role Akses</a>
+                        </li>
+                        <li class="submenu-item">
                             <a href="{{ route('logout') }}" class="btn-logout">Logout</a>
                         </li>
                     </ul>
@@ -137,6 +155,21 @@
 
             @can('sub-admin')
             <section for="sub-admin">
+                <li class="sidebar-item has-sub">
+                    <a href="#" class="sidebar-link">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <ul class="submenu">
+                        <li class="submenu-item">
+                            <a href="{{ route('dashboard') }}">Statistics</a>
+                        </li>
+                        <li class="submenu-item">
+                            <a href="{{ route('system-info.index') }}">Informasi Update</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="sidebar-item has-sub">
                     <a href="#" class="sidebar-link">
                         <i class="fa-solid fa-box-open"></i>

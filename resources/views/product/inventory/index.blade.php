@@ -47,7 +47,7 @@
                             <td><img class="rounded-circle" width="45px" src="{{ asset('storage/'.$product ->image) }}" alt="Foto Produk"></td>
                             <td>
                                 <div class="d-flex">
-                                    <a href="{{ route('product.show', $product->id) }}"> <i class="fas fa-eye"></i>  Preview Detail</a>
+                                    <a href="{{ route('product.show', $product->id) }}"> <i class="fas fa-eye"></i>  Lihat Detail</a>
                                 </div>
                             </td>
                         </tr>

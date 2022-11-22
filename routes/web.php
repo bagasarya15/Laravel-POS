@@ -5,7 +5,8 @@ use App\Http\Controllers\Auth\ {
   UserController as User
 };
 Use App\Http\Controllers\Main\ {
-  DashboardController as Dashboard
+  DashboardController as Dashboard,
+  SystemUpdateController as SystemUpdate,
 };
 use App\Http\Controllers\Product\ {
   CategoryController as Category,
@@ -18,6 +19,7 @@ use App\Http\Controllers\Sales\ {
 };
 use App\Http\Controllers\Settings\ {
   SettingController as Settings,
+  RoleAccessController as RoleAccess,
 };
 
 /*
@@ -41,7 +43,7 @@ Route::middleware('auth')->group(function() {
   Route::resource('auth', AuthController::class)->except(['create', 'store', 'edit', 'show', 'destroy']);
   Route::get('logout', [AuthController::class, 'logout'])->name('logout');
   Route::resource('user', User::class)->except(['create', 'store','edit', 'show', 'destroy']);
-  Route::get('dashboard', [Dashboard::class, 'index'])->name('dashboard.index');
+  Route::get('dashboard', [Dashboard::class, 'index'])->name('dashboard');
 
   //Routes For Category
   Route::resource('category', Category::class)->except(['show']);
@@ -69,4 +71,12 @@ Route::middleware('auth')->group(function() {
   //Routes For Spending
   Route::resource('settings', Settings::class)->except(['create','store','edit','destroy']);
   //End Routes Spending
+
+  //Routes For Access Role
+  Route::resource('user-access', RoleAccess::class)->except(['create','store','edit','destroy']);
+  //End Routes Access Role
+ 
+  //Routes For Access Role
+  Route::resource('system-info', SystemUpdate::class)->except(['create','edit']);
+  //End Routes Access Role
 });

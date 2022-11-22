@@ -62,7 +62,7 @@
                             <label>Kategori</label>
                         </div>
                         <div class="col-md-8 form-group">
-                            <select name="category_id" id="category_id" class="default-select form-control">
+                            <select name="category_id" id="category_id" class="form-select" id="basicSelect">
                                 <option selected disabled>Pilih kategori</option>
                                 @foreach ($categories as $category)
                                 {{-- <option value="{{ $category->id }}">{{ $category->name }}</option> --}}

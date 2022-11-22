@@ -31,8 +31,8 @@ class UserSeeder extends Seeder
         User::create([
         'username' => 'sub-admin',
         'password' => Hash::make('subadmin'), // sub-admin
-        'name' => 'Okitora W',
-        'email' => 'okitora@gmail.com',
+        'name' => 'Sub-Admin',
+        'email' => 'subadmin@gmail.com',
         'role_id' => 2,
         'image' => 'avatar/default.jpg',
         'email_verified_at' => now(),
@@ -42,8 +42,8 @@ class UserSeeder extends Seeder
         User::create([
         'username' => 'user',
         'password' => Hash::make('user'), // user
-        'name' => 'Faizal',
-        'email' => 'faizal@gmail.com',
+        'name' => 'User',
+        'email' => 'user@gmail.com',
         'role_id' => 3 ,
         'image' => 'avatar/default.jpg',
         'email_verified_at' => now(),

@@ -53,7 +53,7 @@ class SettingController extends Controller
         $rules = [
             'name'       => 'required',
             'address'    => 'required',
-            'image'       => 'file|image|mimes:jpg,png|max:1024',
+            'image'      => 'file|image|mimes:jpg,png|max:1024',
         ];
 
         $eMessage = [

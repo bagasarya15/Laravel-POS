@@ -18,7 +18,7 @@
                     <div class="card-body">
                         <ul class="list-group">
                         @foreach ($settings as $settings)
-                           <a href="{{ route('settings.show', $settings->id) }}" class="card-link mb-4"> <i class="fas fa-eye"></i> Lihat Detail</a> 
+                            <a href="{{ route('settings.show', $settings->id) }}" class="card-link mb-4"> <i class="fas fa-eye"></i> Lihat Detail</a> 
                             <div class="table-responsive">
                                 <table class="table table-lg">
                                     <thead>

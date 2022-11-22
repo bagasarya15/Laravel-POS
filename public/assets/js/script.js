@@ -81,6 +81,25 @@ $(function () {
         });
     });
 
+    $(".btn-ask").on("click", function (e) {
+        e.preventDefault();
+        let form = $(this).parents("form");
+        Swal.fire({
+            title: "Konfirmasi Pergantian Hak Akses !",
+            text: " Anda yakin ingin melakukan perubahan hak akses pada data yang dipilih ?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya ",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (result.value) {
+                form.submit();
+            }
+        });
+    });
+
     $(".btn-logout").on("click", function (e) {
         e.preventDefault();
         const url = $(this).attr("href");

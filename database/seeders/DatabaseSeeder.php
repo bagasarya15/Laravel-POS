@@ -6,9 +6,10 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\ProductsSeeder;
-use Database\Seeders\UserRoleSeeder;
-use Database\Seeders\ProductsCategorySeeder;
 use Database\Seeders\SettingsSeeder;
+use Database\Seeders\UserRoleSeeder;
+use Database\Seeders\SystemCategorySeeder;
+use Database\Seeders\ProductsCategorySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,7 +26,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ProductsCategorySeeder::class,
             ProductsSeeder::class,
-            SettingsSeeder::class
+            SettingsSeeder::class,
+            SystemCategorySeeder::class
         ]);
     }
 }

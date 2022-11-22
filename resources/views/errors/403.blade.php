@@ -22,7 +22,7 @@
             <p class="fs-5 text-gray-600">
               Anda tidak diizinkan untuk melihat halaman ini.
             </p>
-            <a href="{{ route('user.index') }}" class="btn btn-lg btn-outline-primary mt-3"
+            <a href="{{ route('home') }}" class="btn btn-lg btn-outline-primary mt-3"
               >Kembali</a
             >
           </div>
