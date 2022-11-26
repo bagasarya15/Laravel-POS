@@ -63,7 +63,6 @@
                         </div>
                         <div class="col-md-8 form-group">
                             <select name="category_id" id="category_id" class="form-select" id="basicSelect">
-                                <option selected disabled>Pilih kategori</option>
                                 @foreach ($categories as $category)
                                 {{-- <option value="{{ $category->id }}">{{ $category->name }}</option> --}}
                                 <option {{ ($product->category_id == $category->id) ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>

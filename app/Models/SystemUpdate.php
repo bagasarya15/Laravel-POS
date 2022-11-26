@@ -10,7 +10,7 @@ class SystemUpdate extends Model
 {
     use HasFactory;
 
-    protected $table = 'information';
+    protected $table = 'system_information';
     protected $guarded = ['id'];
 
     public function category() 

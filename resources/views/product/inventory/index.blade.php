@@ -36,10 +36,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
                         @if (count($product) > 0)
                         @foreach ($product as $product )
-                            <td><input type="checkbox" name="id[{{ $product->id }}]" id="id" value="{{ $product->id }}"></td>
+                        <tr>
+                            <td><input type="checkbox" name="id[{{ $product->id }}]" id="id" value="{{ $product->id }}" class="checkbox-delete"></td>
                             <td><a href="{{ route('product.show', $product->id) }}" class="badge bg-success text-light">{{ $product->code_product }}</a></td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->category->name }}</td>

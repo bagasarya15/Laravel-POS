@@ -12,7 +12,7 @@ class SettingController extends Controller
 {
     public function __construct(Gate $gate) 
     {
-        $gate->define('settings', fn($user) => $user->role_id == 1);
+        $gate->define('settings', fn($user) => $user->role_id == 1 || $user->role_id == 2);
 
         $this->middleware('can:settings')->except(['create','store','edit','destroy']);
     }

@@ -43,7 +43,7 @@ $(function () {
 
     //Start Select All CheckBox Product
     $("#select_all").on("click", function () {
-        $(":checkbox").prop("checked", this.checked);
+        $(".checkbox-delete").prop("checked", this.checked);
     });
     // End Select All CheckBox Product
 

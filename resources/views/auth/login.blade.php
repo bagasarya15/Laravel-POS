@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/pages/auth.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
-    {{-- <link rel="stylesheet" href="{{ asset('assets/extensions/toastr/toastr.css') }}"> --}}
-    {{-- <link rel="shortcut icon" href="{{ asset('assets/images/logo/favicon.svg') }}" type="image/x-icon"> --}}
     <link rel="shortcut icon" href="{{ asset('assets/images/logo/icon.png') }}" type="image/png">
 </head>
 
@@ -54,10 +52,10 @@
         </div>
     </div>
 </body>
+
 <script src="{{ asset('assets/extensions/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
 <script src="{{ asset('assets/js/script.js') }}"></script>
 <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/sweetalert2.js') }}"></script>
-{{-- <script src="{{ asset('assets/extensions/toastr/toastr.min.js') }}"></script> --}}
 </html>

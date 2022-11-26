@@ -252,6 +252,9 @@
                             <a href="{{ route('user.index') }}">Profile Saya</a>
                         </li>
                         <li class="submenu-item">
+                            <a href="{{ route('settings.index') }}">Kelola Toko</a>
+                        </li>
+                        <li class="submenu-item">
                             <a href="{{ route('logout') }}" class="btn-logout">Logout</a>
                         </li>
                     </ul>
