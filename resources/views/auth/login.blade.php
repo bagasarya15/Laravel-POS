@@ -24,7 +24,12 @@
                         <div class="row mx-2">
                             <div class="col-md-8 col-md-12">
                                 <div class="form-group position-relative has-icon-left mb-4">
-                                    <input type="text" name="username" class="form-control form-control-xl" placeholder="Username" autocomplete="off" value="{{ old('username') }}">
+                                    <input type="text" name="username" class="form-control form-control-xl @error('username') is-invalid @enderror" placeholder="Username" autocomplete="off" value="{{ old('username') }}">
+                                    
+                                    @error('username')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    
                                     <div class="form-control-icon">
                                         <i class="bi bi-person"></i>
                                     </div>

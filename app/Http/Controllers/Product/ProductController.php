@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Access\Gate;
-use App\Models\{ Products, ProductsCategory, Settings };
+use App\Models\{ OrderProduct, Products, ProductsCategory, Settings };
 use Illuminate\Support\Facades\{ Validator, Storage, DB};
 
 class ProductController extends Controller
@@ -186,6 +186,12 @@ class ProductController extends Controller
 
     public function destroy(Products $product)
     {  
+        $count = $product->orderProduct->count();
+        
+        if ($count > 0){
+            return redirect()->back()->with('info', "Tidak dapat menghapus produk, terdapat {$count} produk di dalam order produk!");
+        }
+
         if ($product->image != 'product/default.png') {
             Storage::disk('public')->delete($product->image);
         }
@@ -197,11 +203,24 @@ class ProductController extends Controller
 
     public function deleteSelected(Request $request)
     {
-        $products = Products::whereIn('id', $request->id)->get();
+        $rules = ['id' => 'required'];
+        $eMessage = ['id.required' => 'Pilih produk yang ingin dihapus!'];
+        $validator = Validator::make($request->all(), $rules, $eMessage);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('info', $validator->errors()->first());
+        }
+
+        $products = Products::withCount('orderProduct')->whereIn('id', $request->id)->get();
 
         foreach ($products as $product) {
-            if($product->image != 'product/default.png')
-            {
+			if ($product->order_product_count > 0) {
+				return redirect()->back()->with('info', "Tidak dapat menghapus produk {$product->name}, terdapat {$product->order_product_count} total order di dalam produk tersebut!");
+			}
+        }
+
+        foreach ($products as $product) {
+            if ($product->image != 'product/default.png') {
                 Storage::disk('public')->delete($product->image);
             }
             $product->delete();

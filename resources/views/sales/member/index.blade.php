@@ -24,6 +24,7 @@
                             <th>Nama</th>
                             <th>Alamat</th>
                             <th>Nomer Tlp</th>
+                            <th>Status Member</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,6 +34,7 @@
                             <td>{{ $member->name }}</td>
                             <td>{{ $member->address }}</td>
                             <td>{{ $member->number_phone }}</td>
+                            <td>{{ $member->member_status }}</td>
                             <td>
                                 <div class="d-flex">
                                     <a href="{{ route('member.edit', $member->id) }}" class="btn btn-xs btn-warning fa-solid fa-edit edit-member"></a> 

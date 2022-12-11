@@ -9,12 +9,8 @@
 <!-- Need: Alert -->
 <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/sweetalert2.js') }}"></script>
-{{-- <script src="{{ asset('assets/extensions/toastr/toastr.min.js') }}"></script> --}}
 
 
+<!-- ScriptJs -->
 <script src="{{ asset('assets/js/script.js') }}"></script>
-
-<!-- Need: Apexcharts -->
-
-{{-- <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
-<script src="{{ asset('assets/js/pages/dashboard.js') }}"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

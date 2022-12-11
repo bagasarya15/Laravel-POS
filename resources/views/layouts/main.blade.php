@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         @include('layouts.head')
+        @livewireStyles
     </head>
 
     <body>
@@ -23,6 +24,8 @@
                 </footer>
             </div>
         </div>
+        @livewireScripts
         @include('layouts.script')
+        @stack('script')
     </body>
 </html>

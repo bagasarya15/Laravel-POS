@@ -17,8 +17,9 @@ class Members extends Migration
             $table->id();
             $table->string('code_member');
             $table->string('name');
-            $table->string('address');
-            $table->string('number_phone');
+            $table->string('address')->nullable();
+            $table->string('number_phone')->nullable();
+            $table->string('member_status');
             $table->timestamps();
         });
     }

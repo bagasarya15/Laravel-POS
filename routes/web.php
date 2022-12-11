@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\ {
 };
 Use App\Http\Controllers\Main\ {
   DashboardController as Dashboard,
-  SystemUpdateController as SystemUpdate,
+  SystemInfoController as SystemInfo,
 };
 use App\Http\Controllers\Product\ {
   CategoryController as Category,
@@ -15,7 +15,8 @@ use App\Http\Controllers\Product\ {
 };
 use App\Http\Controllers\Sales\ {
   MemberController as Member,
-  SpendingController as Spending
+  SpendingController as Spending,
+  TransactionController as Transaction,
 };
 use App\Http\Controllers\Settings\ {
   SettingController as Settings,
@@ -81,6 +82,12 @@ Route::middleware('auth')->group(function() {
   //Routes For Spending
   Route::resource('spending', Spending::class)->except('show');
   //End Routes Spending
+  
+  // Routes For Transaction
+  Route::resource('transaction', Transaction::class)->except(['create','edit','update','destroy']);
+  Route::post('add-member', [Transaction::class, 'addMember'])->name('transaction.add-member');
+  Route::get('invoice/{no_order}', [Transaction::class, 'invoice'])->name('transaction.invoice');
+  // End Routes Transaction
 
   //Routes For Settings
   Route::resource('settings', Settings::class)->except(['create','store','edit','destroy']);
@@ -90,7 +97,7 @@ Route::middleware('auth')->group(function() {
   Route::resource('user-access', RoleAccess::class)->except(['create','store','edit','destroy']);
   //End Routes Access Role
  
-  //Routes For Access Role
-  Route::resource('system-info', SystemUpdate::class)->except(['create','edit']);
-  //End Routes Access Role
+  //Routes For Access System Infomation
+  Route::resource('system-info', SystemInfo::class)->except(['create','edit']);
+  //End Routes Access System Infomation
 });

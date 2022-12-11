@@ -48,6 +48,15 @@
                             <input type="number" id="number_phone" class="form-control" name="number_phone"
                                 placeholder="No Tlp" autocomplete="off">
                         </div>
+                        <div class="col-md-4">
+                            <label>Status Member</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <select class="form-select" name="member_status" id="basicSelect">
+                            <option value="Non-Member">Non-Member</option>
+                            <option value="Member">Member</option>
+                        </select>
+                        </div>
                         <div class="col-sm-12 d-flex justify-content-end">
                             <button type="submit" class="btn btn-sm btn-primary mb-1 mx-2"><i class="fa-solid fa-plus"></i> Tambah</button>
                             <button type="reset" class="btn btn-sm btn-warning mb-1"><i class="fa-solid fa-arrows-rotate"></i> Reset </button>

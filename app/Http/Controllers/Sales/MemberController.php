@@ -49,10 +49,14 @@ class MemberController extends Controller
     {
         $rules = [
             'name' => 'required',
+            'member_status' => 'required',
+            'code_member' => 'unique:members'
         ];
 
         $eMessage = [
-            'name.required' => 'Nama member harus di isi !'
+            'name.required' => 'Nama member harus di isi !',
+            'member_status.required' => 'Status member harus di isi !',
+            'code_member.unique'    => 'Code member sudah terpakai !'
         ];
         
         $validator = Validator::make($request->all(), $rules, $eMessage);
@@ -66,6 +70,7 @@ class MemberController extends Controller
         $member->name = $request->name;
         $member->address = $request->address;
         $member->number_phone = $request->number_phone;
+        $member->member_status = $request->member_status;
         $member->save();
 
         return redirect()->route('member.index')->with('success', 'Member berhasil ditambah !');
@@ -88,10 +93,12 @@ class MemberController extends Controller
     {   
         $rules = [
             'name' => 'required',
+            'member_status' => 'required'
         ];
 
         $eMessage = [
-            'name.required' => 'Nama member harus di isi !'
+            'name.required' => 'Nama member harus di isi !',
+            'member_status.required' => 'Status member harus di isi !',
         ];
         
         $validator = Validator::make($request->all(), $rules, $eMessage);
@@ -105,6 +112,7 @@ class MemberController extends Controller
             'name' => $request->name,
             'address' => $request->address,
             'number_phone' => $request->number_phone,
+            'member_status' => $request->member_status
         ]);
         
         return redirect()->route('member.index')->with('success', 'Member berhasil diubah !');

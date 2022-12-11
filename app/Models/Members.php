@@ -9,5 +9,11 @@ class Members extends Model
 {
     use HasFactory;
 
+    protected $table = 'Members';
     protected $guarded = ['id'];
+
+    public function orderMember() 
+    {
+        return $this->hasMany(OrderMember::class, 'member_id', 'id');
+    }
 }

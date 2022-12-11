@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-between align-items-center" >
             <div class="logo">
                 <a href="{{ '/' }}">
-                    <h1 class="fs-5 mt-3 mx-1 fw-bolder"><i class="fa-solid fa-code"></i> {{ $getTitle->name }}</h1>
+                    <h4 class="fs-5 mt-3  fw-bolder"><i class="fa-solid fa-code"></i> <span class="small">  {{ $getTitle->name }} </span></h4>
                 </a>
             </div>
 
@@ -107,13 +107,10 @@
                             <a href="{{ route('spending.index') }}">Pengeluaran</a>
                         </li>
                         <li class="submenu-item">
-                            <a href="">Pembelian</a>
+                            <a href="#">Pembelian</a>
                         </li>
                         <li class="submenu-item">
-                            <a href="">Penjualan</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="">Transaksi Baru</a>
+                            <a href="{{ route('transaction.index') }}">Transaksi Penjualan</a>
                         </li>
                     </ul>
                 </li>
@@ -143,7 +140,7 @@
                             <a href="{{ route('settings.index') }}">Kelola Toko</a>
                         </li>
                         <li class="submenu-item">
-                            <a href="{{ route('user-access.index') }}">Role Akses</a>
+                            <a href="{{ route('user-access.index') }}">Kelola Akun</a>
                         </li>
                         <li class="submenu-item">
                             <a href="{{ route('logout') }}" class="btn-logout">Logout</a>
@@ -222,10 +219,7 @@
                             <a href="">Pembelian</a>
                         </li>
                         <li class="submenu-item">
-                            <a href="">Penjualan</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="">Transaksi Baru</a>
+                            <a href="{{ route('transaction.index') }}">Transaksi Penjualan</a>
                         </li>
                     </ul>
                 </li>
@@ -264,6 +258,18 @@
             
             @can('user')
             <section for="user">
+
+                <li class="sidebar-item has-sub">
+                    <a href="#" class="sidebar-link">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>Transaksi</span>
+                    </a>
+                    <ul class="submenu">
+                        <li class="submenu-item">
+                            <a href="{{ route('transaction.index') }}">Transaksi Penjualan</a>
+                        </li>
+                    </ul>
+                </li>
 
                 <li class="sidebar-item has-sub">
                     <a href="#" class="sidebar-link">

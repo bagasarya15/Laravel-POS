@@ -123,7 +123,8 @@ $(function () {
     const FlasherSuccess = $(".success-message").data("message");
     if (FlasherSuccess) {
         Swal.fire({
-            position: "center",
+            toast: true,
+            position: "top-end",
             icon: "success",
             title: FlasherSuccess,
             showConfirmButton: false,
@@ -135,11 +136,12 @@ $(function () {
     const FlasherError = $(".error-message").data("message");
     if (FlasherError) {
         Swal.fire({
-            position: "center",
-            icon: "error",
+            toast: true,
+            position: "top-end",
             title: FlasherError,
             showConfirmButton: false,
             type: "error",
+            icon: "error",
             timer: 2000,
         });
     }
@@ -147,11 +149,12 @@ $(function () {
     const FlasherWarning = $(".warning-message").data("message");
     if (FlasherWarning) {
         Swal.fire({
-            position: "center",
-            icon: "warning",
+            toast: true,
+            position: "top-end",
             title: FlasherWarning,
             showConfirmButton: false,
             type: "warning",
+            icon: "warning",
             timer: 2000,
         });
     }
@@ -159,11 +162,12 @@ $(function () {
     const FlasherInfo = $(".info-message").data("message");
     if (FlasherInfo) {
         Swal.fire({
-            position: "center",
-            icon: "info",
+            toast: true,
+            position: "top-end",
             title: FlasherInfo,
             showConfirmButton: false,
             type: "info",
+            icon: "info",
             timer: 2000,
         });
     }

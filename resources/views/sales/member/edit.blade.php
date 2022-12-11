@@ -48,7 +48,22 @@
                             <input type="number" id="number_phone" class="form-control" name="number_phone"
                                 placeholder="No Tlp" autocomplete="off" value="{{ old('number_phone', $member->number_phone) }}">
                         </div>
-                        
+                        <div class="col-md-4">
+                            <label>Status Member</label>
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <select class="form-select" id="basicSelect" name="member_status">
+                            @if ($member->member_status == 'Non-Member')
+                                <option value="Non-Member">Non-Member</option>
+                                <option value="Member">Member</option>
+                            @endif
+                            
+                            @if ($member->member_status == 'Member')
+                                <option value="Member">Member</option>
+                                <option value="Non-Member">Non-Member</option>
+                            @endif
+                        </select>
+                        </div>
                         <div class="col-sm-12 d-flex justify-content-end">
                             <button type="submit" class="btn btn-sm btn-primary mb-1 mx-2"><i class="fa-solid fa-edit"></i> Update</button>
                             <button type="reset" class="btn btn-sm btn-warning mb-1"><i class="fa-solid fa-arrows-rotate"></i> Reset </button>

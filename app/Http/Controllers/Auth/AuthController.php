@@ -65,9 +65,9 @@ class AuthController extends Controller
             if( auth()->user()->role_id == 1) {
                 return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
             }else if( auth()->user()->role_id == 2) {
-                return redirect()->route('user.index')->with('success', 'Selamat datang, '.Auth::user()->name);
+                return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
             }else if( auth()->user()->role_id == 3) {
-                return redirect()->route('user.index')->with('success', 'Selamat datang, '.Auth::user()->name);
+                return redirect()->route('transaction.index')->with('success', 'Selamat datang, '.Auth::user()->name);
             } 
         }
         return redirect()->back()->with('error', 'Username atau Password Salah !');
@@ -111,6 +111,6 @@ class AuthController extends Controller
         request()->session()->invalidate();
         request()->session()->regenerateToken();
 
-        return redirect()->route('login')->with('success', 'Berhasil keluar, sampai jumpa !');
+        return redirect()->route('login')->with('success', 'Berhasil keluar, sampai jumpa');
     }
 }
