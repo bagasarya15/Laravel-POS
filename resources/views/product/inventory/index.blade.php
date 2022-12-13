@@ -23,7 +23,7 @@
             </div>
             <div class="card-body">
                 <div class="custom-control custom-checkbox"><input  class="form-check-input form-check-primary" type="checkbox" name="select_all" id="select_all"> Pilih Semua</div>
-                <table class="table table-striped" id="table1">
+                <table class="table dataTable1 table-striped">
                     <thead>
                         <tr>
                             <th> # </th>

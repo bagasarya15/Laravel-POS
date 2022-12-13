@@ -9,78 +9,48 @@
 @endsection
 
 @section('content')
-    <section id="multiple-column-form" for="system-info.index">
-        @include('layouts.sweet-alert')
-        <div class="row match-height">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <a href="" class="btn btn-sm btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"> Tambah Data</a>
-                            
-                            <form action="{{ route('system-info.index') }}" method="GET" class="row d-flex justify-content-end">
-                                <div class="col-md-4">
-                                <label for="search" class="visually-hidden">Password</label>
-                                    <input type="search" class="form-control" placeholder="Cari Deskripsi Update..." name="search" autocomplete="off">
-                                </div>
-                                <div class="col-auto">
-                                    <button type="submit" class="btn btn-primary mb-3">Cari</button>
-                                </div>
-                            </form>
-
-                            <ul class="list-group">
-                            @php $i = 0; @endphp
-                            @foreach ($systemInfo as $data)
-                                <div class="list-group my-1">
-                                    <a href="{{ route('system-info.show', $data->id) }}" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <div class="badges">
-                                            <small class="card-link">
-                                            <span class="badge rounded-pill bg-warning">{{ $i++ + $systemInfo->firstItem() }}</span>
-                                        </small>
-                                            <span class="badge rounded-pill bg-{{ ($data->category->name == 'Front-End') ? 'primary' : (($data->category->name == 'Backend') ? 'secondary' : 'info') }}">{{ $data->category->name }}</span>
-                                        </div>
-                                        <small class="card-link">
-                                            <form action="{{ route('system-info.destroy', $data->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <small type="submit" class="badge bg-danger btn-delete">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </small>
-                                            </form>
-                                        </small>
-
-                                    </div>
-                                    <p class="my-1 ms-2">
-                                        {{ $data->desc }}
-                                    </p>
-                                    <small class="card-link ms-2 text-secondary">{{ $data->created_at->diffForHumans() }}</small>
+    @include('layouts.sweet-alert')
+    <div class="card">
+        <div class="card-body table-responsive">
+            <a href="" class="btn btn-sm btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"> Tambah Data</a>
+            <table class="table dataTable1 table-striped">
+                <thead style="font-size: 13px;">
+                    <tr>
+                        <th>#</th>
+                        <th>Update For</th>
+                        <th>Tanggal Comit</th>
+                        <th>Keterangan Update</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 13px">
+                    @foreach ($data as $data)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td> <span class="badge rounded-pill bg-{{ ($data->category->name == 'Front-End') ? 'primary' : (($data->category->name == 'Backend') ? 'secondary' : 'info') }}">{{ $data->category->name }}</span></td>
+                        <td>{{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('d F Y') }}</td>
+                        <td>{{ $data->desc }}</td>
+                        
+                        <td>
+                            <div class="d-flex">
+                                <form action="{{ route('system-info.destroy', $data->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a type="submit" class="badge bg-danger btn-delete text-light">
+                                        <i class="fa-solid fa-trash"></i>
                                     </a>
-                                </div>
-                            @endforeach
-                            </ul>
-                
-                            <div class="footer">
-                                <small class="text-primary">
-                                    Menampilkan
-                                    {{ $systemInfo->firstItem() }}
-                                    -
-                                    {{ $systemInfo->lastItem() }}
-                                    baris dari
-                                    {{ $systemInfo->total() }}
-                                    data
-                                </small>
-                                <div class="d-flex justify-content-end">
-                                    {{ $systemInfo->links() }}
-                                </div>
+                                </form>
+                                <a href="{{ route('system-info.show', $data->id) }}" class="badge bg-warning ms-2">
+                                    <i class="fa-solid fa-eye"></i> Lihat Detail
+                                </a>
                             </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    </section>
+    </div>
 
     <section for="modal-system-update">
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

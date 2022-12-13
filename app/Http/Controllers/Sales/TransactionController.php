@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Sales;
 
-use App\Models\Order;
-use App\Models\Settings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
-use App\Models\{Products, Transaction, OrderProduct, Members, OrderMember};
+use App\Models\{Settings, Products, Transaction, Order, OrderProduct, Members, OrderMember};
 
 
 class TransactionController extends Controller
@@ -77,11 +75,12 @@ class TransactionController extends Controller
         return view('sales.transaction.invoice', compact('getTitle', 'order'));
     }
 
-
-    // public function destroy(Transaction $transaction)
-    // {
-    //     $transaction->truncate();
-
-    //     return redirect()->route('transaction.index')->with('success', 'Keranjang berhasil dikosongkan!');
-    // }
+    public function dataTransaction()
+    {
+        $getTitle = Settings::find(1);
+        $order = Order::with(['productOrder'])->get();
+        $orderProduct = OrderProduct::with(['getProduct', 'getOrder'])->get();
+        
+        return view('sales.transaction.data_transaction', compact('getTitle','order', 'orderProduct'));
+    }
 }

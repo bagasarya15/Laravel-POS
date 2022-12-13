@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
 @section('menu-heading')
-    Role Akses
+    Kelola Akun
 @endsection
 
 @section('title')
-    Detail Role Akses
+    Detail User
 @endsection
 
 @section('content')

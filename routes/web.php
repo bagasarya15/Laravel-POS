@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function() {
   
   // Routes For Transaction
   Route::resource('transaction', Transaction::class)->except(['create','edit','update','destroy']);
+  Route::get('data-transaction', [Transaction::class, 'dataTransaction'])->name('data-transaction');
   Route::post('add-member', [Transaction::class, 'addMember'])->name('transaction.add-member');
   Route::get('invoice/{no_order}', [Transaction::class, 'invoice'])->name('transaction.invoice');
   // End Routes Transaction

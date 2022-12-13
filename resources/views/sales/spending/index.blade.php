@@ -17,7 +17,7 @@
                 <a href="{{ route('spending.create') }}" class="btn btn-sm btn-primary block" > Tambah Pengeluaran</a>
             </div>
             <div class="card-body">
-                <table class="table table-striped" id="table1">
+                <table class="table dataTable1 table-striped">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -28,12 +28,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php $i = 1; @endphp
                         @foreach ($spending as $spend)
                         <tr>
-                            <td>{{ $i++ }}</td>
-                            <td>{{  $spend->created_at }}</td>
-                            <td>{{  $spend->desc }}</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $spend->created_at }}</td>
+                            <td>{{ $spend->desc }}</td>
                             <td>Rp {{ number_format($spend->nominal) }}</td>
                             <td>
                                 <div class="d-flex">

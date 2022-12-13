@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    Role Akses
+    Kelola Akun
 @endsection
 
 @section('content')

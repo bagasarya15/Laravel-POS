@@ -8,11 +8,10 @@ use App\Models\{Products, Transaction, Order, OrderProduct, Members, OrderMember
 
 class Index extends Component
 {
-    public  $payment, $discount, $confirmDelete;
-
+    public $payment, $discount, $confirmDelete;
     protected $listeners = ['deleteConfirmed' => 'deleteCart'];
-    
-    //Validation
+
+    //Validation [
     protected $rules = [
         'payment'     => 'required',
         'discount'  => 'required'
@@ -21,11 +20,22 @@ class Index extends Component
     protected $messages = [
         'payment.required' => 'isi nominal jumlah pembayaran'
     ];
-    //End Validation
+    //End Validation ]
+
+    public function mount()
+    {
+        $this->no_order = $this->generateOrder();
+    }
 
     public function clear() {
         $this -> payment = '';
         $this -> discount = '';
+    }
+
+    public function generateOrder()
+    {
+        $no_order = 'INVOICE-'.date('Ymd').rand(1111,9999);
+        return $no_order;
     }
 
     public function render()
@@ -46,7 +56,7 @@ class Index extends Component
         $transaction = Transaction::with('products')->get();
         
         $order = Order::create([
-            'no_order'      => 'INVOICE-'.date('Ymd').rand(1111,9999),
+            'no_order'      => $this->no_order,
             'cashier_name'  => auth()->user()->name,
             'member_id'     => $orderMember->first()->member_id ?? 1,
             'sub_total'     => $transaction->sum('total'),

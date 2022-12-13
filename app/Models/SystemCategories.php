@@ -12,8 +12,8 @@ class SystemCategories extends Model
     protected $table = 'system_categories';
     protected $guarded = ['id'];
 
-    public function systemUpdate() 
-    {
-        return $this->hasMany(SystemUpdate::class, 'category_id', 'id');
-    }
+    // public function systemUpdate() 
+    // {
+    //     return $this->hasMany(SystemUpdate::class, 'category_id', 'id');
+    // }
 }

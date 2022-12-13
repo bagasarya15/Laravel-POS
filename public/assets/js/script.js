@@ -1,4 +1,8 @@
 $(function () {
+    //Datatable
+    $(document).ready(function () {
+        $(".dataTable1").DataTable();
+    });
     //Start Show And Hide Password
     $(document).ready(function () {
         $("#check-login-pass").click(function () {

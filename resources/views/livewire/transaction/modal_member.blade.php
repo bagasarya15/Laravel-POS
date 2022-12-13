@@ -7,24 +7,28 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-         <table class="table table-striped" id="table1">
-            <thead class="small">
-                <tr class="small">
-                    <th>Kode Member</th>
-                    <th>Nama</th>
-                    <th>Alamat</th>
-                    <th>Nomer Tlp</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($member as $member)
-                <tr class="small">
-                    <td><span class="badge bg-success">{{ $member->code_member }}</span></td>
-                    <td>{{ $member->name }}</td>
-                    <td>{{ $member->address }}</td>
-                    <td>{{ $member->number_phone }}</td>
-                    <td>{{ $member->member_status }}</td>
-                    <td>
+          <div class="card">
+            <div class="table-responsive">
+              <table class="table table-multiple table-striped">
+                  <thead class="small">
+                      <tr class="small">
+                          <th>Kode Member</th>
+                          <th>Nama</th>
+                          <th>Alamat</th>
+                          <th>No Tlp</th>
+                          <th>Member Status</th>
+                          <th>Aksi</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @foreach ($member as $member)
+                      <tr class="small">
+                          <td><span class="badge bg-success">{{ $member->code_member }}</span></td>
+                          <td>{{ $member->name }}</td>
+                          <td>{{ $member->address }}</td>
+                          <td>{{ $member->number_phone }}</td>
+                          <td>{{ $member->member_status }}</td>
+                          <td>
                             <div class="d-flex">
                                 <form action="{{ route('transaction.add-member') }}" method="POST">
                                     @csrf
@@ -32,11 +36,13 @@
                                     <button type="submit" class="btn btn-sm btn-primary"> <i class="fas fa-plus"></i></button>
                                 </form>
                             </div>
-                        </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                          </td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+            </div>
+          </div>
       </div>
     </div>
   </div>

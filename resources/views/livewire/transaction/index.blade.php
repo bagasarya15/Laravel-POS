@@ -8,6 +8,15 @@
         <form>
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div wire:igrone>
+                        <h6 class="my-0">Nomer Order</h6>
+                        <small class="text-muted">{{ $no_order }}</small>
+                        <small class="text-muted"><input type="hidden" class="form-control" wire:model="no_order" readonly></small>
+                    </div>
+                    
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
                         <h6 class="my-0">Customer <span class="text-danger"></span></h6>
                         @foreach ($orderMember as $orderMember)
@@ -26,7 +35,6 @@
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
                         <h6 class="my-0">Total Pembelian</h6>
-                        
                         <small class="text-muted">Rp {{ number_format($transaction->sum('total')) }}</small>
                     </div>
                     
@@ -171,8 +179,8 @@
 @push('script')
     <script>
         $(document).ready(function () {
-
-
+            $('.table-multiple').DataTable();
+            
             $('.discountSelect').on('change', function(){
                 @this.discount = $(this).val()
             });

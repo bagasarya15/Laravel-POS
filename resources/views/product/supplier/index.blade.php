@@ -17,18 +17,21 @@
                 <a href="{{ route('supplier.create') }}"class="btn btn-sm btn-primary block" > Tambah Supplier</a>
             </div>
             <div class="card-body">
-                <table class="table table-striped" id="table1">
+                <table class="table dataTable1 table-striped">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Nama Supplier</th>
                             <th>Alamat</th>
                             <th>Nomer Tlp</th>
                             <th>Keterangan</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
                         @foreach ($supplier as $supplier)</span></td>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $supplier->name }}</td>
                             <td>{{ $supplier->address }}</td>
                             <td>{{ $supplier->number_phone }}</td>

@@ -17,7 +17,7 @@
                 <a href="{{ route('member.create') }}"class="btn btn-sm btn-primary block" > Tambah Member</a>
             </div>
             <div class="card-body">
-                <table class="table table-striped" id="table1">
+                <table class="table dataTable1 table-striped">
                     <thead>
                         <tr>
                             <th>Kode Member</th>
@@ -25,6 +25,7 @@
                             <th>Alamat</th>
                             <th>Nomer Tlp</th>
                             <th>Status Member</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>

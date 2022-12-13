@@ -17,7 +17,7 @@ class SettingsSeeder extends Seeder
     public function run()
     {
         Settings::create([
-        'name' => 'Lara - Pos',
+        'name' => 'Laravel x Livewire',
         'owner_name' => 'Bagas Arya Pradipta',
         'address' => 'Kota Depok',
         'number_phone' => '08128571',

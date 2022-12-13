@@ -1,10 +1,15 @@
+@section('title')
+    {{ $order->no_order }}
+@endsection
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    @include('layouts.head')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Invoice</title>
+    <title></title>
     <style>
         .container {
             width: 300px;
@@ -60,7 +65,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="window.print()">
     <div class="container">
         @include('layouts.sweet-alert')
         <div class="header" style="margin-bottom: 30px;">
@@ -83,28 +88,18 @@
                     <li> {{ $order->no_order }} </li>
                     <li> {{ $order->cashier_name }} </li>
                     <li> {{ $order->member->name }} </li>
-                    <li> {{ date('Y-m-d : H:i:s', strtotime($order->created_at)) }} </li>
+                    <li> {{ $order->created_at }} </li>
                 </ul>
             </div>
         </div>
         <hr>
         <div class="flex-container" style="margin-bottom: 10px; text-align:right;">
-            <div style="text-align: left;">Nama Product</div>
-            <div>Harga/Qty</div>
+            <div style="text-align: left;">Product</div>
+            <div>Harga/Pcs</div>
             <div>Total</div>
         </div>
         @foreach ($order->productOrder as $item)
             <div class="flex-container" style="text-align: right;">
-                {{-- @php
-                    if(!empty($item->getProduct->name)) {
-                        $arr_name = explode(' ', $item->getProduct->name);
-                        $name = $arr_name[0];
-                    } elseif ($item->getProduct->name != '') {
-                            $name = $item->getProduct->name;
-                    } else {
-                        $name = 'there';
-                    }
-                @endphp --}}
                 <div style="text-align: left;">{{ $item->qty }}x {{ $item->getProduct->name }}</div>
                 <div>Rp {{ number_format($item->getProduct->price_sell) }} </div>
                 <div>Rp {{ number_format($item->total) }} </div>
@@ -138,5 +133,6 @@
             <p>Silahkan berkunjung kembali</p>
         </div>
     </div>
+    @include('layouts.script')
 </body>
 </html>

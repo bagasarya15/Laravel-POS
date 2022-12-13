@@ -18,17 +18,19 @@
                 <a href="{{ route('category.create') }}" class="btn btn-sm btn-primary block">Tambah Kategori</a>
             </div>
             <div class="card-body">
-                <table class="table table-striped" id="table1">
+                <table class="table dataTable1 table-striped">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Jenis Kategori</th>
                             <th>Deskripsi</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
                         @foreach ($categories as $category)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->desc }}</td>
                             <td>

@@ -112,6 +112,9 @@
                         <li class="submenu-item">
                             <a href="{{ route('transaction.index') }}">Transaksi Penjualan</a>
                         </li>
+                        <li class="submenu-item">
+                            <a href="{{ route('data-transaction') }}">Data Penjualan</a>
+                        </li>
                     </ul>
                 </li>
 
