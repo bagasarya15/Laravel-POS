@@ -15,8 +15,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                      <a href="{{ route('user-access.index') }}"><i class="fa-solid fa-angles-left"></i> Kembali</a>
-                 </div>
+                    <a href="{{ route('user-access.index') }}"><i class="fa-solid fa-angles-left"></i> Kembali</a>
+                </div>
                 <div class="card-content">
                     <div class="card-body">
                         {{-- Start Form Action  --}}
@@ -51,12 +51,24 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="col-12 d-flex justify-content-start">
-                                <button type="submit" class="btn btn-sm btn-primary btn-ask mb-1"><i class="fa-solid fa-edit"></i> Update</button>
-                                {{-- End Form Action Update Role Access Settings --}}
-                                </form>
+                            @can('super-admin')
+                            <div class="d-flex mt-2">
+                                <div>
+                                    <button type="submit" class="btn btn-sm btn-primary btn-ask mb-1"><i class="fa-solid fa-edit"></i> Update</button>
+                                    {{-- End Form Action Update Role Access Settings --}}
+                                    </form>
+                                </div>
+                                
+                                <div class="mx-2">
+                                    <form class="form-reset" action="{{ route('user.reset-password', $user_access) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-sm btn-danger" id="ask-reset"><i class="fa-solid fa-arrows-rotate"></i> Reset Password</button>
+                                    </form>
+                                </div>
                             </div>
+                                <small class="mt-4 text-danger fst-italic">* default reset password = user12345</small>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -64,4 +76,46 @@
         </div>
     </div>
 </section>
+
+@push('script')
+    <script>
+        $(".btn-ask").on("click", function (e) {
+            e.preventDefault();
+            let form = $(this).parents("form");
+            Swal.fire({
+                title: "Konfirmasi Perubahan User",
+                text: " Anda yakin ingin melakukan perubahan akses pada user yang dipilih ?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya ",
+                cancelButtonText: "Batal",
+            }).then((result) => {
+                if (result.value) {
+                    form.submit();
+                }
+            });
+        });
+
+        $("#ask-reset").on("click", function (e) {
+            e.preventDefault();
+            let form = $(this).parents(".form-reset");
+            Swal.fire({
+                title: "Konfirmasi Reset Password",
+                text: " Anda yakin ingin mereset password user yang dipilih ?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya ",
+                cancelButtonText: "Batal",
+            }).then((result) => {
+                if (result.value) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+@endpush
 @endsection

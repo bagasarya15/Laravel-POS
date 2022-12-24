@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->nullable()->unique();
             $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')
                 ->references('id')
@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('is_login')->nullable();
+            $table->timestamp('last_login')->nullable();
         });
     }
 

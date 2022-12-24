@@ -23,14 +23,15 @@
             </div>
             <div class="card-body">
                 <div class="custom-control custom-checkbox"><input  class="form-check-input form-check-primary" type="checkbox" name="select_all" id="select_all"> Pilih Semua</div>
-                <table class="table dataTable1 table-striped">
+                <table class="table dataTable1 table-hover">
                     <thead>
-                        <tr>
+                        <tr class="small">
                             <th> # </th>
                             <th>Kode Produk</th>
                             <th>Nama</th>
                             <th>Kategori</th>
                             <th>Harga / Pcs</th>
+                            <th>Stok</th>
                             <th>Image</th>
                             <th>Aksi</th>
                         </tr>
@@ -38,12 +39,19 @@
                     <tbody>
                         @if (count($product) > 0)
                         @foreach ($product as $product )
-                        <tr>
+                        <tr class="small">
                             <td><input type="checkbox" name="id[{{ $product->id }}]" id="id" value="{{ $product->id }}" class="checkbox-delete"></td>
-                            <td><a href="{{ route('product.show', $product->id) }}" class="badge bg-success text-light">{{ $product->code_product }}</a></td>
+                            <td><a href="{{ route('product.show', $product->id) }}" class="badge bg-primary text-light">{{ $product->code_product }}</a></td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->category->name }}</td>
                             <td>Rp {{ number_format($product->price_sell) }}</td>
+                            <td>
+                                @if ($product->stok == 0)
+                                    <a href="{{ route('purchase.index') }}"><span class="text-danger">{{ 'Stok habis, lakukan re-stok produk' }}</span></a> 
+                                @else
+                                    {{ $product->stok }}
+                                @endif
+                            </td>
                             <td><img class="rounded-circle" width="45px" src="{{ asset('storage/'.$product ->image) }}" alt="Foto Produk"></td>
                             <td>
                                 <div class="d-flex">

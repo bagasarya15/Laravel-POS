@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    @include('helpers.helpers-head')
+    
 </head>
 <body onload="window.print()">
     <div class="card mt-3 mx-3">
@@ -70,5 +70,5 @@
         </section>
     </div>
 </body>
-@include('helpers.helpers-script')
+
 </html>

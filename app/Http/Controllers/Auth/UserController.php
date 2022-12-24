@@ -11,29 +11,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        $getTitle = Settings::findOrFail(1);
+        $store_information = Settings::findOrFail(1);
         $user = auth()->user()->id;
-        return view('auth.profile', compact('getTitle','user'));
-    }
-
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
+        return view('auth.profile', compact('store_information','user'));
     }
 
     public function update(Request $request, User $user)
@@ -93,10 +73,5 @@ class UserController extends Controller
         $user->update();
         
         return redirect()->route('user.index', $user)->with('success', 'Profile berhasil diubah !');
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }

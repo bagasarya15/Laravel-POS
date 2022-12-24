@@ -26,7 +26,7 @@
                             <label>Kode Member</label>
                         </div>
                         <div class="col-md-8 form-group">
-                            <input type="text" id="code_member" class="form-control bg-light" name="code_member" value="{{ 'MBR-'.$AutoNumber }}" readonly>
+                            <input type="text" id="code_member" class="form-control bg-light" name="code_member" value="{{ $generateCode }}" readonly>
                         </div>
                         <div class="col-md-4">
                             <label>Nama</label>

@@ -21,7 +21,7 @@ class Transactions extends Migration
                 ->on('products')
                 ->onUpdate('cascade');
             $table->integer('qty');
-            $table->integer('total')->nullable();
+            $table->integer('total');
             $table->timestamps();
         });
     }

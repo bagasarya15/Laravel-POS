@@ -33,7 +33,7 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ $product->name }}</h4>
                     <p class="card-text">
-                       {{ $product->desc }}
+                        {{ $product->desc }}
                     </p>
                 </div>
             </div>

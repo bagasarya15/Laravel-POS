@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Members extends Model
 {
@@ -12,8 +13,19 @@ class Members extends Model
     protected $table = 'Members';
     protected $guarded = ['id'];
 
+    public function getCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+            ->translatedFormat('d F Y');
+    }
+
     public function orderMember() 
     {
         return $this->hasMany(OrderMember::class, 'member_id', 'id');
+    }
+
+    public function memberOrder()
+    {
+        return $this->hasMany(Order::class, 'member_id', 'id');
     }
 }

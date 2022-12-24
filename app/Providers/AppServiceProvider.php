@@ -31,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         \Carbon\Carbon::setLocale('id');
         
+        Gate::define('super-admin', function(User $user){
+            return $user->id === 1 || $user->id === 2;
+        });
+
         Gate::define('admin', function(User $user){
             return $user->role_id === 1;
         });

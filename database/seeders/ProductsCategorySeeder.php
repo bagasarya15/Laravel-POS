@@ -18,5 +18,13 @@ class ProductsCategorySeeder extends Seeder
             'name' => 'Makanan',
             'desc' => 'Kategori Makanan',
         ]);
+        ProductsCategory::create([
+            'name' => 'Minuman',
+            'desc' => 'Kategori Minuman',
+        ]);
+        ProductsCategory::create([
+            'name' => 'Lainnya',
+            'desc' => 'Kategori Lainnya',
+        ]);
     }
 }

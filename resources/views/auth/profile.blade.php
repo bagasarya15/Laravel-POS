@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-  Profile
+    Profile
 @endsection
 
 @section('content')
@@ -91,8 +91,8 @@
                                 <input type="password" id="current_password" class="form-control" name="current_password">
                             </div>
                             <div class="custom-control custom-checkbox">
-                              <input type="checkbox" id="check-current-pass" class="form-check-input form-check-primary">
-                              <label class="form-check-label">Lihat Password</label>
+                                <input type="checkbox" id="check-current-pass" class="form-check-input form-check-primary">
+                                <label class="form-check-label">Lihat Password</label>
                             </div>
                         </div>
 
@@ -102,8 +102,8 @@
                                 <input type="password" id="password" class="form-control" name="password" >
                             </div>
                             <div class="custom-control custom-checkbox">
-                              <input type="checkbox" id="check-new-pass" class="form-check-input form-check-primary">
-                              <label class="form-check-label">Lihat Password</label>
+                                <input type="checkbox" id="check-new-pass" class="form-check-input form-check-primary">
+                                <label class="form-check-label">Lihat Password</label>
                             </div>
                         </div>
 
@@ -113,8 +113,8 @@
                                 <input type="password" id="confirm_password" class="form-control" name="confirm_password" >
                             </div>
                             <div class="custom-control custom-checkbox">
-                              <input type="checkbox" id="check-confirm-pass" class="form-check-input form-check-primary">
-                              <label class="form-check-label">Lihat Password</label>
+                                <input type="checkbox" id="check-confirm-pass" class="form-check-input form-check-primary">
+                                <label class="form-check-label">Lihat Password</label>
                             </div>
                         </div>
                     </div>

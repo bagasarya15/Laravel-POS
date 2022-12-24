@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModalMember" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content" style="width: 130%">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Data Customer</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -9,21 +9,23 @@
       <div class="modal-body">
           <div class="card">
             <div class="table-responsive">
-              <table class="table table-multiple table-striped">
+              <table class="table table-multiple table-hover">
                   <thead class="small">
                       <tr class="small">
+                          <th>#</th>
                           <th>Kode Member</th>
                           <th>Nama</th>
                           <th>Alamat</th>
                           <th>No Tlp</th>
-                          <th>Member Status</th>
+                          <th>Status</th>
                           <th>Aksi</th>
                       </tr>
                   </thead>
                   <tbody>
                       @foreach ($member as $member)
                       <tr class="small">
-                          <td><span class="badge bg-success">{{ $member->code_member }}</span></td>
+                          <td>{{ $loop->iteration }}</td>
+                          <td><span class="badge bg-primary text-light">{{ $member->code_member }}</span></td>
                           <td>{{ $member->name }}</td>
                           <td>{{ $member->address }}</td>
                           <td>{{ $member->number_phone }}</td>

@@ -37,11 +37,11 @@ class SystemInfoController extends Controller
 
     public function index()
     {
-        $getTitle     = Settings::find(1);
+        $store_information = Settings::find(1);
         $categories = SystemCategories::all();
         $data = SystemInfo::with('category')->orderBy('id', 'DESC')->get();
 
-        return view('main.index_system_info',compact('getTitle', 'data', 'categories'));
+        return view('main.index_system_info',compact('store_information', 'data', 'categories'));
     }
 
     public function store(Request $request)
@@ -69,11 +69,11 @@ class SystemInfoController extends Controller
 
     public function show($id)
     {
-        $getTitle = Settings::find(1);
+        $store_information = Settings::find(1);
         $systemInfo= SystemInfo::find($id);
         $categories = SystemCategories::all();
 
-        return view('main.show_system_info', compact('getTitle', 'systemInfo', 'categories'));
+        return view('main.show_system_info', compact('store_information', 'systemInfo', 'categories'));
     }
 
     public function update(Request $request, $id)

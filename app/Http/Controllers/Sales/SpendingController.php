@@ -20,17 +20,17 @@ class SpendingController extends Controller
     public function index()
     {
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);
+        $store_information = Settings::findOrFail(1);
         $spending = Spending::orderBy('id', 'desc')->get();
-        return view('sales.spending.index', compact('getTitle','spending'));
+        return view('sales.spending.index', compact('store_information','spending'));
     }
 
     public function create()
     {
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);
+        $store_information = Settings::findOrFail(1);
 
-        return view('sales.spending.create', compact('getTitle'));
+        return view('sales.spending.create', compact('store_information'));
     }
 
     public function store(Request $request)
@@ -63,9 +63,9 @@ class SpendingController extends Controller
     public function edit(Spending $spending)
     {
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);
+        $store_information = Settings::findOrFail(1);
 
-        return view('sales.spending.edit', compact('getTitle','spending'));
+        return view('sales.spending.edit', compact('store_information','spending'));
     }
 
     public function update(Request $request, Spending $spending)

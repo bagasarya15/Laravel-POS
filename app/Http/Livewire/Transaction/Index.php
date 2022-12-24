@@ -4,24 +4,31 @@ namespace App\Http\Livewire\Transaction;
 
 use Livewire\Component;
 use Illuminate\Support\Facades;
-use App\Models\{Products, Transaction, Order, OrderProduct, Members, OrderMember};
+use App\Models\{Products, 
+    Transaction, 
+    Order, 
+    OrderProduct, 
+    Members, 
+    OrderMember,
+};
 
 class Index extends Component
 {
     public $payment, $discount, $confirmDelete;
+
     protected $listeners = ['deleteConfirmed' => 'deleteCart'];
 
-    //Validation [
     protected $rules = [
-        'payment'     => 'required',
+        'no_order'  => 'required',
+        'payment'   => 'required',
         'discount'  => 'required'
     ];
 
     protected $messages = [
-        'payment.required' => 'isi nominal jumlah pembayaran'
+        'payment.required' => 'isi nominal jumlah pembayaran',
+        'discount.required' => 'pilih discount',
     ];
-    //End Validation ]
-
+    
     public function mount()
     {
         $this->no_order = $this->generateOrder();
@@ -29,7 +36,6 @@ class Index extends Component
 
     public function clear() {
         $this -> payment = '';
-        $this -> discount = '';
     }
 
     public function generateOrder()
@@ -40,10 +46,10 @@ class Index extends Component
 
     public function render()
     {
-        $member = Members::all();
+        $member      = Members::all();
         $orderMember = OrderMember::with('getMember')->limit(1)->get();
         $transaction = Transaction::with(['products'])->get();
-        $products = Products::orderBy('code_product', 'desc')->get();
+        $products    = Products::orderBy('id', 'ASC')->get();
 
         return view('livewire.transaction.index', compact(['transaction', 'products', 'member', 'orderMember']));
     }
@@ -54,53 +60,56 @@ class Index extends Component
 
         $orderMember = OrderMember::get();
         $transaction = Transaction::with('products')->get();
-        
-        $order = Order::create([
-            'no_order'      => $this->no_order,
-            'cashier_name'  => auth()->user()->name,
-            'member_id'     => $orderMember->first()->member_id ?? 1,
-            'sub_total'     => $transaction->sum('total'),
-            'discount'      => $this->discount,
-            'total'         => $transaction->sum('total') - $this->discount,
-            'payment'       => $this->payment,
-            'change_money'  => $this->payment - $transaction->sum('total') + $this->discount
-        ]);
+        $count       = $transaction->count();
 
-        foreach ($orderMember as $orderMember) {
-            $member = array(
-                'member_id'     => $orderMember->member_id,
-                'created_at'    => $orderMember->created_at,
-                'updated_at'    => $orderMember->updated_at, 
-            );
-            
-            $deleteMember = OrderMember::where('id', $orderMember->id)->delete();
+        if($count == 0){
+            return redirect()->route('transaction.index')->with('error', 'Tidak dapat melanjutkan transaksi, pilih produk yang ingin dibeli terlebih dahulu!');
+        }else if($transaction->sum('total') - $this->discount > $this->payment){
+            return redirect()->route('transaction.index')->with('error', 'Uang tidak cukup untuk melanjutkan transaksi');
+        }else{
+            $order = Order::create([
+                'no_order'      => $this->no_order,
+                'cashier_name'  => auth()->user()->name,
+                'member_id'     => $orderMember->first()->member_id ?? 1 ,
+                'sub_total'     => $transaction->sum('total'),
+                'discount'      => $this->discount,
+                'total'         => $transaction->sum('total') - $this->discount,
+                'payment'       => $this->payment,
+                'change_money'  => $this->payment - $transaction->sum('total') + $this->discount
+            ]);
+
+            foreach ($orderMember as $orderMember) {
+                $deleteMember = OrderMember::where('id', $orderMember->id)->delete();
+            }
+
+            foreach ($transaction as $transaction) {
+                $product = array(
+                    'order_id'       => $order->id,
+                    'product_id'     => $transaction->product_id,
+                    'qty'            => $transaction->qty,
+                    'total'          => $transaction->total,
+                    'created_at'     => \Carbon\carbon::now(),
+                    'updated_at'     => \Carbon\carbon::now(),
+                );
+
+                Products::find($transaction->product_id)->decrement('stok', $transaction->qty);
+                $orderProduct = OrderProduct::insert($product);
+                $deleteTransaction = Transaction::where('id', $transaction->id)->delete();
+            }     
         }
-
-        foreach ($transaction as $transaction) {
-            $product = array(
-                'order_id'       => $order->id,
-                'product_id'     => $transaction->product_id,
-                'qty'            => $transaction->qty, 
-                'total'          => $transaction->total,
-                'created_at'     => \Carbon\carbon::now(),
-                'updated_at'     => \Carbon\carbon::now()
-            );
-
-            Products::find($transaction->product_id)->decrement('stok', $transaction->qty);
-
-            $orderProduct = OrderProduct::insert($product);
-            
-            $deleteTransaction = Transaction::where('id', $transaction->id)->delete();
-        }    
-
         $this->clear();
 
-        return redirect()->route('transaction.invoice', [$order->no_order] )->with('success', 'Pembayaran berhasil');
+        return redirect()->route('transaction.invoice', [$order->no_order] );
     }
 
     public function plusQty($id)
     {
-        $transaction = Transaction::find($id);
+        $transaction = Transaction::with('products')->find($id);
+        
+        if($transaction->qty >= $transaction->products->stok){
+            return redirect()->back();
+        }
+
         $transaction->update([
             'qty' => $transaction->qty + 1,
             'total' => $transaction->products->price_sell * ($transaction->qty + 1),
@@ -108,10 +117,14 @@ class Index extends Component
         return redirect()->back();
     }
 
-    
     public function minQty($id)
     {
-        $transaction = Transaction::find($id);
+        $transaction = Transaction::with('products')->find($id);
+
+        if($transaction->qty <= 1){
+            return redirect()->back();
+        }
+
         $transaction->update([
             'qty' => $transaction->qty - 1,
             'total' => $transaction->products->price_sell * ($transaction->qty - 1)
@@ -139,10 +152,6 @@ class Index extends Component
         $deleteMember = OrderMember::get();
 
         foreach ($deleteMember as $data) {
-            $member = array(
-                'member_id'     => $data->first()
-            );
-            
             $delete = OrderMember::where('id', $data->id)->delete();
         }
         

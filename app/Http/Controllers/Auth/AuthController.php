@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\{ User, Settings };
-use Illuminate\Support\Facades\{ Auth, Validator, Storage, Hash };
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\{ Auth, Validator, Storage, Hash};
 
 class AuthController extends Controller
 {
@@ -15,9 +16,9 @@ class AuthController extends Controller
             if (auth()->user()->role_id == 1) {
                 return redirect()->route('dashboard');
             } else if (auth()->user()->role_id == 2) {
-                return redirect()->route('user.index');
+                return redirect()->route('dashboard');
             } else if (auth()->user()->role_id == 3) {
-                return redirect()->route('user.index');
+                return redirect()->route('transaction.index');
             }
         }
         return redirect()->route('login');
@@ -25,52 +26,97 @@ class AuthController extends Controller
 
     public function index()
     {
-        $getTitle = Settings::find(1);
-        return view('auth.login', compact('getTitle'));
+        $store_information = Settings::find(1);
+        return view('auth.login', compact('store_information'));
     }
 
     public function login(Request $request) 
     {
         $rules = [
-        'username' => 'required|string',
+        'emailOrUsername' => 'required|string',
         'password' => 'required|string',
         ];
 
         $eMessage = [
-            'username.required' => 'Isi username terlebih dahulu !',
+            'emailOrUsername.required' => 'Isi username terlebih dahulu !',
             'password.required' => 'Isi password terlebih dahulu !'
         ];
 
         $validator = Validator::make($request->all(), $rules, $eMessage);
 
-        if ($validator->fails()){
+        if ($validator->fails())
+        {
             return redirect()->back()->with('warning', $validator->errors()->first());
         }
 
-        $credentials = $request->validate([
-        'username' => 'required|string',
-        'password' => 'required|string',
+        // Login With Username Or Email
+        $login_type = filter_var($request->input('emailOrUsername'), FILTER_VALIDATE_EMAIL ) ? 'email' : 'username';
+
+        $request->merge([
+            $login_type => $request->input('emailOrUsername')
         ]);
-
-        // if(Auth::attempt($credentials)) {
-
-        // $request->session()->regenerate();
         
-        // return redirect()->intended(route('dashboard'))
-        //                     ->with('success', 'Selamat Datang, '.Auth::user()->name);
-        // }
-
-        if (auth()->attempt($credentials)) {
+        if (auth()->attempt( $request->only($login_type, 'password') ) )
+        {
             $request->session()->regenerate();
-            if( auth()->user()->role_id == 1) {
+            
+            if( auth()->user()->role_id == 1)
+            {
+                auth()->user()->update(['is_login' => $request->is_login = 1 ]);
                 return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
-            }else if( auth()->user()->role_id == 2) {
+            }
+            else if( auth()->user()->role_id == 2) 
+            {
+                auth()->user()->update(['is_login' => $request->is_login = 1 ]);
                 return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
-            }else if( auth()->user()->role_id == 3) {
+            }
+            else if( auth()->user()->role_id == 3)
+            {
+                auth()->user()->update(['is_login' => $request->is_login = 1 ]);
                 return redirect()->route('transaction.index')->with('success', 'Selamat datang, '.Auth::user()->name);
             } 
+        } 
+        else
+        {
+            return redirect()->back()->with('error', 'Username atau Password Salah !');
         }
-        return redirect()->back()->with('error', 'Username atau Password Salah !');
+        // End Login With Username Or Email
+
+
+        // [Code Jika Ingin Login Menggunakan Username Saja]
+
+        // if ($validator->fails()){
+        //     return redirect()->back()->with('warning', $validator->errors()->first());
+        // }
+
+        // [request name di input login.blade ganti dari emailOrUsername menjadi username]
+        // $credentials = $request->validate([
+        //     'username'   => 'required|string', 
+        //     'password'   => 'required|string',
+        // ]);
+
+        // if (auth()->attempt($credentials)) {
+        //     $request->session()->regenerate();
+            
+        //     if( auth()->user()->role_id == 1)
+        //     {
+        //         auth()->user()->update(['is_login' => $request->is_login = 1 ]);
+        //         return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
+        //     }
+        //     else if( auth()->user()->role_id == 2) 
+        //     {
+        //         auth()->user()->update(['is_login' => $request->is_login = 1 ]);
+        //         return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
+        //     }
+        //     else if( auth()->user()->role_id == 3)
+        //     {
+        //         auth()->user()->update(['is_login' => $request->is_login = 1 ]);
+        //         return redirect()->route('transaction.index')->with('success', 'Selamat datang, '.Auth::user()->name);
+        //     } 
+        // }
+        // return redirect()->back()->with('error', 'Username atau Password Salah !');
+
+        // [End]
     }
 
     public function update(Request $request, User $user )
@@ -105,8 +151,13 @@ class AuthController extends Controller
         }        
     }
 
-    public function logout() 
+    public function logout(Request $request) 
     {
+        //Request Before Logout
+        auth()->user()->update(['is_login' => $request->is_login = 0 ]);
+        auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
+        //End
+        
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();

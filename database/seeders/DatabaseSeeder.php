@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\MemberSeeder;
+use Database\Seeders\SupplierSeeder;
 use Database\Seeders\ProductsSeeder;
 use Database\Seeders\SettingsSeeder;
 use Database\Seeders\UserRoleSeeder;
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
             SettingsSeeder::class,
             SystemCategorySeeder::class,
             MemberSeeder::class,
+            SupplierSeeder::class,
         ]);
     }
 }

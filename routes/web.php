@@ -17,6 +17,7 @@ use App\Http\Controllers\Sales\ {
   MemberController as Member,
   SpendingController as Spending,
   TransactionController as Transaction,
+  PurchaseController as Purchase,
 };
 use App\Http\Controllers\Settings\ {
   SettingController as Settings,
@@ -25,29 +26,36 @@ use App\Http\Controllers\Settings\ {
 // ================================================================//
 
 //Routes Config
- Route::get('/route-cache', function() {
-    $exitCode = Artisan::call('route:cache');
-    return 'Routes cache cleared';
-  });
-  
-  Route::get('/config-cache', function() {
-    $exitCode = Artisan::call('config:cache');
-    return 'Config cache cleared';
+Route::get('/route-cache', function() {
+    Artisan::call('route:cache');
+    return 'Success, Routes cache cleared';
+});
+
+Route::get('/config-cache', function() {
+    Artisan::call('config:cache');
+    return 'Success, Config cache cleared';
+    
 });
 
 Route::get('/clear-cache', function() {
-  $exitCode = Artisan::call('cache:clear');
-  return 'Application cache cleared';
+    Artisan::call('cache:clear');
+    return redirect()->back()->with('success', 'Application cache cleared');
 });
 
-Route::get('/view-clear', function() {
-  $exitCode = Artisan::call('view:clear');
-  return 'View cache cleared';
+Route::get('/view-cache', function() {
+    Artisan::call('view:cache');
+    return redirect()->back()->with('success', 'View cache cleared');
+});
+
+Route::get('/storage-link', function() {
+    Artisan::call('storage:link');
+    return redirect()->back()->with('success', 'Storage:link created');
 });
 //End Routes Config
 
 // ================================================================//
 Route::get('/', [AuthController::class, 'redirectTo'])->name('home');
+// Route::get('/', 'redirectTo')->name('home');
 
 Route::middleware('guest')->controller(AuthController::class)->group(function() {
   Route::get('login', 'index')->name('login');
@@ -90,14 +98,22 @@ Route::middleware('auth')->group(function() {
   Route::get('invoice/{no_order}', [Transaction::class, 'invoice'])->name('transaction.invoice');
   // End Routes Transaction
 
+  // Routes For Purchase Product
+  Route::resource('purchase', Purchase::class)->except(['create','edit','update','destroy']);
+  Route::get('data-purchase', [Purchase::class, 'dataPurchase'])->name('data-purchase');
+  Route::get('purchase-invoice/{no_purchase}', [Purchase::class, 'purchaseInvoice'])->name('purchase.invoice');
+  // End Routes Purchase Product
+
   //Routes For Settings
   Route::resource('settings', Settings::class)->except(['create','store','edit','destroy']);
-  //End Routes Spending
+  Route::get('artisan-call', [Settings::class, 'artisan_call'])->name('artisan.index');
+  //End Routes Settings
 
   //Routes For Access Role
-  Route::resource('user-access', RoleAccess::class)->except(['create','store','edit','destroy']);
+  Route::resource('user-access', RoleAccess::class)->except(['create', 'edit']);
+  Route::put('reset-password/{user_access}', [RoleAccess::class, 'resetPassword'])->name('user.reset-password');
   //End Routes Access Role
- 
+
   //Routes For Access System Infomation
   Route::resource('system-info', SystemInfo::class)->except(['create','edit']);
   //End Routes Access System Infomation

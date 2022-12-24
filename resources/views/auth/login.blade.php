@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $getTitle->name }} | Login</title>
+    <title>{{ $store_information->name }} | Login</title>
     <link rel="stylesheet" href="{{ asset('assets/css/main/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/pages/auth.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}">
@@ -24,9 +24,9 @@
                         <div class="row mx-2">
                             <div class="col-md-8 col-md-12">
                                 <div class="form-group position-relative has-icon-left mb-4">
-                                    <input type="text" name="username" class="form-control form-control-xl @error('username') is-invalid @enderror" placeholder="Username" autocomplete="off" value="{{ old('username') }}">
+                                    <input type="text" name="emailOrUsername" class="form-control form-control-xl @error('emailOrUsername') is-invalid @enderror" placeholder="Username / Email" autocomplete="off" value="{{ old('emailOrUsername') }}">
                                     
-                                    @error('username')
+                                    @error('emailOrUsername')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     
@@ -35,7 +35,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group position-relative has-icon-left">
-                                    <input  type="password" id="password-login" name="password" class="form-control form-control-xl" placeholder="Password">
+                                    <input type="password" id="password-login" name="password" class="form-control form-control-xl" placeholder="Password">
                                     <div class="form-control-icon">
                                         <i class="bi bi-shield-lock"></i>
                                     </div>

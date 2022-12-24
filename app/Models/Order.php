@@ -12,10 +12,10 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $table = 'orders';
+    public $table = 'orders';
     protected $guarded = ['id'];
 
-     public function getCreatedAtAttribute()
+    public function getCreatedAtAttribute()
     {
         return \Carbon\Carbon::parse($this->attributes['created_at'])
             ->translatedFormat('d F Y G:i');

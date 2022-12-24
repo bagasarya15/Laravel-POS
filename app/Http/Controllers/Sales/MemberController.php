@@ -20,29 +20,20 @@ class MemberController extends Controller
     public function index()
     {
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);;
-        $member = Members::latest()->get();
-        return view('sales.member.index', compact('getTitle','member'));
+        $store_information = Settings::findOrFail(1);;
+        $member = Members::oldest()->get();
+        return view('sales.member.index', compact('store_information','member'));
     }
 
     public function create()
     {
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);
+        $store_information = Settings::findOrFail(1);
 
         // Auto Number Function Start // 
-        $table = DB::table('members')->select(DB::raw('MAX(RIGHT(code_member, 5)) AS code'));
-        $AutoNumber = "";
-        if($table->count()>0){
-            foreach ($table->get() as $tbl ) {
-                $tmp = ((int)$tbl->code)+1;
-                $AutoNumber = sprintf("%05s", $tmp);
-            }
-        }else{
-            $AutoNumber = "00001";
-        }
+        $generateCode = 'MBR-'.date('Ymd').rand(1111,9999);
         // Auto Number End //
-        return view('sales.member.create', compact('getTitle','AutoNumber'));
+        return view('sales.member.create', compact(['store_information','generateCode']));
     }
 
     public function store(Request $request)
@@ -84,9 +75,9 @@ class MemberController extends Controller
     public function edit(Members $member)
     {
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);
+        $store_information = Settings::findOrFail(1);
 
-        return view('sales.member.edit', compact('getTitle','member'));
+        return view('sales.member.edit', compact('store_information','member'));
     }
 
     public function update(Request $request, Members $member)
@@ -120,6 +111,13 @@ class MemberController extends Controller
 
     public function destroy(Request $request, Members $member)
     {
+        $count = $member->memberOrder->count();
+
+        if($count > 0){
+            return redirect()->back()->with('info', 'Tidak dapat menghapus data member dipilih, terdapat '.$count.' order di data penjualan');
+        }
+
+        // return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
         $member->delete();
         
         return redirect()->route('member.index')->with('success', 'Member berhasil dihapus !');

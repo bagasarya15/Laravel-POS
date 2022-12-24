@@ -1,11 +1,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{{ $getTitle->name }} | @yield('title')</title>
+        <title>{{ $store_information->name }} | @yield('title')</title>
         
         {{-- Use Path Folder --}}
+        <link rel="stylesheet"  href="{{ asset('assets/extensions/select2/css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/main/app.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/css/main/app-dark.css') }}" />
         <link rel="shortcut icon" href="{{ asset('assets/images/logo/icon.png') }} "type="image/png" />
+        <link rel="stylesheet" href="{{ asset('assets/css/shared/iconly.css') }}">
 
         <link href="{{ asset('assets/extensions/fontawesome-6/css/fontawesome.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/extensions/fontawesome-6/css/brands.css') }}" rel="stylesheet">

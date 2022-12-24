@@ -20,32 +20,23 @@ class SettingController extends Controller
     public function index()
     {
         //Variabel For Title Menu
-        $getTitle = Settings::find(1);
+        $store_information = Settings::find(1);
         $settings = Settings::all();
-        return view('setting.index', compact('getTitle','settings'));
+        return view('setting.index', compact('store_information','settings'));
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
+    public function artisan_call()
+    {   
+        $store_information = Settings::find(1);
+        return view('setting.artisan',compact('store_information'));
     }
 
     public function show(Settings $setting)
     {
         //Variabel For Title Menu
-        $getTitle = Settings::find(1);
+        $store_information = Settings::find(1);
 
-        return view('setting.show', compact('getTitle','setting',));
-    }
-
-    public function edit()
-    {
-        //
+        return view('setting.show', compact('store_information','setting',));
     }
 
     public function update(Request $request, Settings $setting)
@@ -89,10 +80,5 @@ class SettingController extends Controller
         $setting->update();
 
         return redirect()->route('settings.index')->with('success', 'Data toko berhasil diubah !');
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }

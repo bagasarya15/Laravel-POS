@@ -17,9 +17,29 @@ class MemberSeeder extends Seeder
     public function run()
     {
         Members::create([
-        'code_member' => 'MBR-00001',
-        'name' => 'Customer Umum',
-        'member_status' => 'Non-Member'
+            'code_member' => 'MBR-'.date('Ymd').rand(1111,9999),
+            'name' => 'Customer Umum',
+            'member_status' => 'Non-Member'
+        ]);
+        Members::create([
+            'code_member' => 'MBR-'.date('Ymd').rand(1111,9999),
+            'name' => 'Bagas Arya',
+            'member_status' => 'Member'
+        ]);
+        Members::create([
+            'code_member' => 'MBR-'.date('Ymd').rand(1111,9999),
+            'name' => 'Oki',
+            'member_status' => 'Member'
+        ]);
+        Members::create([
+            'code_member' => 'MBR-'.date('Ymd').rand(1111,9999),
+            'name' => 'Rafly',
+            'member_status' => 'Non-Member'
+        ]);
+        Members::create([
+            'code_member' => 'MBR-'.date('Ymd').rand(1111,9999),
+            'name' => 'Joestars',
+            'member_status' => 'Non-Member'
         ]);
     }
 }

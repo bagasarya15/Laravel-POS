@@ -3,12 +3,12 @@
     <div class="col-md-5 col-lg-4 order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary small">Total Produk Dibeli</span>
-            <span class="badge bg-primary rounded-pill">{{ $transaction->sum('qty') }}</span>
+            <span class="badge bg-primary rounded-pill">{{ number_format($transaction->sum('qty')) }}</span>
         </h4>
-        <form>
+        <form wire:submit.prevent="checkout">
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div wire:igrone>
+                    <div >
                         <h6 class="my-0">Nomer Order</h6>
                         <small class="text-muted">{{ $no_order }}</small>
                         <small class="text-muted"><input type="hidden" class="form-control" wire:model="no_order" readonly></small>
@@ -22,7 +22,7 @@
                         @foreach ($orderMember as $orderMember)
                             <small> <span class="text-primary">{{ $orderMember->getMember->code_member}}</span> - <span class="text-primary">{{ $orderMember->getMember->name}}</span> </small>
                             
-                            <div class="mt-1" wire:igrone>
+                            <div class="mt-1">
                                 <span class="badge rounded-pill bg-{{ $orderMember->getMember->member_status == 'Non-Member' ? 'warning' : 'secondary' }}">{{ $orderMember->getMember->member_status }}</span>
                                 <a class="fa-solid fa-trash btn btn-sm btn-danger" wire:click="deleteMember">
                                 </a>
@@ -35,6 +35,7 @@
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
                         <h6 class="my-0">Total Pembelian</h6>
+
                         <small class="text-muted">Rp {{ number_format($transaction->sum('total')) }}</small>
                     </div>
                     
@@ -51,22 +52,37 @@
                         $price_total10     = $price - $total_discount10; 
                         // End
 
+                        // Discount 15% 
+                        $member_discount15 = 15;
+                        $total_discount15  = ($member_discount15 / 100) * $price;
+                        $price_total15     = $price - $total_discount15; 
+                        // End
+
                         // Discount 25%
-                        $member_discount25 = 25;
-                        $total_discount25  = ($member_discount25 / 100) * $price;
-                        $price_total25     = $price - $total_discount25; 
+                        $member_discount20 = 20;
+                        $total_discount20  = ($member_discount20 / 100) * $price;
+                        $price_total20     = $price - $total_discount20; 
                         // End
                     @endphp
                     {{-- /End --}}
 
-                    <div wire:ignore>
+                    <div id="parentDiscount">
                         <h6 class="my-0">Diskon <span class="text-danger small"> *</span></h6>
-                        <select class="form-select discountSelect" id="basicSelect" required>
-                            <option value="">Pilih Diskon</option>
-                            <option value="{{ $price - $price }}">Non-Member 0%</option>
-                            <option value="{{ $price - $price_total10 }}">Member 10%</option>
-                            <option value="{{ $price - $price_total25 }}">Member 25%</option>
-                        </select>
+                        <div>                
+                            <select class="form-select @error('discount') is-invalid  @enderror discountSelect">
+                                <option selected value="">Pilih Diskon</option>
+                                <option value="{{ $price - $price }}">Non-Member 0%</option>
+                                <option value="{{ $price - $price_total10 }}">Member 10%</option>
+                                <option value="{{ $price - $price_total15 }}">Member 15%</option>
+                                <option value="{{ $price - $price_total20 }}">Member 20%</option>
+                            </select>
+
+                            @error('discount')
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
                     </div>
                 </li>
 
@@ -76,10 +92,10 @@
                 </li>
                 
                 <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div wire:igrone>
+                    <div>
                         <h6 class="my-0">Total Bayar <span class="text-danger small"> *</span></h6>
                         <small class="text-muted">
-                            <input type="number" class="form-control @error('payment') is-invalid  @enderror" wire:model="payment" required>
+                            <input type="number" class="form-control @error('payment') is-invalid  @enderror" wire:model="payment">
                     
                             @error('payment')
                             <div id="validationServer03Feedback" class="invalid-feedback">
@@ -98,11 +114,11 @@
             </ul>
 
             <div class="card">
-                <div class="input-group">
-                    <div wire:igrone>
-                        <a class="btn btn-primary btn-sm" wire:click="checkout">
+                <div class="input-group d-flex">
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-sm btn-blank">
                             <i class="fa-solid fa-location-arrow"></i> Bayar
-                        </a>
+                        </button>
                     </div>
                     
                     <div wire:igrone>
@@ -152,14 +168,25 @@
                                         @if ($transaction->qty > 1)
                                             <button class="btn btn-danger btn-sm" wire:click="minQty({{$transaction->id}})"><i class="fa fa-minus"></i></button>
                                         @endif
-                                        <input type="text" class="form-control d-inline-flex w-50" value="{{ $transaction->qty }}" readonly>
-                                        <button class="btn btn-primary btn-sm" wire:click="plusQty({{$transaction->id}})"><i class="fa fa-plus"></i></button>
+                                        
+                                        @if ($transaction->qty >= $transaction->products->stok )
+                                            <input type="text" class="form-control is-invalid d-inline-flex" value="Stok habis" readonly style="width: 70%">
+                                            <div class="invalid-feedback ms-1">
+                                                {{ 'Stok tidak tersedia, segera lakukan re-stok produk !' }}
+                                            </div>
+                                            
+                                        @else
+                                            <input type="text" class="form-control d-inline-flex w-50" value="{{ $transaction->qty }}" readonly>
+                                            <button class="btn btn-primary btn-sm" wire:click="plusQty({{$transaction->id}})"><i class="fa fa-plus"></i></button>
+                                        @endif
                                     </div>
                                 </td>
                                 <td>Rp. {{ number_format($transaction->products->price_sell)}} </td>
                                 <td>Rp. {{ number_format($transaction->products->price_sell * $transaction->qty)}} </td>
                                 <td>
-                                    <button type="submit" class="btn btn-danger btn-sm" wire:click.prevent='deleteConfirmation({{ $transaction->id }})'><i class="fa fa-trash"></i></button>
+                                    <div wire:igrone>
+                                        <button type="submit" class="btn btn-danger btn-sm" wire:click.prevent='deleteConfirmation({{ $transaction->id }})'><i class="fa fa-trash"></i></button>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

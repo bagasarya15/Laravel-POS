@@ -26,18 +26,18 @@ class CategoryController extends Controller
     public function index() 
     {
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);
+        $store_information = Settings::findOrFail(1);
 
         $categories = Category::orderBy('id', 'asc')->get();
-        return view('product.categories.index',compact('getTitle','categories'));
+        return view('product.categories.index',compact('store_information','categories'));
     }
 
     public function create() 
     {    
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);
+        $store_information = Settings::findOrFail(1);
 
-        return view('product.categories.create', compact('getTitle'));
+        return view('product.categories.create', compact('store_information'));
     }
 
     public function store(Request $request)
@@ -69,9 +69,9 @@ class CategoryController extends Controller
     public function edit(Category $category) 
     {
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);
+        $store_information = Settings::findOrFail(1);
 
-        return view('product.categories.edit', compact('getTitle','category'));
+        return view('product.categories.edit', compact('store_information','category'));
     }
 
     public function update(Request $request, Category $category)

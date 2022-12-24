@@ -26,18 +26,18 @@
                 <div class="tab-pane fade active show" id="dataOrder">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-multiple table-striped">
+                            <table class="table table-multiple table-hover">
                                 <thead style="font-size: 13px">
                                     <tr>
                                         <th>No</th>
-                                        <th>No Order</th>
+                                        <th>No Invoice</th>
                                         <th>Kasir</th>
                                         <th>Tanggal Transaksi</th>
                                         <th>Customer</th>
                                         <th>Subtotal</th>
                                         <th>Discount</th>
                                         <th>Total</th>
-                                        <th>Tunai</th>
+                                        <th>Dibayar</th>
                                         <th>Kembalian</th>
                                     </tr>
                                 </thead>
@@ -48,7 +48,7 @@
                                     @foreach ($order as $order)
                                     <tr>
                                         <td> {{  $i++ }}</td>
-                                        <td>{{ $order->no_order }}</td>
+                                        <td><a href="{{ route('transaction.invoice', $order->no_order) }}" target="__blank" class="text-primary">{{ $order->no_order }}</a></td>
                                         <td>{{ $order->cashier_name }}</td>
                                         <td>{{ $order->created_at }}</td>
                                         <td>{{ $order->member->name }}</td>
@@ -67,15 +67,16 @@
                 <div class="tab-pane fade" id="dataOrderProduk">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-multiple table-striped">
+                            <table class="table table-multiple table-hover">
                                 <thead style="font-size: 13px">
                                     <tr>
                                         <th>No</th>
-                                        <th>No Order</th>
+                                        <th>No Invoice</th>
                                         <th>Produk</th>
                                         <th>Jumlah Beli</th>
                                         <th>Harga / Pcs</th>
                                         <th>Total</th>
+                                        <th>Tanggal Transaksi</th>
                                     </tr>
                                 </thead>
                                 <tbody style="font-size: 13px">
@@ -85,11 +86,12 @@
                                     @foreach ($orderProduct as $data)
                                     <tr>
                                         <td> {{  $j++ }}</td>
-                                        <td>{{ $data->getOrder->no_order }}</td>
+                                        <td><a href="{{ route('transaction.invoice', $data->getOrder->no_order) }}" target="__blank" class="text-primary">{{ $data->getOrder->no_order }}</a></td>
                                         <td>{{ $data->getProduct->name }}</td>
                                         <td>{{ $data->qty }}</td>
                                         <td>Rp {{ number_format($data->getProduct->price_sell )}}</td>
                                         <td>Rp {{ number_format($data->total) }}</td>
+                                        <td>{{ $data->getOrder->created_at }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

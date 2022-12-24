@@ -9,10 +9,11 @@ class UserRole extends Model
 {
     use HasFactory;
     
+    protected $table   = 'user_roles';
     protected $guarded = ['id'];
 
-    public function users()
+    public function users() 
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'role_id', 'id');
     }
 }

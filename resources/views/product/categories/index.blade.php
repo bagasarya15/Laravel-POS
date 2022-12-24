@@ -18,9 +18,9 @@
                 <a href="{{ route('category.create') }}" class="btn btn-sm btn-primary block">Tambah Kategori</a>
             </div>
             <div class="card-body">
-                <table class="table dataTable1 table-striped">
+                <table class="table dataTable1 table-hover">
                     <thead>
-                        <tr>
+                        <tr class="small">
                             <th>#</th>
                             <th>Jenis Kategori</th>
                             <th>Deskripsi</th>
@@ -29,18 +29,18 @@
                     </thead>
                     <tbody>
                         @foreach ($categories as $category)
-                        <tr>
+                        <tr class="small">
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->desc }}</td>
                             <td>
                                 <div class="d-flex">
                                     {{-- <button type="button" class="fa-solid fa-pen-to-square btn btn-xs btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#editCategoryModal" ></button> --}}
-                                    <a href="{{ route('category.edit', $category->id) }}" class="fa-solid fa-edit btn btn-xs btn-warning mx-2"></a>
+                                    <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-warning mx-2"> <i class="fa-solid fa-edit"></i> </a>
                                     <form action="{{ route('category.destroy', $category->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="fa-solid fa-trash btn btn-xs btn-danger btn-delete" id="btn-delete"></button>
+                                        <button type="submit" class="btn btn-sm btn-danger btn-delete" id="btn-delete"> <i class="fa-solid fa-trash"></i> </button>
                                     </form>
                                 </div>
                             </td>

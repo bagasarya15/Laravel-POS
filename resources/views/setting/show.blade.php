@@ -15,7 +15,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                      <a href="{{ route('settings.index') }}"><i class="fa-solid fa-angles-left"></i> Kembali</a>
+                    <a href="{{ route('settings.index') }}"><i class="fa-solid fa-angles-left"></i> Kembali</a>
                  </div>
                 <div class="card-content">
                     <div class="card-body">

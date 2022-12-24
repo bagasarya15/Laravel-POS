@@ -46,7 +46,7 @@
                                 <label>Kode Produk</label>
                             </div>
                             <div class="col-md-8 form-group">
-                                <input type="text" id="code_product" class="form-control bg-dark fw-bold" name="code_product" autocomplete="off" value="{{ 'PDK-'.$AutoNumber }}" readonly>
+                                <input type="text" id="code_product" class="form-control bg-dark fw-bold" name="code_product" autocomplete="off" value="{{ $generateCode }}" readonly>
                             </div>
                             <div class="col-md-4">
                                 <label>Nama</label>

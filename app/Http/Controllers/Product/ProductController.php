@@ -23,32 +23,34 @@ class ProductController extends Controller
     public function index() 
     {
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);
+        $store_information = Settings::findOrFail(1);
+        $product = Products::with(['category'])->orderBy('id', 'ASC')->get();
 
-        $product = Products::with(['category'])->orderBy('id', 'desc')->get();
-
-        return view('product.inventory.index',compact('product', 'getTitle'));
+        return view('product.inventory.index',compact('product', 'store_information'));
     }
 
     public function create()
     {
+        // $table = DB::table('products')->select(DB::raw('MAX(RIGHT(code_product, 5)) AS code'));
+        // $AutoNumber = "";
+        // if($table->count()>0){
+        //     foreach ($table->get() as $tbl ) {
+        //         $tmp = ((int)$tbl->code)+1;
+        //         $AutoNumber = sprintf("%05s", $tmp);
+        //     }
+        // }else{
+        //     $AutoNumber = "00001";
+        // }
+
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);
+        $store_information = Settings::findOrFail(1);
         $categories = ProductsCategory::all();
 
         // Auto Number Function Start // 
-        $table = DB::table('products')->select(DB::raw('MAX(RIGHT(code_product, 5)) AS code'));
-        $AutoNumber = "";
-        if($table->count()>0){
-            foreach ($table->get() as $tbl ) {
-                $tmp = ((int)$tbl->code)+1;
-                $AutoNumber = sprintf("%05s", $tmp);
-            }
-        }else{
-            $AutoNumber = "00001";
-        }
+        $generateCode = 'PDK-'.date('Ymd').rand(1111,9999);
         // Auto Number End //
-        return view('product.inventory.create', compact('getTitle','categories', 'AutoNumber'));
+
+        return view('product.inventory.create', compact(['store_information','categories', 'generateCode']));
     }
 
     public function store(Request $request) 
@@ -97,7 +99,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')){
             $product->image= Storage::disk('public')->putFile('product', $request->file('image'));
         }else{
-             $product->image= 'product/default.png';
+            $product->image= 'product/default.png';
         }
 
         $product->save();
@@ -178,10 +180,10 @@ class ProductController extends Controller
     public function show(Products $product)
     {
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);
-
+        $store_information = Settings::findOrFail(1);
         $categories = ProductsCategory::all();
-        return view('product.inventory.show', compact('getTitle','product', 'categories'));
+
+        return view('product.inventory.show', compact('store_information','product', 'categories'));
     }
 
     public function destroy(Products $product)
@@ -231,17 +233,18 @@ class ProductController extends Controller
     public function reports() 
     {
         //Variabel For Title Menu
-        $getTitle = Settings::findOrFail(1);
+        $store_information = Settings::findOrFail(1);
 
         $product = Products::with(['category'])->orderBy('id', 'desc')->get();
         
-        return view('product.inventory.reports', compact('getTitle','product'));
+        return view('product.inventory.reports', compact('store_information','product'));
     }
 
     public function printPDF() 
     {
+        $store_information = Settings::findOrFail(1);
         $product = Products::with(['category'])->orderBy('id', 'desc')->get();
-        $html = view('product.inventory.reports', compact('product'));
+        $html = view('product.inventory.reports', compact('product','store_information'));
 
         // instantiate and use the dompdf class
         $dompdf = new Dompdf();

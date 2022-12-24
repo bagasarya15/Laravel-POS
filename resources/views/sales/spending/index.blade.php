@@ -17,9 +17,9 @@
                 <a href="{{ route('spending.create') }}" class="btn btn-sm btn-primary block" > Tambah Pengeluaran</a>
             </div>
             <div class="card-body">
-                <table class="table dataTable1 table-striped">
+                <table class="table dataTable1 table-hover">
                     <thead>
-                        <tr>
+                        <tr class="small">
                             <th>#</th>
                             <th>Tanggal Pengeluaran</th>
                             <th>Deskripsi</th>
@@ -29,7 +29,7 @@
                     </thead>
                     <tbody>
                         @foreach ($spending as $spend)
-                        <tr>
+                        <tr class="small">
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $spend->created_at }}</td>
                             <td>{{ $spend->desc }}</td>

@@ -1,138 +1,125 @@
-@section('title')
-    {{ $order->no_order }}
-@endsection
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    @include('layouts.head')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
-    <style>
-        .container {
-            width: 300px;
-        }
-        .header {
+    <title>{{ $order->no_order }}</title>
+    <link rel="stylesheet"  href="{{ asset('assets/extensions/bootstrap-5/css/bootstrap.min.css') }}">
+    <style>  
+        .sheet {
             margin: 0;
-            text-align: center;
-        }
-        h2, p {
-            margin: 0;
-        }
-        .flex-container-1 {
-            display: flex;
-            margin-top: 10px;
+            overflow: hidden;
+            position: relative;
+            box-sizing: border-box;
+            page-break-after: always;
         }
 
-        .flex-container-1 > div {
-            text-align : left;
+        body.struk .sheet { 
+            width : 80mm;
         }
-        .flex-container-1 .right {
-            text-align : right;
-            width: 200px;
-        }
-        .flex-container-1 .left {
-            width: 100px;
-        }
-        .flex-container {
-            width: 300px;
-            display: flex;
+        body.struk .sheet{ 
+            padding : 1mm; 
         }
 
-        .flex-container > div {
-            -ms-flex: 1;  /* IE 10 */
-            flex: 1;
+        @media screen {
+            body { background: #e0e0e0;font-family: monospace; }
+            .sheet {
+                background: white;
+                box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
+                margin: 5mm;
+            }
+
+            table {
+                margin-left: 5px;
+            }
         }
-        ul {
-            display: contents;
-        }
-        ul li {
-            display: block;
-        }
-        hr {
-            border-style: dashed;
-        }
-        a {
-            text-decoration: none;
-            text-align: center;
-            padding: 10px;
-            background: #00e676;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
+
+        @media print {
+            body { font-family: monospace; }
+            body.struk                 { width: 58mm; text-align: left;}
+            body.struk .sheet          { padding: 2mm; }
+            .txt-left { text-align: left;}
+            .txt-center { text-align: center;}
+            .txt-right { text-align: right;}
         }
     </style>
 </head>
-<body onload="window.print()">
-    <div class="container">
-        @include('layouts.sweet-alert')
-        <div class="header" style="margin-bottom: 30px;">
-            <h2>{{ $getTitle->name }}</h2>
-            <small>{{ $getTitle->address }}
-            </small>
-        </div>
-        <hr>
-        <div class="flex-container-1">
-            <div class="left">
-                <ul>
-                    <li>No Order</li>
-                    <li>Kasir</li>
-                    <li>Customer</li>
-                    <li>Tanggal</li>
-                </ul>
-            </div>
-            <div class="right">
-                <ul>
-                    <li> {{ $order->no_order }} </li>
-                    <li> {{ $order->cashier_name }} </li>
-                    <li> {{ $order->member->name }} </li>
-                    <li> {{ $order->created_at }} </li>
-                </ul>
-            </div>
-        </div>
-        <hr>
-        <div class="flex-container" style="margin-bottom: 10px; text-align:right;">
-            <div style="text-align: left;">Product</div>
-            <div>Harga/Pcs</div>
-            <div>Total</div>
-        </div>
-        @foreach ($order->productOrder as $item)
-            <div class="flex-container" style="text-align: right;">
-                <div style="text-align: left;">{{ $item->qty }}x {{ $item->getProduct->name }}</div>
-                <div>Rp {{ number_format($item->getProduct->price_sell) }} </div>
-                <div>Rp {{ number_format($item->total) }} </div>
-            </div>
-        @endforeach
-        <hr>
-        <div class="flex-container" style="text-align: right; margin-top: 10px;">
-            <div></div>
-            <div>
-                <ul>
-                    <li>Sub Total</li>
-                    <li>Diskon</li>
-                    <li>Total</li>
-                    <li>Tunai</li>
-                    <li>Kembalian</li>
-                </ul>
-            </div>
-            <div style="text-align: right;">
-                <ul>
-                    <li>Rp {{ number_format($order->sub_total) }} </li>
-                    <li>Rp {{ number_format($order->discount) }}</li>
-                    <li>Rp {{ number_format($order->total) }}</li>
-                    <li>Rp {{ number_format($order->payment) }}</li>
-                    <li>Rp {{ number_format($order->change_money) }}</li>
-                </ul>
-            </div>
-        </div>
-        <hr>
-        <div class="header" style="margin-top: 50px;">
-            <h3>Terimakasih</h3>
-            <p>Silahkan berkunjung kembali</p>
-        </div>
-    </div>
-    @include('layouts.script')
+<body class="struk" onload="window.print()">
+    <section class="sheet">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td>{{ $store_information->name }}</td>
+            </tr>
+            <tr>
+                <td>{{ $store_information->address }}</td>
+            </tr>
+            <tr>
+                <td>Telp: {{ $store_information->number_phone}}</td>
+            </tr>
+        </table>
+
+        <tr><td> {{ str_repeat('=', 33) }} </td></tr>
+
+        <table cellpadding="0" cellspacing="0" >
+            <tr>
+                <td>No Invoice <span style="margin-left:22px">:</span> {{ $order->no_order }}</td>
+            </tr>
+            <tr>
+                <td>Tgl-Transaksi : {{ $order->created_at}}</td>
+            </tr>
+            <tr>
+                <td>Kasir <span style="margin-left:58px">:</span> {{ $order->cashier_name}}</td>
+            </tr>
+            <tr>
+                <td>Customer <span style="margin-left:36px">:</span> {{ $order->member->name}}</td>
+            </tr> 
+        </table>
+
+        <tr><td> {{ str_repeat('=', 33) }} </td></tr>
+
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th>Produk</th>
+                    <th>Qty</th>
+                    <th>Harga/Pcs</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($order->productOrder as $data)
+                    <tr>
+                        <td>{{ $data->getProduct->name }}</td>
+                        <td>{{ $data->qty }}</td>
+                        <td>Rp {{ number_format($data->getProduct->price_sell) }}</td>
+                        <td>Rp {{ number_format($data->total) }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <tr><td> {{ str_repeat('=', 33) }} </td></tr>
+
+        <table style="font-size: 13px">
+            <tr>
+                <td>Subtotal <span style="margin-left:30px">Rp {{ number_format($order->sub_total) }}</span></td>
+            </tr>
+            <tr>
+                <td>Total <span style="margin-left: 52px">Rp {{ number_format($order->total) }}</span> </td>
+            </tr>
+            <tr>
+                <td>Tunai <span style="margin-left: 52px">Rp {{ number_format($order->payment) }}</span></td>
+            </tr>
+            <tr>
+                <td>Kembalian <span style="margin-left: 23px">Rp {{ number_format($order->change_money) }}</span></td>
+            </tr>
+        </table>
+
+        <tr><td> {{ str_repeat('=', 33) }} </td></tr>
+
+        <h5 style="font-size: 13px; margin-left:32%" class="tetx-center">Terima Kasih</h5>
+        
+    </section>
+    <script src="{{ asset('assets/extensions/bootstrap-5/js/bootstrap.min.js') }}"></script>
 </body>
 </html>

@@ -12,16 +12,23 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table   = 'users';
     protected $guarded = ['id'];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
- 
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // protected $dates = [
+    // 'created_at',
+    // 'updated_at',
+    // 'last_login'
+    // ];
 
     public function products() 
     {
