@@ -230,33 +230,33 @@ class ProductController extends Controller
         return redirect()->route('product.index')->with('success', 'Produk dipilih berhasil dihapus !');
     }
 
-    public function reports() 
+    public function print() 
     {
         //Variabel For Title Menu
         $store_information = Settings::findOrFail(1);
 
         $product = Products::with(['category'])->orderBy('id', 'desc')->get();
         
-        return view('product.inventory.reports', compact('store_information','product'));
+        return view('product.inventory.print', compact('store_information','product'));
     }
 
-    public function printPDF() 
-    {
-        $store_information = Settings::findOrFail(1);
-        $product = Products::with(['category'])->orderBy('id', 'desc')->get();
-        $html = view('product.inventory.reports', compact('product','store_information'));
+    // public function printPDF() 
+    // {
+    //     $store_information = Settings::findOrFail(1);
+    //     $product = Products::with(['category'])->orderBy('id', 'desc')->get();
+    //     $html = view('product.inventory.reports', compact('product','store_information'));
 
-        // instantiate and use the dompdf class
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
+    //     // instantiate and use the dompdf class
+    //     $dompdf = new Dompdf();
+    //     $dompdf->loadHtml($html);
 
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4', 'landscape');
+    //     // (Optional) Setup the paper size and orientation
+    //     $dompdf->setPaper('A4', 'landscape');
 
-        // Render the HTML as PDF
-        $dompdf->render();
+    //     // Render the HTML as PDF
+    //     $dompdf->render();
 
-        // Output the generated PDF to Browser
-        $dompdf->stream();
-    }
+    //     // Output the generated PDF to Browser
+    //     $dompdf->stream();
+    // }
 }

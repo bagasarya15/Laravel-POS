@@ -9,7 +9,7 @@ class PurchaseProducts extends Model
 {
     use HasFactory;
 
-    protected $table = "purchase_products";
+    protected $table = 'purchase_products';
     protected $guarded = ['id'];
 
     public function getProduct()

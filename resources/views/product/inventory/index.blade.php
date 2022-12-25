@@ -17,8 +17,7 @@
             @csrf
             <div class="card-header">
                 <a href="{{ route('product.create') }}" class="btn btn-sm btn-primary block mt-1">Tambah Produk</a>
-                <a href="{{ route('product.reports') }}" class="btn btn-sm btn-info block mt-1" target="_blank">Print To Printer</a>
-                <a href="{{ route('product.print_pdf') }}" class="btn btn-sm btn-success block mt-1">Print To PDF</a>
+                <a href="{{ route('product.print') }}" class="btn btn-sm btn-success block mt-1" target="_blank">Print To Printer</a>
                 <button type="submit" class="btn btn-danger btn-sm btn-delete block mt-1" > Hapus Data Yang Dipilih</button>
             </div>
             <div class="card-body">

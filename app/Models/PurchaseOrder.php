@@ -21,7 +21,6 @@ class PurchaseOrder extends Model
     public function productOrder()
     {
         return $this->hasMany(PurchaseProducts::class, 'purchase_id', 'id');
-        // return $this->hasMany('App\Models\OrderProduct', 'order_id');
     }
 
     public function getSupplier()

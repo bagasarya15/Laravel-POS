@@ -87,7 +87,7 @@ class Index extends Component
                 'purchase_order'=> $this->purchase_order,
                 'purchase_by'   => auth()->user()->name,
                 'supplier_id'   => $this->supplier_id,
-                'discount'   => $this->discount,
+                'discount'      => $this->discount,
                 'total'         => $purchase->sum('total'),
                 'payment'       => $this->payment,
             ]);

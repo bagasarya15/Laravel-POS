@@ -34,6 +34,7 @@
                                         <th>Tanggal Pembelian</th>
                                         <th>Dibeli Oleh</th>
                                         <th>Supplier</th>
+                                        <th>Discount</th>
                                         <th>Total</th>
                                         <th>Dibayar</th>
                                     </tr>
@@ -49,6 +50,7 @@
                                         <td>{{ $order->created_at }}</td>
                                         <td>{{ $order->purchase_by }}</td>
                                         <td>{{ $order->getSupplier->name }}</td>                                  
+                                        <td>Rp {{ number_format($order->discount) }}</td>
                                         <td>Rp {{ number_format($order->total) }}</td>
                                         <td>Rp {{ number_format($order->payment) }}</td>
                                     </tr>

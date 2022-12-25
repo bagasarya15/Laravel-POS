@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Sales;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Models\{Settings, PurchaseTransaction, PurchaseOrder, PurchaseProducts};
+use App\Models\{Settings, PurchaseTransaction, PurchaseOrder, PurchaseProducts, Order};
 
 class PurchaseController extends Controller
 {
@@ -61,5 +62,24 @@ class PurchaseController extends Controller
         $store_information = Settings::find(1);
         $purchase = PurchaseOrder::with(['getSupplier', 'productOrder'])->where('purchase_order', $purchase_order)->first();
         return view('sales.purchase.purchase_invoice',compact('store_information', 'purchase'));
+    }
+
+    public function reportPurchase()
+    {
+        $store_information = Settings::find(1);
+        return view('sales.purchase.report', compact('store_information'));
+    }
+
+    public function print(Request $request)
+    {        
+        $tglAwal  = $request->tglAwal;
+        $tglAkhir = $request->tglAkhir;
+        $store_information = Settings::findOrFail(1);
+        $query = PurchaseOrder::with(['getSupplier'])
+            ->whereDate('created_at', '>=' ,$tglAwal )
+                ->whereDate('created_at', '<=', $tglAkhir)
+                    ->get();
+
+        return view('sales.purchase.print', compact(['store_information','query', 'tglAwal', 'tglAkhir']));
     }
 }

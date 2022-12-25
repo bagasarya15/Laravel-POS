@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ $purchase->purchase_order }}</title>
 
-<link rel="stylesheet"  href="{{ asset('assets/extensions/bootstrap-5/css/bootstrap.min.css') }}">
+@include('helper.report_css')
 <body class="hold-transition sidebar-mini" onload="window.print()">
 <div class="wrapper">
     <div class="content-wrapper">
@@ -18,18 +18,10 @@
                             <div class="row invoice-info">
                                 <div class="col-md-5 invoice-col">
                                     <b>No Order <span style="margin-left:72px">:</span> </b> {{ $purchase->purchase_order }}<br>
+                                    <b>Dibeli Oleh<span style="margin-left:64px">:</span> </b> {{ $purchase->purchase_by }}<br>
                                     <b>Supplier <span style="margin-left:80px">:</span> </b> {{ $purchase->getSupplier->name }}<br>
                                     <b>Tanggal Pembelian : </b> {{ $purchase->created_at }}<br>
                                 </div>
-
-                                <div class="col-md-5 invoice-col">
-                                    Dibeli Oleh :
-                                    <address>
-                                        <strong>{{ $purchase->purchase_by }}</strong><br>
-                                    </address>
-                                </div>
-                                
-                                
                             </div>
                             
                         <div class="row mt-4">
@@ -79,10 +71,6 @@
                                         <td>Rp {{ number_format($purchase->discount) }}</td>
                                     </tr>
                                     <tr class="small">
-                                        <th>Total Harus Dibayar</th>
-                                        <td>Rp {{ number_format($total) }}</td>
-                                    </tr>
-                                    <tr class="small">
                                         <th>Dibayar</th>
                                         <td>Rp {{ number_format($purchase->payment) }}</td>
                                     </tr>
@@ -96,6 +84,6 @@
         </section>
     </div>
 </div>
-<script src="{{ asset('assets/extensions/bootstrap-5/js/bootstrap.min.js') }}"></script>
+@include('helper.report_script')
 </body>
 </html>

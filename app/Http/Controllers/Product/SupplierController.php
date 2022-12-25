@@ -111,13 +111,14 @@ class SupplierController extends Controller
     public function destroy(Supplier $supplier)
     {
         $count = $supplier->purchaseOrder->count();
-
+        $primary_data = Supplier::find(1);
         if ($count > 0){
             return redirect()->back()->with('info', "Tidak dapat menghapus Supplier, terdapat {$count} Supplier di dalam data pembelian produk !");
+        }else if($primary_data->id == 1){
+            return redirect()->back()->with('info', 'Tidak dapat menghapus data supplier '.$primary_data->name.', karena merupakan data default sistem');
+        }else{
+            $supplier->delete();
         }
-        
-        $supplier->delete();
-
         return redirect()->route('supplier.index')->with('success', 'Supplier berhasil dihapus !');
     }
 }

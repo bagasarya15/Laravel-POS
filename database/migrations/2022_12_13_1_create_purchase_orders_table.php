@@ -17,11 +17,12 @@ class CreatePurchaseOrdersTable extends Migration
             $table->id();
             $table->string('purchase_order');
             $table->string('purchase_by');
-            $table->unsignedBigInteger('supplier_id');
+            $table->unsignedBigInteger('supplier_id')->nullable();
             $table->foreign('supplier_id')
                 ->references('id')
                 ->on('suppliers')
                 ->onUpdate('cascade');
+            $table->integer('discount');
             $table->integer('total');
             $table->integer('payment');
             $table->timestamps();

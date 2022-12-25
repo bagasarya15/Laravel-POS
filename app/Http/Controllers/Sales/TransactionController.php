@@ -92,4 +92,23 @@ class TransactionController extends Controller
         
         return view('sales.transaction.data_transaction', compact(['store_information','order', 'orderProduct']));
     }
+
+    public function reportTransaction()
+    {
+        $store_information = Settings::find(1);
+        return view('sales.transaction.report', compact('store_information'));
+    }
+
+    public function print(Request $request)
+    {        
+        $firstDate  = $request->firstDate;
+        $lastDate   = $request->lastDate;
+        $store_information = Settings::findOrFail(1);
+        $query = Order::with(['productOrder'])
+            ->whereDate('created_at', '>=' ,$firstDate )
+                ->whereDate('created_at', '<=', $lastDate)
+                    ->get();
+
+        return view('sales.transaction.print', compact(['store_information','query', 'firstDate', 'lastDate']));
+    }
 }

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Sales;
 
-use App\Models\{Spending, Settings};
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\{Spending, Settings};
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\Access\Gate;
 
@@ -21,7 +22,7 @@ class SpendingController extends Controller
     {
         //Variabel For Title Menu
         $store_information = Settings::findOrFail(1);
-        $spending = Spending::orderBy('id', 'desc')->get();
+        $spending = Spending::orderBy('id', 'DESC')->get();
         return view('sales.spending.index', compact('store_information','spending'));
     }
 
@@ -104,5 +105,23 @@ class SpendingController extends Controller
         $spending->delete();
 
         return redirect()->route('spending.index')->with('success', 'Data pengeluaran berhasil dihapus !');
+    }
+
+    public function reportSpending()
+    {
+        $store_information = Settings::findOrFail(1);
+        return view('sales.spending.report', compact('store_information'));
+    }
+
+    public function print(Request $request)
+    {
+        $firstDate = $request->input('firstDate');
+        $lastDate = $request->input('lastDate');
+        
+        $query = Spending::whereBetween('created_at', [$firstDate, $lastDate])->get();
+        $store_information = Settings::findOrFail(1);
+        // dd("Tanggal Awal : ".$firstDate, "Tanggal Akhir :".$lastDate);
+        // $spending = Spending::whereBetween('created_at', [$firstDate, $lastDate])->get();
+        return view('sales.spending.print', compact('store_information','query', 'firstDate', 'lastDate'));
     }
 }

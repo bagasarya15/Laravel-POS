@@ -18,6 +18,7 @@ use App\Http\Controllers\Sales\ {
   SpendingController as Spending,
   TransactionController as Transaction,
   PurchaseController as Purchase,
+  FinanceController as Finance,
 };
 use App\Http\Controllers\Settings\ {
   SettingController as Settings,
@@ -74,8 +75,7 @@ Route::middleware('auth')->group(function() {
   
   //Routes For Product
   Route::resource('product', Product::class)->except(['edit']);
-  Route::get('products/reports', [Product::class, 'reports'])->name('product.reports');
-  Route::get('products/print-pdf', [Product::class, 'printPDF'])->name('product.print_pdf');
+  Route::get('product-print', [Product::class, 'print'])->name('product.print');
   Route::post('product/delete-selected',[Product::class, 'deleteSelected'])->name('product.delete_selected');
   //End Routes Product
   
@@ -89,20 +89,32 @@ Route::middleware('auth')->group(function() {
   
   //Routes For Spending
   Route::resource('spending', Spending::class)->except('show');
+  Route::get('spending-report', [Spending::class, 'reportSpending'])->name('spending.reports');
+  Route::get('spending-print', [Spending::class, 'print'])->name('spending.print');
   //End Routes Spending
   
   // Routes For Transaction
   Route::resource('transaction', Transaction::class)->except(['create','edit','update','destroy']);
-  Route::get('data-transaction', [Transaction::class, 'dataTransaction'])->name('data-transaction');
   Route::post('add-member', [Transaction::class, 'addMember'])->name('transaction.add-member');
+  Route::get('data-transaction', [Transaction::class, 'dataTransaction'])->name('data-transaction');
   Route::get('invoice/{no_order}', [Transaction::class, 'invoice'])->name('transaction.invoice');
+  Route::get('transaction-report', [Transaction::class, 'reportTransaction'])->name('transaction.reports');
+  Route::get('transaction-print', [Transaction::class, 'print'])->name('transaction.print');
   // End Routes Transaction
 
   // Routes For Purchase Product
   Route::resource('purchase', Purchase::class)->except(['create','edit','update','destroy']);
   Route::get('data-purchase', [Purchase::class, 'dataPurchase'])->name('data-purchase');
   Route::get('purchase-invoice/{no_purchase}', [Purchase::class, 'purchaseInvoice'])->name('purchase.invoice');
+  Route::get('purchase-report', [Purchase::class, 'reportPurchase'])->name('purchase.reports');
+  Route::get('purchase-print', [Purchase::class, 'print'])->name('purchase.print');
   // End Routes Purchase Product
+
+
+  //Routes For Finance
+  Route::get('finance-report', [Finance::class, 'index'])->name('finance.reports');
+  Route::get('finance-print', [Finance::class, 'print'])->name('finance.print');
+  //End Routes Finance
 
   //Routes For Settings
   Route::resource('settings', Settings::class)->except(['create','store','edit','destroy']);
@@ -114,7 +126,7 @@ Route::middleware('auth')->group(function() {
   Route::put('reset-password/{user_access}', [RoleAccess::class, 'resetPassword'])->name('user.reset-password');
   //End Routes Access Role
 
-  //Routes For Access System Infomation
+  //Routes For System Infomation
   Route::resource('system-info', SystemInfo::class)->except(['create','edit']);
-  //End Routes Access System Infomation
+  //End Routes System Infomation
 });

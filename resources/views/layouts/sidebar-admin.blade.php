@@ -91,7 +91,19 @@
         </a>
         <ul class="submenu">
             <li class="submenu-item">
-                <a href="{{ route('product.reports') }}" target="_blank">Laporan Data Produk</a>
+                <a href="{{ route('product.print') }}" target="_blank">Laporan Data Produk</a>
+            </li>
+            <li class="submenu-item">
+                <a href="{{ route('spending.reports') }}">Laporan Data Pengeluaran</a>
+            </li>
+            <li class="submenu-item">
+                <a href="{{ route('purchase.reports') }}">Laporan Data Pembelian</a>
+            </li>
+            <li class="submenu-item">
+                <a href="{{ route('transaction.reports') }}">Laporan Data Penjualan</a>
+            </li>
+            <li class="submenu-item">
+                <a href="{{ route('finance.reports') }}">Laporan Data Keuangan</a>
             </li>
         </ul>
     </li>

@@ -112,14 +112,16 @@ class MemberController extends Controller
     public function destroy(Request $request, Members $member)
     {
         $count = $member->memberOrder->count();
+        $primary_data = Members::find(1);
 
         if($count > 0){
             return redirect()->back()->with('info', 'Tidak dapat menghapus data member dipilih, terdapat '.$count.' order di data penjualan');
+        }else if($primary_data->id == 1){
+            return redirect()->back()->with('info', 'Tidak dapat menghapus data member '.$primary_data->name.', karena merupakan data default sistem');
+        }else{
+            $member->delete();
         }
-
         // return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
-        $member->delete();
-        
         return redirect()->route('member.index')->with('success', 'Member berhasil dihapus !');
     }
 }

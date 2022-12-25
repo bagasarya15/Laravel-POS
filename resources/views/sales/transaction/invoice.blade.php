@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $order->no_order }}</title>
-    <link rel="stylesheet"  href="{{ asset('assets/extensions/bootstrap-5/css/bootstrap.min.css') }}">
+    @include('helper.report_css')
     <style>  
         .sheet {
             margin: 0;
@@ -120,6 +120,6 @@
         <h5 style="font-size: 13px; margin-left:32%" class="tetx-center">Terima Kasih</h5>
         
     </section>
-    <script src="{{ asset('assets/extensions/bootstrap-5/js/bootstrap.min.js') }}"></script>
+    @include('helper.report_script')
 </body>
 </html>

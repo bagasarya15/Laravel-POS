@@ -38,7 +38,7 @@ class AuthController extends Controller
         ];
 
         $eMessage = [
-            'emailOrUsername.required' => 'Isi username terlebih dahulu !',
+            'emailOrUsername.required' => 'Isi username atau email terlebih dahulu !',
             'password.required' => 'Isi password terlebih dahulu !'
         ];
 
@@ -78,7 +78,7 @@ class AuthController extends Controller
         } 
         else
         {
-            return redirect()->back()->with('error', 'Username atau Password Salah !');
+            return redirect()->back()->with('error', 'Login gagal, pastikan data yang dimasukkan sudah benar!');
         }
         // End Login With Username Or Email
 

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Spending extends Model
 {
+    protected $table = 'spendings';
     protected $guarded = ['id'];
     
     use HasFactory;

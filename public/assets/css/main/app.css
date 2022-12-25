@@ -3225,7 +3225,7 @@ fieldset:disabled .btn {
     --bs-btn-disabled-bg: #198754;
     --bs-btn-disabled-border-color: #198754;
 }
-/* .btn-info {
+.btn-info {
     --bs-btn-color: #000;
     --bs-btn-bg: #0dcaf0;
     --bs-btn-border-color: #0dcaf0;
@@ -3240,13 +3240,6 @@ fieldset:disabled .btn {
     --bs-btn-disabled-color: #000;
     --bs-btn-disabled-bg: #0dcaf0;
     --bs-btn-disabled-border-color: #0dcaf0;
-} */
-.btn-info {
-    --bs-btn-color: #6f42c1;
-    --bs-btn-bg: #6f42c1;
-    --bs-btn-border-color: #6f42c1;
-    --bs-btn-hover-color: #6f42c1;
-    --bs-btn-hover-bg: #6f42c1;
 }
 .btn-warning {
     --bs-btn-color: #000;
