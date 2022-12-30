@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <div class="card">
-                    <div class="table-responsive">
+                    <div class="card-body table-responsive">
                         <table class="table table-multiple table-hover">
                             <thead>
                                 <tr class="small">

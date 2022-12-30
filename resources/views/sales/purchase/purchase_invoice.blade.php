@@ -17,10 +17,10 @@
                         <div class="invoice p-3 mb-3">
                             <div class="row invoice-info">
                                 <div class="col-md-5 invoice-col">
-                                    <b>No Order <span style="margin-left:72px">:</span> </b> {{ $purchase->purchase_order }}<br>
-                                    <b>Dibeli Oleh<span style="margin-left:64px">:</span> </b> {{ $purchase->purchase_by }}<br>
-                                    <b>Supplier <span style="margin-left:80px">:</span> </b> {{ $purchase->getSupplier->name }}<br>
-                                    <b>Tanggal Pembelian : </b> {{ $purchase->created_at }}<br>
+                                    <th>No Order <span style="margin-left:72px">:</span> </th> {{ $purchase->purchase_order }}<br>
+                                    <th>Dibeli Oleh<span style="margin-left:64px">:</span> </th> {{ $purchase->purchase_by }}<br>
+                                    <th>Supplier <span style="margin-left:80px">:</span> </th> {{ $purchase->getSupplier->name }}<br>
+                                    <th>Tanggal Pembelian <span style="margin-left:5px">:</span> </th>  {{ $purchase->created_at }}<br>
                                 </div>
                             </div>
                             

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Models\{Settings, PurchaseTransaction, PurchaseOrder, PurchaseProducts, Order};
+use App\Models\{Settings, PurchaseTransaction, PurchaseOrder, PurchaseProducts, PurchaseSupplier, Order};
 
 class PurchaseController extends Controller
 {
@@ -81,5 +81,37 @@ class PurchaseController extends Controller
                     ->get();
 
         return view('sales.purchase.print', compact(['store_information','query', 'tglAwal', 'tglAkhir']));
+    }
+
+    public function addSupplier(Request $request)
+    {
+        $supplierOrder = PurchaseSupplier::with(['getSupplier'])->get();
+        $count = $supplierOrder->count();
+
+        $rules = [
+            'supplier_id' => 'unique:purchase_suppliers,id'
+        ];
+
+        $eMessage = [
+            'supplier_id.unique' => 'Supplier sudah anda pilih !',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules, $eMessage);
+
+        foreach ($supplierOrder as $order) {
+            if ($count > 0) {
+                return redirect()->back()->with('error', "Terdapat supplier {$order->getSupplier->name} sudah di input, hapus terlebih dahulu jika ingin mengganti supplier!");
+            }
+        }
+
+        if ($validator->fails()){
+            return redirect()->back()->with('warning', $validator->errors()->first());
+        }
+
+        $add              = new PurchaseSupplier;
+        $add->supplier_id = $request->supplier_id;
+        $add->save();
+        
+        return redirect()->back()->with('success', 'Supplier berhasil ditambah !');
     }
 }

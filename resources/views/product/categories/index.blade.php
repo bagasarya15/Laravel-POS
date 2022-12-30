@@ -17,7 +17,7 @@
             <div class="card-header">
                 <a href="{{ route('category.create') }}" class="btn btn-sm btn-primary block">Tambah Kategori</a>
             </div>
-            <div class="card-body">
+            <div class="card-body table-responsive">
                 <table class="table dataTable1 table-hover">
                     <thead>
                         <tr class="small">

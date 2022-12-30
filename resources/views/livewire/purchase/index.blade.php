@@ -17,19 +17,17 @@
                 </li>
 
                 <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div class="col-lg">
-                        <h6 class="my-0">Supplier <span class="text-danger small"> *</span></h6>       
-                        <select class="form-select @error ('supplier_id') is-invalid  @enderror" name="supplier_id" id="select2-supplier">
-                            <option selected value="">Pilih Supplier</option>
-                            @foreach ($supplier as $supplier)
-                                <option value="{{ $supplier->id }}">{{ $supplier->name }} | {{ $supplier->desc }}</option>
-                            @endforeach
-                        </select>         
-                        @error('supplier_id')
-                        <div id="validationServer03Feedback" class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
+                    <div>
+                        <h6 class="my-0">Supplier<span class="text-danger"></span></h6>
+                        @foreach ($supplier_purchase as $data)
+                            <small> <span class="text-primary">{{ $data->getSupplier->name}}</span> - <span class="text-primary">{{ $data->getSupplier->desc}}</span> </small>
+
+                            <div class="mt-1">
+                                <a class="fa-solid fa-trash btn btn-sm btn-danger" wire:click="deleteSupplier">
+                                </a>
+                            </div>
+                        @endforeach
+                        
                     </div>
                 </li>
 
@@ -98,6 +96,9 @@
             <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="fa-solid fa-magnifying-glass"></i> Cari Produk
             </button>
+            <button type="button" class="btn btn-info btn-sm mb-2 ms-1" data-bs-toggle="modal" data-bs-target="#exampleModalSupplier">
+                <i class="fa-solid fa-magnifying-glass"></i> Cari Supplier
+            </button>
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -108,7 +109,7 @@
                             <th>Produk</th>
                             <th>Qty</th>
                             <th>Jumlah Dibeli</th>
-                            <th>Harga Beli / Pcs</th>
+                            <th>Harga / Pcs</th>
                             <th>Total</th>
                             <th>Aksi</th>
                         </tr>
@@ -119,7 +120,7 @@
                                 <td> {{ $purchase->products->name }} </td>
                                 <td>
                                     <div>
-                                        <input type="number" class="form-control w-50 d-inline-flex" wire:model.defer="update_qty">
+                                        <input type="number" class="form-control w-100 d-inline-flex" wire:model.defer="update_qty">
                                     </div>
                                 </td>
                                 <td>{{ $purchase->qty }} </td>
@@ -145,6 +146,7 @@
 
 {{-- Start Modal --}}
 @include('livewire.purchase.modal_product')
+@include('livewire.purchase.modal_supplier')
 {{-- End Modal --}}
 
 @push('script')
@@ -153,9 +155,9 @@
             $('.table-multiple').DataTable();
 
             // $('#select2-supplier').select2();
-            $('#select2-supplier').on('change', function (e) {
-                @this.set('supplier_id', e.target.value);
-            });
+            // $('#select2-supplier').on('change', function (e) {
+            //     @this.set('supplier_id', e.target.value);
+            // });
             
             //Swall Delete Confirmation
             window.addEventListener('delete-confirm', event => {

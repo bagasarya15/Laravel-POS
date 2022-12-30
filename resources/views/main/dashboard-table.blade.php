@@ -8,12 +8,6 @@
                 <li class="nav-item" role="presentation">
                 <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#riwayatPembelian" tabindex="-1">Riwayat Pembelian</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                <a class="nav-link" href="{{ route('data-transaction') }}"><i class="fa-solid fa-eye"></i> Detail Penjualan</a>
-                </li>
-                <li class="nav-item" role="presentation">
-                <a class="nav-link" href="{{ route('data-purchase') }}"><i class="fa-solid fa-eye"></i> Detail Pembelian</a>
-                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade active show" id="riwayatTransaksi">

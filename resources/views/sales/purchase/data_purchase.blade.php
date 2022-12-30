@@ -25,7 +25,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade active show" id="dataOrder">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body table-responsive">
                             <table class="table table-multiple table-hover">
                                 <thead style="font-size: 13px">
                                     <tr>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="tab-pane fade" id="dataOrderProduk">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body table-responsive">
                             <table class="table table-multiple table-hover">
                                 <thead style="font-size: 13px">
                                     <tr>

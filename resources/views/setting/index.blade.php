@@ -15,7 +15,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-content">
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <ul class="list-group">
                         @foreach ($settings as $settings)
                             <a href="{{ route('settings.show', $settings->id) }}" class="card-link mb-4"> <i class="fas fa-eye"></i> Lihat Detail</a> 

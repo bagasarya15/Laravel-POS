@@ -12,7 +12,7 @@
     @include('layouts.sweet-alert')
     <section class="section">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>

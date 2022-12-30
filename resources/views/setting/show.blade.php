@@ -16,9 +16,9 @@
             <div class="card">
                 <div class="card-header">
                     <a href="{{ route('settings.index') }}"><i class="fa-solid fa-angles-left"></i> Kembali</a>
-                 </div>
+                </div>
                 <div class="card-content">
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         {{-- Start Form Action  --}}
                         <form action="{{ route('settings.update', $setting) }}" method="POST" enctype="multipart/form-data" class="form form-horizontal">
                         @csrf

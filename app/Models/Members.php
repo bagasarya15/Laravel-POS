@@ -10,7 +10,7 @@ class Members extends Model
 {
     use HasFactory;
 
-    protected $table = 'Members';
+    protected $table = 'members';
     protected $guarded = ['id'];
 
     public function getCreatedAtAttribute()

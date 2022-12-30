@@ -5,19 +5,18 @@ namespace App\Http\Livewire\Purchase;
 use Livewire\Component;
 use App\Models\{ Products, 
     PurchaseTransaction, 
-    PurchaseOrder,
+    PurchaseSupplier,
     PurchaseProducts,
+    PurchaseOrder,
     Supplier, 
 };
 
 class Index extends Component
 {
-    public $supplier = [];
-    public $supplier_id, $payment, $update_qty, $discount;
+    public $payment, $update_qty, $discount = 0;
 
     protected $rules = [
         'purchase_order' => 'required',
-        'supplier_id'    => 'required',
         'payment'        => 'required'
     ];
 
@@ -31,6 +30,7 @@ class Index extends Component
     public function mount()
     {
         $this->supplier = Supplier::all();
+        $this->supplier_purchase = PurchaseSupplier::all();
         $this->purchase_order= $this->generateOrder();
     }
 
@@ -44,7 +44,7 @@ class Index extends Component
 
     public function clear()
     {
-        $this->discount = '';
+        $this->discount = 0 ;
         $this->payment  = '';
     }
 
@@ -73,24 +73,35 @@ class Index extends Component
     {
         $this->validate();
 
+        $getSupplier = PurchaseSupplier::get();
         $purchase = PurchaseTransaction::with('products')->get();
         $count = $purchase->count();
 
-        if($count == 0){
+        if($count == 0)
+        {
             return redirect()->route('purchase.index')->with('error', 'Tidak dapat melanjutkan pembelian, pilih produk yang ingin dibeli terlebih dahulu!');
         }
         else if($purchase->sum('total') - $this->discount > $this->payment)
         {
             return redirect()->route('purchase.index')->with('error', 'Uang tidak cukup untuk melanjutkan pembelian produk');
-        }else{
+        }else if($purchase->sum('total') - $this->discount < $this->payment)
+        {
+            return redirect()->route('purchase.index')->with('error', 'Pembayaran lebih besar dari pada total yang harus dibayar, Bayar dengan nominal pas!');
+        }
+        else
+        {
             $order = PurchaseOrder::create([
                 'purchase_order'=> $this->purchase_order,
                 'purchase_by'   => auth()->user()->name,
-                'supplier_id'   => $this->supplier_id,
+                'supplier_id'   => $getSupplier->first()->supplier_id ?? 1,
                 'discount'      => $this->discount,
                 'total'         => $purchase->sum('total'),
                 'payment'       => $this->payment,
             ]);
+
+            foreach ($getSupplier as $getSupplier) {
+                $deleteMember = PurchaseSupplier::where('id', $getSupplier->id)->delete();
+            }
 
             foreach ($purchase as $purchase) {
                 $product = array(
@@ -105,7 +116,7 @@ class Index extends Component
                 $purchaseProduct = PurchaseProducts::insert($product);
                 Products::find($purchase->product_id)->increment('stok', $purchase->qty);
                 $deleteTransaction = PurchaseTransaction::where('id', $purchase->id)->delete();
-            }    
+            } 
         }
         $this->clear();
 
@@ -125,6 +136,17 @@ class Index extends Component
         $purchase->delete();
         
         return redirect()->route('purchase.index')->with('success', 'Produk berhasil dihapus dari keranjang');
+    }
+
+    public function deleteSupplier()
+    {
+        $deleteSupplier = PurchaseSupplier::get();
+
+        foreach ($deleteSupplier as $data) {
+            $delete = PurchaseSupplier::where('id', $data->id)->delete();
+        }
+        
+        return redirect()->route('purchase.index')->with('success', 'Supplier berhasil dikosongkan');
     }
 
     public function nullCart()

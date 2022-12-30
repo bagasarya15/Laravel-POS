@@ -104,6 +104,7 @@ Route::middleware('auth')->group(function() {
 
   // Routes For Purchase Product
   Route::resource('purchase', Purchase::class)->except(['create','edit','update','destroy']);
+  Route::post('add-supplier', [Purchase::class, 'addSupplier'])->name('purchase.add-supplier');
   Route::get('data-purchase', [Purchase::class, 'dataPurchase'])->name('data-purchase');
   Route::get('purchase-invoice/{no_purchase}', [Purchase::class, 'purchaseInvoice'])->name('purchase.invoice');
   Route::get('purchase-report', [Purchase::class, 'reportPurchase'])->name('purchase.reports');

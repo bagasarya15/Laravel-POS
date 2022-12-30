@@ -164,19 +164,15 @@
                                 <td> {{ $loop->iteration }} </td>
                                 <td> {{ $transaction->products->name }} </td>
                                 <td>
-                                    <div>
+                                    <div class="d-inline-flex">
                                         @if ($transaction->qty > 1)
-                                            <button class="btn btn-danger btn-sm" wire:click="minQty({{$transaction->id}})"><i class="fa fa-minus"></i></button>
+                                            <button class="btn btn-danger btn-sm ms-1" wire:click="minQty({{$transaction->id}})"><i class="fa fa-minus"></i></button>
                                         @endif
                                         
                                         @if ($transaction->qty >= $transaction->products->stok )
-                                            <input type="text" class="form-control is-invalid d-inline-flex" value="Stok habis" readonly style="width: 70%">
-                                            <div class="invalid-feedback ms-1">
-                                                {{ 'Stok tidak tersedia, segera lakukan re-stok produk !' }}
-                                            </div>
-                                            
+                                            <small class="text-danger ms-2 mt-2">stok tidak tersedia </small>
                                         @else
-                                            <input type="text" class="form-control d-inline-flex w-50" value="{{ $transaction->qty }}" readonly>
+                                            <input type="text" class="form-control mx-1 w-50 " value="{{ $transaction->qty }}" readonly>
                                             <button class="btn btn-primary btn-sm" wire:click="plusQty({{$transaction->id}})"><i class="fa fa-plus"></i></button>
                                         @endif
                                     </div>

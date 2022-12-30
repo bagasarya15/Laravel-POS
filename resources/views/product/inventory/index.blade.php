@@ -20,7 +20,7 @@
                 <a href="{{ route('product.print') }}" class="btn btn-sm btn-success block mt-1" target="_blank">Print To Printer</a>
                 <button type="submit" class="btn btn-danger btn-sm btn-delete block mt-1" > Hapus Data Yang Dipilih</button>
             </div>
-            <div class="card-body">
+            <div class="card-body table-responsive">
                 <div class="custom-control custom-checkbox"><input  class="form-check-input form-check-primary" type="checkbox" name="select_all" id="select_all"> Pilih Semua</div>
                 <table class="table dataTable1 table-hover">
                     <thead>

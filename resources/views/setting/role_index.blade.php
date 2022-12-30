@@ -13,7 +13,7 @@
 @include('layouts.sweet-alert')
     <section class="section">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body table-responsive">
                 <button class="btn btn-sm btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"> Tambah Data</button>
                 <table class="table dataTable1 table-hover">
                     <thead>

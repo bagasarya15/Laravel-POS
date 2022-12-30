@@ -16,7 +16,7 @@
             <div class="card-header">
                 <a href="{{ route('spending.create') }}" class="btn btn-sm btn-primary block" > Tambah Pengeluaran</a>
             </div>
-            <div class="card-body">
+            <div class="card-body table-responsive">
                 <table class="table dataTable1 table-hover">
                     <thead>
                         <tr class="small">

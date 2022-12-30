@@ -15,7 +15,7 @@
         }
 
         body.struk .sheet { 
-            width : 80mm;
+            width : 90mm;
         }
         body.struk .sheet{ 
             padding : 1mm; 
@@ -58,9 +58,9 @@
             </tr>
         </table>
 
-        <tr><td> {{ str_repeat('=', 33) }} </td></tr>
+        <tr><td> {{ str_repeat('=', 38) }} </td></tr>
 
-        <table cellpadding="0" cellspacing="0" >
+        <table cellpadding="0" cellspacing="0">
             <tr>
                 <td>No Invoice <span style="margin-left:22px">:</span> {{ $order->no_order }}</td>
             </tr>
@@ -75,7 +75,7 @@
             </tr> 
         </table>
 
-        <tr><td> {{ str_repeat('=', 33) }} </td></tr>
+        <tr><td> {{ str_repeat('=', 38) }} </td></tr>
 
         <table class="table table-borderless">
             <thead>
@@ -98,7 +98,7 @@
             </tbody>
         </table>
 
-        <tr><td> {{ str_repeat('=', 33) }} </td></tr>
+        <tr><td> {{ str_repeat('=', 38) }} </td></tr>
 
         <table style="font-size: 13px">
             <tr>
@@ -115,7 +115,7 @@
             </tr>
         </table>
 
-        <tr><td> {{ str_repeat('=', 33) }} </td></tr>
+        <tr><td> {{ str_repeat('=', 38) }} </td></tr>
 
         <h5 style="font-size: 13px; margin-left:32%" class="tetx-center">Terima Kasih</h5>
         
