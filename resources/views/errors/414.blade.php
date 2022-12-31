@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>500</title>
+    <title>414 | Expired</title>
     <link rel="stylesheet" href="{{ asset('assets/css/main/app.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/pages/error.css') }}" />
   </head>
@@ -20,9 +20,9 @@
               src="{{ asset('assets/images/samples/error-500.svg') }}"
               alt="Not Found"
             />
-            <h1 class="error-title">Sistem bermasalah</h1>
+            <h1 class="error-title">Halaman Expired</h1>
             <p class="fs-5 text-gray-600">
-                Situs web saat ini tidak tersedia. Coba lagi nanti atau hubungi developer.
+                Halaman web expired
             <a href="{{ route('home') }}" class="btn btn-lg btn-outline-primary mt-3"
               >Kembali</a
             >

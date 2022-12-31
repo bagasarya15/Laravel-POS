@@ -14,4 +14,8 @@
 
 <!-- ScriptJs -->
 <script src="{{ asset('assets/js/script.js') }}"></script>
+<script src="{{ asset('assets/js/initTheme.js') }}"></script>
+<script src="{{ asset('assets/extensions/dayjs/dayjs.min.js') }}"></script>
+<script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
+<script src="{{ asset('assets/js/pages/ui-apexchart.js') }}"></script>
 

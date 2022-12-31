@@ -26,12 +26,12 @@
                     <div class="card-content">
                         <div class="card-body">
                             <div class="mb-2">
-                        @if ($firstDate == $lastDate)    
-                            <small class="text-danger fst-italic">Laporan Penjualan  {{ Carbon\Carbon::parse($firstDate)->translatedFormat('d F Y') }}</small>
-                        @else
-                            <small class="text-danger fst-italic">Laporan Penjualan {{ Carbon\Carbon::parse($firstDate)->translatedFormat('d F Y') }} - {{ Carbon\Carbon::parse($lastDate)->translatedFormat('d F Y') }}</small>
-                        @endif
-                    </div>
+                                @if ($firstDate == $lastDate)    
+                                    <small class="text-danger fst-italic">Laporan Penjualan  {{ Carbon\Carbon::parse($firstDate)->translatedFormat('d F Y') }}</small>
+                                @else
+                                    <small class="text-danger fst-italic">Laporan Penjualan {{ Carbon\Carbon::parse($firstDate)->translatedFormat('d F Y') }} - {{ Carbon\Carbon::parse($lastDate)->translatedFormat('d F Y') }}</small>
+                                @endif
+                            </div>
                         <div class="table-responsive">
                             <table class="table table-bordered mb-0">
                                 <thead style="font-size: 13px" class="small">

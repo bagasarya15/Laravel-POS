@@ -46,9 +46,15 @@
                             <td>{{ $user_access->email}}</td>
 
                             <td>
-                                @if ($user_access->is_login == 1)
+                                {{-- @if ($user_access->is_login == 1)
                                     {{ 'Sedang Login' }}
                                 @elseif($user_access->last_login == null)
+                                    {{ 'Belum Pernah Login' }}
+                                @else
+                                    {{ \Carbon\Carbon::parse($user_access->last_login)->diffForHumans() }}
+                                @endif --}}
+
+                                @if($user_access->last_login == null)
                                     {{ 'Belum Pernah Login' }}
                                 @else
                                     {{ \Carbon\Carbon::parse($user_access->last_login)->diffForHumans() }}

@@ -17,10 +17,6 @@ use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Support\Facades\{DB, Auth};
-  
-
-// use App\Models\{ Order, Product, ProductCategory };
-
 
 class DashboardController extends Controller
 {
@@ -36,55 +32,76 @@ class DashboardController extends Controller
 
   public function index()
   {
-    $spending           = Spending::all();
+    $firstDate          = Carbon::now()->format('M');
+    $lastDate           = Carbon::now()->format('M');
     $store_information  = Settings::findOrFail(1);
     $order              = Order::with('member')->orderBy('id', 'desc')->get();
     $purchaseOrder      = PurchaseOrder::with('getSupplier')->orderBy('id', 'desc')->get();
 
-    $orderByMonth = Order::whereMonth('created_at', Carbon::now()->month)
+    $totalOrder = Order::whereMonth('created_at', Carbon::now()->month)
       ->whereYear('created_at', Carbon::now()->year)    
         ->sum('total');
 
-    $purchaseByMonth = PurchaseOrder::whereMonth('created_at', Carbon::now()->month)
+    $totalPurchase = PurchaseOrder::whereMonth('created_at', Carbon::now()->month)
       ->whereYear('created_at', Carbon::now()->year)    
         ->sum('total');
-        
-    $spendingsByMonth = Spending::whereMonth('created_at', Carbon::now()->month)
+
+    $totalSpending = Spending::whereMonth('created_at', Carbon::now()->month)
       ->whereYear('created_at', Carbon::now()->year)    
         ->sum('nominal');
 
-    $profitByMonth = Order::whereMonth('created_at', Carbon::now()->month)
-      ->whereYear('created_at', Carbon::now()->year)    
-        ->sum('total')     - 
-        PurchaseOrder::whereMonth('created_at', Carbon::now()->month)
-          ->whereYear('created_at', Carbon::now()->year)    
-            ->sum('total') -
-          Spending::whereMonth('created_at', Carbon::now()->month)
-            ->whereYear('created_at', Carbon::now()->year)    
-              ->sum('nominal');
-              
-    $orderByDate = Order::whereDate('created_at', Carbon::now())->sum('total');
-
-    $purchaseProduct = PurchaseProducts::whereDate('created_at', Carbon::now())->sum('qty');
-
-    $soldProduct = OrderProduct::whereMonth('created_at', Carbon::now()->month)
-      ->whereYear('created_at', Carbon::now()->year)    
-        ->sum('qty');
-
-    $net_profit = $order->sum('total') - $spending->sum('nominal') - $purchaseOrder->sum('total'); 
-
+    $netProfit = $totalOrder - $totalPurchase - $totalSpending;
+        
     return view('main.dashboard', compact([
+      'firstDate',
+      'lastDate',
       'store_information',
       'order',
       'purchaseOrder',
-      'orderByMonth',
-      'purchaseByMonth',
-      'spendingsByMonth',
-      'profitByMonth',
-      'orderByDate',
-      'purchaseProduct',
-      'soldProduct',
-      'net_profit',
+      'totalOrder',
+      'totalPurchase',
+      'totalSpending',
+      'netProfit',
+    ]));
+  }
+
+  public function searchByDate(Request $request)
+  {
+    $firstDate  = $request->firstDate;
+    $lastDate   = $request->lastDate;
+    
+    if($firstDate == null) {
+      return redirect()->route('dashboard')->with('info', 'Pilih rentang tanggal yang ingin difilter');
+    }
+
+    $store_information  = Settings::findOrFail(1);
+    $order              = Order::with('member')->orderBy('id', 'desc')->get();
+    $purchaseOrder      = PurchaseOrder::with('getSupplier')->orderBy('id', 'desc')->get();
+
+    $totalOrder = Order::whereDate('created_at', '>=' ,$firstDate )
+                ->whereDate('created_at', '<=', $lastDate)
+                    ->sum('total');
+
+    $totalPurchase = PurchaseOrder::whereDate('created_at', '>=' ,$firstDate )
+                ->whereDate('created_at', '<=', $lastDate)
+                    ->sum('total');
+
+    $totalSpending = Spending::whereDate('created_at', '>=' ,$firstDate )
+                ->whereDate('created_at', '<=', $lastDate)
+                    ->sum('nominal');
+
+    $netProfit = $totalOrder - $totalPurchase - $totalSpending;
+
+    return view('main.dashboard', compact([
+      'firstDate',
+      'lastDate',
+      'store_information',
+      'order',
+      'purchaseOrder',
+      'totalOrder',
+      'totalPurchase',
+      'totalSpending',
+      'netProfit'
     ]));
   }
 }

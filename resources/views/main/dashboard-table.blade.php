@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row ms-1">
     <div class="card">
         <div class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -67,6 +67,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>No Order</th>
+                                                <th>Tanggal Pembelian</th>
                                                 <th>Dibeli Oleh</th>
                                                 <th>Supplier</th>
                                                 <th>Total Pembelian</th>
@@ -81,6 +82,7 @@
                                             <tr>
                                                 <td> {{  $i++ }}</td>
                                                 <td><a href="{{ route('purchase.invoice', $data->purchase_order) }}" target="__blank" class="text-primary">{{ $data->purchase_order }}</a></td>
+                                                <td>{{ $data->created_at }}</td>
                                                 <td>{{ $data->purchase_by }}</td>
                                                 <td>{{ $data->getSupplier->name}}</td>
                                                 <td>Rp {{ number_format($data->total) }}</td>

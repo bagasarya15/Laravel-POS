@@ -68,6 +68,7 @@ Route::middleware('auth')->group(function() {
   Route::get('logout', [AuthController::class, 'logout'])->name('logout');
   Route::resource('user', User::class)->except(['create', 'store','edit', 'show', 'destroy']);
   Route::get('dashboard', [Dashboard::class, 'index'])->name('dashboard');
+  Route::get('dashboard-search', [Dashboard::class, 'searchByDate'])->name('dashboard-search');
 
   //Routes For Category
   Route::resource('category', Category::class)->except(['show']);

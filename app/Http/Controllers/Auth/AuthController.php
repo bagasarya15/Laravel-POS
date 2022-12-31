@@ -62,17 +62,17 @@ class AuthController extends Controller
             
             if( auth()->user()->role_id == 1)
             {
-                auth()->user()->update(['is_login' => $request->is_login = 1 ]);
+                auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
                 return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
             }
             else if( auth()->user()->role_id == 2) 
             {
-                auth()->user()->update(['is_login' => $request->is_login = 1 ]);
+                auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
                 return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
             }
             else if( auth()->user()->role_id == 3)
             {
-                auth()->user()->update(['is_login' => $request->is_login = 1 ]);
+                auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
                 return redirect()->route('transaction.index')->with('success', 'Selamat datang, '.Auth::user()->name);
             } 
         } 
@@ -154,7 +154,6 @@ class AuthController extends Controller
     public function logout(Request $request) 
     {
         //Request Before Logout
-        auth()->user()->update(['is_login' => $request->is_login = 0 ]);
         auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
         //End
         
