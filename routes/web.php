@@ -28,13 +28,13 @@ use App\Http\Controllers\Settings\ {
 
 //Routes Config
 Route::get('/route-cache', function() {
-    Artisan::call('route:cache');
-    return 'Success, Routes cache cleared';
+    Artisan::call('route:clear');
+    return redirect()->back()->with('success', 'Routes cache cleared');
 });
 
 Route::get('/config-cache', function() {
-    Artisan::call('config:cache');
-    return 'Success, Config cache cleared';
+    Artisan::call('config:clear');
+    return redirect()->back()->with('success', 'Config cache cleared');
     
 });
 

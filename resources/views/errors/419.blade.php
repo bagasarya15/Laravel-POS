@@ -21,7 +21,7 @@
               alt="Not Found"
             />
             <h1 class="error-title">Halaman Expired</h1>
-            <a href="{{ route('home') }}" class="btn btn-lg btn-outline-primary mt-3"
+            <a href="{{ route('logout') }}" class="btn btn-lg btn-outline-primary mt-3"
               >Kembali</a
             >
           </div>

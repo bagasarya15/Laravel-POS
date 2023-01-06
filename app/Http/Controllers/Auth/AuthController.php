@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\{Str, Carbon};
+use Illuminate\Support\Facades\Artisan;
 use App\Models\{ User, Settings, Transaction, OrderMember };
 use Illuminate\Support\Facades\{ Auth, Validator, Storage, Hash, Mail, DB };
 
@@ -108,6 +109,7 @@ class AuthController extends Controller
                 //End
 
                 //If Login Reset Product in Cart and Customer
+                $this->artisanClear();
                 $this->nullCart();
                 $this->nullCustomer();
                 //End
@@ -121,6 +123,7 @@ class AuthController extends Controller
                 //End
 
                 //If Login Reset Product in Cart and Customer
+                $this->artisanClear();
                 $this->nullCart();
                 $this->nullCustomer();
                 //End
@@ -134,6 +137,7 @@ class AuthController extends Controller
                 //End
 
                 //If Login Reset Product in Cart and Customer
+                $this->artisanClear();
                 $this->nullCart();
                 $this->nullCustomer();
                 //End
@@ -326,6 +330,14 @@ class AuthController extends Controller
     }
     //End Function Reset Cart & Customer
 
+    public function artisanClear()
+    {
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+        Artisan::call('view:clear');
+        Artisan::call('cache:clear');
+    }
+    
     public function logout(Request $request) 
     {
         //Request Before Logout
@@ -333,6 +345,7 @@ class AuthController extends Controller
         //End
 
         //If Logout Delete Product in Cart and Customer
+        $this->artisanClear();
         $this->nullCart();
         $this->nullCustomer();
         //End

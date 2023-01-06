@@ -58,7 +58,7 @@ class Index extends Component
     {
         $this->validate();
 
-        $orderMember = OrderMember::get();
+        $orderMember = OrderMember::where('add_by', '=', auth()->user()->id)->get();
         $transaction = Transaction::with(['products'])->where('add_by', '=', auth()->user()->id)->get();
         $count       = $transaction->count();
 
