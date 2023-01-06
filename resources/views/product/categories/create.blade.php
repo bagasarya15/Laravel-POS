@@ -6,7 +6,7 @@
 @endsection
 
 @section('title')
-  Tambah Kategori Produk
+    Tambah Kategori Produk
 @endsection
 
 

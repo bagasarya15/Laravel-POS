@@ -105,6 +105,9 @@
                 <td>Subtotal <span style="margin-left:30px">Rp {{ number_format($order->sub_total) }}</span></td>
             </tr>
             <tr>
+                <td>Discount <span style="margin-left:30px">Rp {{ number_format($order->discount) }}</span></td>
+            </tr>
+            <tr>
                 <td>Total <span style="margin-left: 52px">Rp {{ number_format($order->total) }}</span> </td>
             </tr>
             <tr>

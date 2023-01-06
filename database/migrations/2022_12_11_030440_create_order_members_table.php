@@ -20,6 +20,7 @@ class CreateOrderMembersTable extends Migration
                 ->references('id')
                 ->on('members')
                 ->onUpdate('cascade');
+            $table->integer('add_by');
             $table->timestamps();
         });
     }

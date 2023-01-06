@@ -23,7 +23,7 @@ class DashboardController extends Controller
 
   public function __construct(Gate $gate) 
   {
-    $gate->define('dashboard', fn($user) => $user->role_id == 1 );
+    $gate->define('dashboard', fn($user) => $user->role_id == 1 || $user->role_id  == 2 );
     
     $this->middleware('can:dashboard');
   }

@@ -22,6 +22,7 @@ class Transactions extends Migration
                 ->onUpdate('cascade');
             $table->integer('qty');
             $table->integer('total');
+            $table->integer('add_by');
             $table->timestamps();
         });
     }

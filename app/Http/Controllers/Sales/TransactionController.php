@@ -19,33 +19,43 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {   
+        $transaction = Transaction::with(['products'])->where('add_by', '=', auth()->user()->id)->get();
+
+        //Check Product in Cart
+        foreach ($transaction as $transaction) {
+            if ($request->product_id == $transaction->product_id) {
+                return redirect()->back()->with('warning', "Produk {$transaction->products->name} sudah ada dikeranjang!");
+            }
+        }
+        //End
+
         $rules = [
-            'product_id' => 'required|unique:transactions'
+            'product_id' => 'required'
         ];
 
         $eMessage = [
             'product_id.required' => 'Pilih produk terlebih dahulu !',
-            'product_id.unique' => 'Produk sudah ada dikeranjang !',
         ];
         
         $validator = Validator::make($request->all(), $rules, $eMessage);
 
         if ($validator->fails()){
-        return redirect()->back()->with('warning', $validator->errors()->first());
+            return redirect()->back()->with('warning', $validator->errors()->first());
         }
 
-        $transaction = new Transaction;
-        $transaction->product_id = $request->product_id;
-        $transaction->qty = $request->qty;
-        $transaction->total = $request->total;
-        $transaction->save();
+        $addProductToCart = new Transaction;
+        $addProductToCart->product_id = $request->product_id;
+        $addProductToCart->add_by = $request->add_by;
+        $addProductToCart->qty = $request->qty;
+        $addProductToCart->total = $request->total;
+        $addProductToCart->save();
         
         return redirect()->back()->with('success', 'Produk berhasil ditambah keranjang!');
     }
 
     public function addMember(Request $request)
     {
-        $orderMember = OrderMember::with('getMember')->get();
+        $orderMember = OrderMember::with('getMember')->where('add_by', '=', auth()->user()->id)->get();
         $count = $orderMember->count();
 
         $rules = [
@@ -54,7 +64,7 @@ class TransactionController extends Controller
 
         $eMessage = [
             'member_id.required' => 'Pilih customer terlebih dahulu !',
-            'member_id.unique' => 'Customer sudah anda pilih !',
+            'member_id.unique'   => 'Customer sudah terpilih !',
         ];
         
         $validator = Validator::make($request->all(), $rules, $eMessage);
@@ -71,6 +81,7 @@ class TransactionController extends Controller
 
         $addMember = new OrderMember;
         $addMember->member_id = $request->member_id;
+        $addMember->add_by = $request->add_by;
         $addMember->save();
         
         return redirect()->back()->with('success', 'Customer berhasil ditambah !');

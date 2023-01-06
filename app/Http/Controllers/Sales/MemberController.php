@@ -12,7 +12,7 @@ class MemberController extends Controller
 {
     public function __construct(Gate $gate) 
     {
-        $gate->define('member', fn($user) => $user->role_id == 1 || $user->role_id == 2);
+        $gate->define('member', fn($user) => $user->role_id == 1 || $user->role_id == 2 || $user->role_id == 3);
 
         $this->middleware('can:member')->except(['show']);
     }
@@ -41,7 +41,7 @@ class MemberController extends Controller
         $rules = [
             'name' => 'required',
             'member_status' => 'required',
-            'code_member' => 'unique:members'
+            'code_member' => 'unique:members,code_member'
         ];
 
         $eMessage = [
@@ -94,6 +94,10 @@ class MemberController extends Controller
         
         $validator = Validator::make($request->all(), $rules, $eMessage);
 
+        if($member->id == 1){
+            return redirect()->back()->with('info', 'Tidak dapat mengubah data member '.$member->name.', karena merupakan data default sistem');
+        }
+
         if ($validator->fails()){
             return redirect()->back()->with('warning', $validator->errors()->first());
         }
@@ -112,12 +116,11 @@ class MemberController extends Controller
     public function destroy(Request $request, Members $member)
     {
         $count = $member->memberOrder->count();
-        $primary_data = Members::find(1);
 
         if($count > 0){
-            return redirect()->back()->with('info', 'Tidak dapat menghapus data member dipilih, terdapat '.$count.' order di data penjualan');
-        }else if($primary_data->id == 1){
-            return redirect()->back()->with('info', 'Tidak dapat menghapus data member '.$primary_data->name.', karena merupakan data default sistem');
+            return redirect()->back()->with('info', 'Tidak dapat menghapus data member '. $member->name .', terdapat '.$count.' order di data penjualan');
+        }else if($member->id == 1){
+            return redirect()->back()->with('info', 'Tidak dapat menghapus data member '.$member->name.', karena merupakan data default sistem');
         }else{
             $member->delete();
         }

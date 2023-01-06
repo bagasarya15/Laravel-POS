@@ -21,8 +21,6 @@
               alt="Not Found"
             />
             <h1 class="error-title">Halaman Expired</h1>
-            <p class="fs-5 text-gray-600">
-                Halaman web expired
             <a href="{{ route('home') }}" class="btn btn-lg btn-outline-primary mt-3"
               >Kembali</a
             >

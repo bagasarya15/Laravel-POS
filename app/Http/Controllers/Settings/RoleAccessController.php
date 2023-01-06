@@ -70,6 +70,10 @@ class RoleAccessController extends Controller
 
     public function resetPassword(User $user_access)
     {
+        if($user_access->id == 1 || $user_access->id == 2){
+            return redirect()->back()->with('info', 'Tidak dapat mereset password, user yang dipilih merupakan SuperAdmin');
+        }
+
         $user_access->update([
             'password' => Hash::make('user12345')
         ]);
@@ -79,6 +83,10 @@ class RoleAccessController extends Controller
 
     public function update(Request $request, User $user_access)
     {
+        if($user_access->id == 1 || $user_access->id == 2){
+            return redirect()->back()->with('info', 'Tidak dapat mengupdate, user yang dipilih merupakan SuperAdmin');
+        }
+
         if ($request->username != $user_access->username){
             $username = ['required', 'unique:users,username'];
         }else{
@@ -121,8 +129,7 @@ class RoleAccessController extends Controller
         }
         
         $user_access->update();
-        
-        // return redirect()->route('user-access.index')->with('success', 'Data users berhasil diupdate !');
+
         return redirect()->back()->with('success', 'Data users berhasil diupdate !');
     }
 

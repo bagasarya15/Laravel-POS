@@ -38,6 +38,7 @@
                                                 <input type="hidden" name="product_id" value="{{ $product->id }}" >
                                                 <input type="hidden" name="qty" value="1" >
                                                 <input type="hidden" name="total" value="{{ $product->price_sell }}" >
+                                                <input type="hidden" name="add_by" value="{{ auth()->user()->id }}">
                                                 @if ($product->stok == 0)
                                                     <span class="text-danger">{{ 'Stok Habis' }}</span>
                                                 @else

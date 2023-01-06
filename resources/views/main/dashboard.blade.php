@@ -13,14 +13,21 @@
 @include('layouts.sweet-alert')   
 
 <div class="page-content">
+    
+    @include('layouts.alert-profile')
+
     <div class="row">
         <div class="col">
-            <form action="{{ route('dashboard-search') }}" class="d-inline-flex ms-3">
-                <input type="text" class="form-control" name="firstDate" placeholder="Tanggal Awal" onfocus="(this.type='date')" >
-                
-                <input type="text" class="form-control ms-2" name="lastDate" placeholder="Tanggal Akhir" onfocus="(this.type='date')">
-                <button type="submit" class="btn btn-sm btn-primary ms-2"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </form>
+            <div class="table-responsive">
+                <form action="{{ route('dashboard-search') }}" class="d-inline-flex ms-3">
+                    <input type="text" class="form-control" name="firstDate" placeholder="Tanggal Awal" onfocus="(this.type='date')"required>
+                    
+                    <input type="text" class="form-control ms-2" name="lastDate" placeholder="Tanggal Akhir" onfocus="(this.type='date')" required>
+                    <button type="submit" class="btn btn-sm btn-primary ms-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+                    <a href="{{ route('dashboard') }}" class="btn btn-warning ms-1"><i class="fa-solid fa-arrows-rotate"></i> </a>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -49,62 +56,7 @@
     </section>
 </div>
 
-    @push('script')
-        <script>
-        
-        var options = {
-            series: [{
-            name: 'Penjualan',
-            data: [{{ $totalOrder }}]
-            }, {
-            name: 'Pembelian',
-            data: [{{ $totalPurchase }}]
-            }, {
-            name: 'Pengeluaran',
-            data: [{{ $totalSpending }}]
-            }],
-            chart: {
-            type: 'bar',
-            height: 350
-            },
-            plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '50%',
-                endingShape: 'rounded'
-            },
-            },
-            dataLabels: {
-            enabled: false
-            },
-            stroke: {
-            show: true,
-            width: 35,
-            colors: ['transparent']
-            },
-            xaxis: {
-            categories: ['{{ Carbon\Carbon::parse($firstDate)->translatedFormat('d F Y') }} - {{ Carbon\Carbon::parse($lastDate)->translatedFormat('d F Y') }}'],
-            },
-            yaxis: {
-            title: {
-                text: '( IDR ) '
-            }
-            },
-            fill: {
-            opacity: 1
-            },
-            tooltip: {
-            y: {
-                formatter: function (val) {
-                return "IDR " + val 
-                }
-            }
-            }
-            };
+    @include('main.dashboard-script')
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-        </script>
-    @endpush
 @endsection
 

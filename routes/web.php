@@ -61,6 +61,15 @@ Route::get('/', [AuthController::class, 'redirectTo'])->name('home');
 Route::middleware('guest')->controller(AuthController::class)->group(function() {
   Route::get('login', 'index')->name('login');
   Route::post('login', 'login')->name('login.post');
+
+  Route::get('register', 'getRegister')->name('register.index');
+  Route::post('register', 'postRegister')->name('register.post');
+
+  Route::get('forget-pass', 'getForgetPass')->name('forget-pass.index');
+  Route::post('forget-pass', 'postForgetPass')->name('forget-pass.post');
+
+  Route::get('reset-password/{token}', 'getResetPass')->name('password-reset.index');
+  Route::post('reset-password', 'postResetPass')->name('password-reset.post');
 });
 
 Route::middleware('auth')->group(function() {

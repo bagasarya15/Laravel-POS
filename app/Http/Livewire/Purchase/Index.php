@@ -21,7 +21,6 @@ class Index extends Component
     ];
 
     protected $messages = [
-        'supplier_id.required' =>  'pilih supplier',
         'payment.required'     =>  'isi nominal jumlah pembayaran',
     ];
 

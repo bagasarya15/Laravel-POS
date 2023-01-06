@@ -8,12 +8,18 @@
         <form wire:submit.prevent="checkout">
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div >
-                        <h6 class="my-0">Nomer Order</h6>
-                        <small class="text-muted">{{ $no_order }}</small>
-                        <small class="text-muted"><input type="hidden" class="form-control" wire:model="no_order" readonly></small>
+
+                    <div>
+                        <h6 class="my-0">Nomer Order <span class="text-danger small"> *</span></h6>
+                        <small class="text-muted">
+                            <input type="text" class="w-100 form-control @error('no_order') is-invalid  @enderror" wire:model="no_order" readonly>
+                            @error('no_order')
+                            <div id="validationServer03Feedback" class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </small>
                     </div>
-                    
                 </li>
 
                 <li class="list-group-item d-flex justify-content-between lh-sm">

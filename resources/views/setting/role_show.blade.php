@@ -51,7 +51,7 @@
                                     </select>
                                 </div>
                             </div>
-                            @can('super-admin')
+                            {{-- @can('super-admin') --}}
                             <div class="d-flex mt-2">
                                 <div>
                                     <button type="submit" class="btn btn-sm btn-primary btn-ask mb-1"><i class="fa-solid fa-edit"></i> Update</button>
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                                 <small class="mt-4 text-danger fst-italic">* default reset password = user12345</small>
-                            @endcan
+                            {{-- @endcan --}}
                         </div>
                     </div>
                 </div>

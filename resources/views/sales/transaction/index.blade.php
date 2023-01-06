@@ -9,5 +9,6 @@
 @endsection
 
 @section('content')
+    @include('layouts.alert-profile')
     @livewire('transaction.index')
 @endsection

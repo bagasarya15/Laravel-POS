@@ -35,6 +35,7 @@
                                 <form action="{{ route('transaction.add-member') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="member_id" value="{{ $member->id }}" >
+                                    <input type="hidden" name="add_by" value="{{ auth()->user()->id }}" >
                                     <button type="submit" class="btn btn-sm btn-primary"> <i class="fas fa-plus"></i></button>
                                 </form>
                             </div>

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use App\Models\{ User, Settings };
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\{ Auth, Validator, Storage, Hash};
+use Illuminate\Support\{Str, Carbon};
+use App\Models\{ User, Settings, Transaction };
+use Illuminate\Support\Facades\{ Auth, Validator, Storage, Hash, Mail, DB };
 
 class AuthController extends Controller
 {
@@ -22,6 +22,47 @@ class AuthController extends Controller
             }
         }
         return redirect()->route('login');
+    }
+    
+    public function getRegister()
+    {
+        $store_information = Settings::find(1);
+        return view('auth.register', compact('store_information'));
+    }
+
+    public function postRegister(Request $request){
+        $rules = [
+            'username'         => 'required|unique:users,username', 
+            'name'             => 'required',
+            'password'         => 'required_with:confirm_password|same:confirm_password|min:5',
+            'confirm_password' => 'min:5',
+        ];
+
+        $eMessage = [
+            'name.required'             => 'Isi nama terlebih dahulu',
+            'username.required'         => 'Isi username terlebih dahulu',
+            'username.unique'           => 'Username tidak tersedia, coba lagi',
+            'password.required'         => 'Isi password terlebih dahulu',
+            'password.min:5'            => 'Password minimal 5 huruf atau angka',
+            'password.same'             => 'Password tidak sama coba lagi !'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $eMessage);
+
+        if ($validator->fails()){
+            return redirect()->back()->with('warning', $validator->errors()->first());
+        }
+        
+        $user = new User;
+        $user->username = $request->username;
+        $user->password = Hash::make($request->password);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role_id = $request->role_id;
+        $user->image = $request->image;
+        $user->save();
+
+        return redirect()->route('login')->with('success', 'Akun berhasil dibuat');
     }
 
     public function index()
@@ -62,28 +103,49 @@ class AuthController extends Controller
             
             if( auth()->user()->role_id == 1)
             {
+                //Request Update Last Login
                 auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
+                //End
+
+                //If Login Reset Product in Cart
+                $this->nullCart();
+                //End
+
                 return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
             }
             else if( auth()->user()->role_id == 2) 
             {
+                //Request Update Last Login
                 auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
+                //End
+
+                //If Login Reset Product in Cart
+                $this->nullCart();
+                //End
+
                 return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
             }
             else if( auth()->user()->role_id == 3)
             {
+                //Request Update Last Login
                 auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
+                //End
+
+                //If Login Reset Product in Cart
+                $this->nullCart();
+                //End
+
                 return redirect()->route('transaction.index')->with('success', 'Selamat datang, '.Auth::user()->name);
             } 
         } 
         else
         {
-            return redirect()->back()->with('error', 'Login gagal, pastikan data yang dimasukkan sudah benar!');
+            return redirect()->back()->with('error', 'Login gagal, pastikan username, email atau password yang dimasukkan sudah benar !');
         }
         // End Login With Username Or Email
 
 
-        // [Code Jika Ingin Login Menggunakan Username Saja]
+        // [Code If u Want Login Only Use Username]
 
         // if ($validator->fails()){
         //     return redirect()->back()->with('warning', $validator->errors()->first());
@@ -150,16 +212,127 @@ class AuthController extends Controller
             return back()->with('success', 'Password berhasil diubah !');
         }        
     }
+    
+    //Function For Get ForgetPass
+    public function getForgetPass()
+    {
+        $store_information = Settings::find(1);
+        return view('auth.forget-pass', compact('store_information'));
+    }
+
+    public function postForgetPass(Request $request)
+    {
+        // $request->validate([
+        //     'email' => 'required|email|exists:users',
+        // ]);
+
+        $rules = [
+            'email' => 'required|email|exists:users',
+        ];
+
+        $eMessage = [
+            'email.required' => 'Isi email terlebih dahulu',
+            'email.exists'    => 'Email yang anda input tidak terdaftar',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $eMessage);
+
+        if ($validator->fails())
+        {
+            return redirect()->back()->with('warning', $validator->errors()->first());
+        }
+
+        $token = Str::random(60);
+
+        DB::table('password_resets')->insert(
+            ['email' => $request->email, 'token' => $token, 'created_at' => Carbon::now()]
+        );
+
+        Mail::send('auth.verify',['token' => $token], function($message) use ($request) {
+                $message->from('livewirelaravel@gmail.com');
+                $message->to($request->email);
+                $message->subject('Atur Ulang Pemberitahuan Kata Sandi');
+        });
+        
+        return back()->with('success', 'Kami telah mengirimkan tautan setel ulang kata sandi Anda melalui email');
+    }
+    //End
+
+    //Function For Post Reset Pass After Get Token From Email
+    public function getResetPass($token)
+    {
+        $store_information = Settings::find(1);
+
+        return view('auth.password-reset', compact('store_information', 'token'));
+    }
+
+    public function postResetPass(Request $request)
+    {
+        // $request->validate([
+        //     'email' => 'required|email|exists:users',
+        //     'password' => 'required|string|min:6|confirmed',
+        //     'password_confirmation' => 'required',
+        // ]);
+        
+        $rules = [
+            'email' => 'required|email|exists:users',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required',
+        ];
+
+        $eMessage = [
+            'email.required'    => 'Isi email terlebih dahulu',
+            'email.exists'      => 'Email yang anda input tidak terdaftar',
+            'password.required' => 'Isi password terlebih dahulu',
+            'password.min:5'    => 'Password minimal 5 huruf dan angka',
+            'password.same'     => 'Password tidak sama coba lagi'
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $eMessage);
+
+        if ($validator->fails())
+        {
+            return redirect()->back()->with('warning', $validator->errors()->first());
+        }
+
+        $updatePassword = DB::table('password_resets')
+                            ->where(['email' => $request->email, 'token' => $request->token])
+                            ->first();
+
+        if(!$updatePassword)
+            return back()->withInput()->with('error', 'Token Invalid');
+
+        $user = User::where('email', $request->email)
+                    ->update(['password' => Hash::make($request->password)]);
+
+        DB::table('password_resets')->where(['email'=> $request->email])->delete();
+
+        return redirect()->route('login')->with('success', 'Kata sandi anda berhasil diubah');
+    }
+    //End
+
+    //Function For Reset Cart
+    public function nullCart()
+    {
+        $deleteTransaction = Transaction::where('add_by', '=', auth()->user()->id )->delete();
+    }
+    //End Function Reset Cart
 
     public function logout(Request $request) 
     {
         //Request Before Logout
         auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
         //End
-        
+
+        //If Logout Delete Product in Cart
+        $this->nullCart();
+        //End
+
+        //Logout Auth
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
+        //End
 
         return redirect()->route('login')->with('success', 'Berhasil keluar, sampai jumpa');
     }

@@ -25,6 +25,7 @@ return [
 	*/
 
 	'features' => [
+		// Disable CLockwork
 		config()->set('clockwork.enable', false),
 		// Cache usage stats and cache queries including results
 		'cache' => [
