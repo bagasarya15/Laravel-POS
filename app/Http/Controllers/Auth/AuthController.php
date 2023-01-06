@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\{Str, Carbon};
-use App\Models\{ User, Settings, Transaction };
+use App\Models\{ User, Settings, Transaction, OrderMember };
 use Illuminate\Support\Facades\{ Auth, Validator, Storage, Hash, Mail, DB };
 
 class AuthController extends Controller
@@ -107,8 +107,9 @@ class AuthController extends Controller
                 auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
                 //End
 
-                //If Login Reset Product in Cart
+                //If Login Reset Product in Cart and Customer
                 $this->nullCart();
+                $this->nullCustomer();
                 //End
 
                 return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
@@ -119,8 +120,9 @@ class AuthController extends Controller
                 auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
                 //End
 
-                //If Login Reset Product in Cart
+                //If Login Reset Product in Cart and Customer
                 $this->nullCart();
+                $this->nullCustomer();
                 //End
 
                 return redirect()->route('dashboard')->with('success', 'Selamat datang, '.Auth::user()->name);
@@ -131,8 +133,9 @@ class AuthController extends Controller
                 auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
                 //End
 
-                //If Login Reset Product in Cart
+                //If Login Reset Product in Cart and Customer
                 $this->nullCart();
+                $this->nullCustomer();
                 //End
 
                 return redirect()->route('transaction.index')->with('success', 'Selamat datang, '.Auth::user()->name);
@@ -311,12 +314,17 @@ class AuthController extends Controller
     }
     //End
 
-    //Function For Reset Cart
+    //Function For Reset Cart & Customer
     public function nullCart()
     {
         $deleteTransaction = Transaction::where('add_by', '=', auth()->user()->id )->delete();
     }
-    //End Function Reset Cart
+
+    public function nullCustomer()
+    {
+        $deleteOrderMember = OrderMember::where('add_by', '=', auth()->user()->id )->delete();
+    }
+    //End Function Reset Cart & Customer
 
     public function logout(Request $request) 
     {
@@ -324,8 +332,9 @@ class AuthController extends Controller
         auth()->user()->update(['last_login' => Carbon::now($request->last_login)]);
         //End
 
-        //If Logout Delete Product in Cart
+        //If Logout Delete Product in Cart and Customer
         $this->nullCart();
+        $this->nullCustomer();
         //End
 
         //Logout Auth
