@@ -35,6 +35,7 @@ class DashboardController extends Controller
     $firstDate          = Carbon::now()->format('M');
     $lastDate           = Carbon::now()->format('M');
     $store_information  = Settings::findOrFail(1);
+    $products           = Products::get();
     $order              = Order::with('member')->orderBy('id', 'desc')->get();
     $purchaseOrder      = PurchaseOrder::with('getSupplier')->orderBy('id', 'desc')->get();
 
@@ -56,6 +57,7 @@ class DashboardController extends Controller
       'firstDate',
       'lastDate',
       'store_information',
+      'products',
       'order',
       'purchaseOrder',
       'totalOrder',

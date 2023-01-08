@@ -67,6 +67,15 @@ class Index extends Component
         }else if($transaction->sum('total') - $this->discount > $this->payment){
             return redirect()->route('transaction.index')->with('error', 'Uang tidak cukup untuk melanjutkan transaksi');
         }else{
+            
+            //Check Stok Produk If <= 0
+            foreach ($transaction as $check_stok) {
+                if($check_stok->products->stok <= 0){
+                    return redirect()->route('transaction.index')->with('error', 'Stok produk tidak tersedia, segera lakukan pengecekan stok produk');
+                }
+            }
+            //End
+
             $order = Order::create([
                 'no_order'      => $this->no_order,
                 'cashier_name'  => auth()->user()->name,
