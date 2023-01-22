@@ -40,19 +40,22 @@ class AuthController extends Controller
         ];
 
         $eMessage = [
-            'name.required'             => 'Isi nama terlebih dahulu',
-            'username.required'         => 'Isi username terlebih dahulu',
-            'username.unique'           => 'Username tidak tersedia, coba lagi',
-            'password.required'         => 'Isi password terlebih dahulu',
-            'password.min:5'            => 'Password minimal 5 huruf atau angka',
-            'password.same'             => 'Password tidak sama coba lagi !'
+            'name.required'             => 'isi nama terlebih dahulu',
+            'username.required'         => 'isi username terlebih dahulu',
+            'username.unique'           => 'username tidak tersedia, coba lagi',
+            'password.required'         => 'isi password terlebih dahulu',
+            'password.min'              => 'password minimal 5 huruf atau angka',
+            'confirm_password.min'      => 'password minimal 5 huruf atau angka',
+            'password.same'             => 'password tidak sama coba lagi !',
         ];
 
-        $validator = Validator::make($request->all(), $rules, $eMessage);
+        $this->validate($request, $rules, $eMessage);
 
-        if ($validator->fails()){
-            return redirect()->back()->with('warning', $validator->errors()->first());
-        }
+        // $validator = Validator::make($request->all(), $rules, $eMessage);
+
+        // if ($validator->fails()){
+        //     return redirect()->back()->with('warning', $validator->errors()->first());
+        // }
         
         $user = new User;
         $user->username = $request->username;
@@ -166,7 +169,7 @@ class AuthController extends Controller
 
         // if (auth()->attempt($credentials)) {
         //     $request->session()->regenerate();
-            
+        
         //     if( auth()->user()->role_id == 1)
         //     {
         //         auth()->user()->update(['is_login' => $request->is_login = 1 ]);
@@ -261,7 +264,7 @@ class AuthController extends Controller
                 $message->subject('Atur Ulang Pemberitahuan Kata Sandi');
         });
         
-        return back()->with('success', 'Kami telah mengirimkan tautan setel ulang kata sandi Anda melalui email');
+        return redirect()->route('login')->with('success', 'Kami telah mengirimkan tautan setel ulang kata sandi Anda melalui email');
     }
     //End
 

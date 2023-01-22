@@ -76,16 +76,16 @@ class ProductController extends Controller
         'image.mimes' => 'Gambar Yang Diupload Hanya Berupa JPG & PNG !',
         'image.max' => 'Ukuran Gambar Max 1mb !',
         'stok.required' => 'Stok Tidak Boleh Kosong !',
-        'price_buy' => 'Harga Beli Tidak Boleh Kosong !',
-        'price_sell' => 'Harga Jual Tidak Boleh Kosong ! ',
+        'price_sell.required' => 'Harga Jual Tidak Boleh Kosong ! ',
         ];
 
-        
-        $validator = Validator::make($request->all(), $rules, $eMessage);
+        $this->validate($request, $rules, $eMessage);
 
-        if ($validator->fails()){
-            return redirect()->back()->with('warning', $validator->errors()->first());
-        }
+        // $validator = Validator::make($request->all(), $rules, $eMessage);
+
+        // if ($validator->fails()){
+        //     return redirect()->back()->with('warning', $validator->errors()->first());
+        // }
 
         $product = new Products;
         $product->code_product = $request->code_product;

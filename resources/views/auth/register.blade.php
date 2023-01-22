@@ -17,7 +17,7 @@
 @include('layouts.sweet-alert')
 <body class="bg-primary">
     <div class="container col-lg-4">
-        <div class="row" style="margin-top:70px;">
+        <div class="row" style="margin-top:60px;">
             <div class="col-lg-12 col-lg-8">
                 <div class="card shadow-lg rounded">
                     <h1 class="text-center my-3">Register.</h1>
@@ -26,21 +26,31 @@
                         <div class="row mx-2">
                             <div class="col-md-8 col-md-12">
                                 <div class="form-group position-relative has-icon-left">
-                                    <input type="text" name="username" class="form-control form-control-xl" placeholder="Username" autocomplete="off">
+                                    <input type="text" name="username" class="form-control form-control-xl @error('username') is-invalid  @enderror" placeholder="Username" autocomplete="off" value="{{ old('username') }}">
                                     <div class="form-control-icon">
                                         <i class="bi bi-person"></i>
                                     </div>
+                                    @error('username')
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group position-relative has-icon-left">
-                                    <input type="text" name="name" class="form-control form-control-xl" placeholder="Nama" autocomplete="off">
+                                    <input type="text" name="name" class="form-control form-control-xl @error('name') is-invalid  @enderror" placeholder="Nama" autocomplete="off" value="{{ old('name') }}">
                                     <div class="form-control-icon">
                                         <i class="bi bi-person"></i>
                                     </div>
+                                    @error('name')
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group position-relative has-icon-left">
-                                    <input type="password" class="form-control form-control-xl" name="password" id="password" placeholder="Password">
+                                    <input type="password" class="form-control form-control-xl @error('password') is-invalid  @enderror" name="password" id="password" placeholder="Password">
                                     <div class="custom-control custom-checkbox mt-2">
                                         <input type="checkbox" id="check-new-pass" class="form-check-input form-check-primary">
                                         <label class="form-check-label">Lihat Password</label>
@@ -48,10 +58,15 @@
                                     <div class="form-control-icon">
                                         <i class="bi bi-shield-lock"></i>
                                     </div>
+                                    @error('password')
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group position-relative has-icon-left">
-                                    <input type="password" class="form-control form-control-xl" name="confirm_password" id="confirm_password" placeholder="Konfirmasi Password">
+                                    <input type="password" class="form-control form-control-xl @error('confirm_password') is-invalid @enderror" name="confirm_password" id="confirm_password" placeholder="Konfirmasi Password">
                                     <div class="custom-control custom-checkbox mt-2">
                                         <input type="checkbox" id="check-confirm-pass" class="form-check-input form-check-primary">
                                         <label class="form-check-label">Lihat Password</label>
@@ -59,6 +74,11 @@
                                     <div class="form-control-icon">
                                         <i class="bi bi-shield-lock"></i>
                                     </div>
+                                    @error('confirm_password')
+                                    <div id="validationServer03Feedback" class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <input type="hidden" name="role_id" value="3">
                                 <input type="hidden" value="avatar/default.jpg" name="image">

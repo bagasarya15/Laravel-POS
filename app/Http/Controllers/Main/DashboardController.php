@@ -77,6 +77,7 @@ class DashboardController extends Controller
     }
 
     $store_information  = Settings::findOrFail(1);
+    $products           = Products::get();
     $order              = Order::with('member')->orderBy('id', 'desc')->get();
     $purchaseOrder      = PurchaseOrder::with('getSupplier')->orderBy('id', 'desc')->get();
 
@@ -97,6 +98,7 @@ class DashboardController extends Controller
     return view('main.dashboard', compact([
       'firstDate',
       'lastDate',
+      'products',
       'store_information',
       'order',
       'purchaseOrder',

@@ -52,22 +52,22 @@
                     @php
                         $price             = $transaction->sum('total');
 
-                        // Discount 10% 
-                        $member_discount10 = 10;
-                        $total_discount10  = ($member_discount10 / 100) * $price;
-                        $price_total10     = $price - $total_discount10; 
+                        // Discount 3% 
+                            $discount1       = 3 ;
+                            $totalDiscount1  = ($discount1 / 100) * $price ;
+                            $totalPrice1     = $price - $totalDiscount1 ; 
                         // End
 
-                        // Discount 15% 
-                        $member_discount15 = 15;
-                        $total_discount15  = ($member_discount15 / 100) * $price;
-                        $price_total15     = $price - $total_discount15; 
+                        // Discount 5% 
+                            $discount2         = 5 ;
+                            $totalDiscount2    = ($discount2 / 100) * $price ;
+                            $totalPrice2     = $price - $totalDiscount2 ; 
                         // End
 
-                        // Discount 25%
-                        $member_discount20 = 20;
-                        $total_discount20  = ($member_discount20 / 100) * $price;
-                        $price_total20     = $price - $total_discount20; 
+                        // Discount 10%
+                            $discount3         = 10 ;
+                            $totalDiscount3    = ($discount3 / 100) * $price ;
+                            $totalPrice3     = $price - $totalDiscount3 ; 
                         // End
                     @endphp
                     {{-- /End --}}
@@ -78,9 +78,9 @@
                             <select class="form-select @error('discount') is-invalid  @enderror discountSelect">
                                 <option selected value="">Pilih Diskon</option>
                                 <option value="{{ $price - $price }}">Non-Member 0%</option>
-                                <option value="{{ $price - $price_total10 }}">Member 10%</option>
-                                <option value="{{ $price - $price_total15 }}">Member 15%</option>
-                                <option value="{{ $price - $price_total20 }}">Member 20%</option>
+                                <option value="{{ $price - $totalPrice1 }}">Discount 3%</option>
+                                <option value="{{ $price - $totalPrice2 }}">Discount 5%</option>
+                                <option value="{{ $price - $totalPrice3 }}">Discount 10%</option>
                             </select>
 
                             @error('discount')
