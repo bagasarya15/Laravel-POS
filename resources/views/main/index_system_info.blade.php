@@ -33,6 +33,8 @@
                         
                         <td>
                             <div class="d-flex">
+                                @can('super-admin')
+                                    
                                 <form action="{{ route('system-info.destroy', $data->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -40,6 +42,8 @@
                                         <i class="fa-solid fa-trash"></i>
                                     </a>
                                 </form>
+                                
+                                @endcan
                                 <a href="{{ route('system-info.show', $data->id) }}" class="badge bg-warning ms-2">
                                     <i class="fa-solid fa-eye"></i> Lihat Detail
                                 </a>

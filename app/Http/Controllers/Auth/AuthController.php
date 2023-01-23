@@ -20,9 +20,10 @@ class AuthController extends Controller
                 return redirect()->route('dashboard');
             } else if (auth()->user()->role_id == 3) {
                 return redirect()->route('transaction.index');
+            } else {
+                return redirect()->route('login');
             }
         }
-        return redirect()->route('login');
     }
     
     public function getRegister()

@@ -20,8 +20,8 @@
               src="{{ asset('assets/images/samples/error-500.svg') }}"
               alt="Not Found"
             />
-            <h1 class="error-title">Halaman Expired</h1>
-            <a href="{{ route('logout') }}" class="btn btn-lg btn-outline-primary mt-3"
+            <h1 class="error-title">Sesi login berakhir</h1>
+            <a href="{{ route('home') }}" class="btn btn-lg btn-outline-primary mt-3"
               >Kembali</a
             >
           </div>

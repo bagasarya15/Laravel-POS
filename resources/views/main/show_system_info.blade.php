@@ -51,10 +51,11 @@
                                 <div class="col-md-6">
                                     
                                 </div>
-                            
-                                <div class="d-flex justify-content-start">
-                                    <button type="submit" class="btn btn-sm btn-primary my-3"><i class="fa-solid fa-edit"></i> Update</button>
-                                </div> 
+                                @can('super-admin')
+                                    <div class="d-flex justify-content-start">
+                                        <button type="submit" class="btn btn-sm btn-primary my-3"><i class="fa-solid fa-edit"></i> Update</button>
+                                    </div> 
+                                @endcan
                             </div>
                         </form>
                     </div>
