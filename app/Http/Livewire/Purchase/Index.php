@@ -29,14 +29,14 @@ class Index extends Component
     public function mount()
     {
         $this->supplier = Supplier::all();
-        $this->supplier_purchase = PurchaseSupplier::all();
+        $this->supplier_purchase = PurchaseSupplier::where('add_by', '=', auth()->user()->id)->get();
         $this->purchase_order= $this->generateOrder();
     }
 
     public function render()
     {
         $products = Products::orderBy('id', 'ASC')->get();
-        $purchase = PurchaseTransaction::with(['products'])->get();
+        $purchase = PurchaseTransaction::with(['products'])->where('add_by', '=', auth()->user()->id)->get();
 
         return view('livewire.purchase.index', compact(['products', 'purchase']));
     }
@@ -72,8 +72,8 @@ class Index extends Component
     {
         $this->validate();
 
-        $getSupplier = PurchaseSupplier::get();
-        $purchase = PurchaseTransaction::with('products')->get();
+        $getSupplier = PurchaseSupplier::where('add_by', '=', auth()->user()->id)->get();
+        $purchase = PurchaseTransaction::with('products')->where('add_by', '=', auth()->user()->id)->get();
         $count = $purchase->count();
 
         if($count == 0)
@@ -114,9 +114,11 @@ class Index extends Component
 
                 $purchaseProduct = PurchaseProducts::insert($product);
                 Products::find($purchase->product_id)->increment('stok', $purchase->qty);
-                $deleteTransaction = PurchaseTransaction::where('id', $purchase->id)->delete();
+                // $deleteTransaction = PurchaseTransaction::where('id', $purchase->id)->delete();
             } 
         }
+        $this->nullCart();
+        $this->deleteSupplier();
         $this->clear();
 
         return redirect()->route('purchase.invoice',  [$order->purchase_order])->with('success', 'Pembelian produk berhasil');
@@ -139,22 +141,18 @@ class Index extends Component
 
     public function deleteSupplier()
     {
-        $deleteSupplier = PurchaseSupplier::get();
+        $deleteSupplier = PurchaseSupplier::where('add_by', '=', auth()->user()->id)->delete();
 
-        foreach ($deleteSupplier as $data) {
-            $delete = PurchaseSupplier::where('id', $data->id)->delete();
-        }
-        
         return redirect()->route('purchase.index')->with('success', 'Supplier berhasil dikosongkan');
     }
 
     public function nullCart()
     {
-        $purchase = PurchaseTransaction::get();
+        $purchase = PurchaseTransaction::where('add_by', '=', auth()->user()->id)->delete();
 
-        foreach ($purchase as $purchase) {
-            $deleteTransaction = PurchaseTransaction::where('id', $purchase->id)->delete();
-        }
+        // foreach ($purchase as $purchase) {
+        //     $deleteTransaction = PurchaseTransaction::where('id', $purchase->id)->delete();
+        // }
         
         return redirect()->route('purchase.index')->with('success', 'Keranjang berhasil dikosongkan');
     }

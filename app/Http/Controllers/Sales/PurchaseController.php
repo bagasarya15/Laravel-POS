@@ -19,13 +19,23 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {   
+
+        $purchase = PurchaseTransaction::with(['products'])->where('add_by', '=', auth()->user()->id)->get();
+
+        // Check If Same Product Id In Cart
+        foreach ($purchase as $purchase) {
+            if($request->supplier_id == $purchase->supplier_id){
+                return redirect()->back()->with('warning', "Produk {$purchase->products->name} sudah ada dikeranjang!");
+            }
+        }
+        //End
+
         $rules = [
-            'product_id' => 'required|unique:purchase_transactions'
+            'add_by'     => 'required',
         ];
 
         $eMessage = [
             'product_id.required' => 'Pilih produk terlebih dahulu !',
-            'product_id.unique' => 'Produk sudah ada dikeranjang !',
         ];
         
         $validator = Validator::make($request->all(), $rules, $eMessage);
@@ -38,6 +48,7 @@ class PurchaseController extends Controller
         $purchase->product_id = $request->product_id;
         $purchase->qty = $request->qty;
         $purchase->total = $request->total;
+        $purchase->add_by = $request->add_by;
         $purchase->save();
         
         return redirect()->back()->with('success', 'Produk berhasil ditambah keranjang!');
@@ -85,31 +96,18 @@ class PurchaseController extends Controller
 
     public function addSupplier(Request $request)
     {
-        $supplierOrder = PurchaseSupplier::with(['getSupplier'])->get();
-        $count = $supplierOrder->count();
 
-        $rules = [
-            'supplier_id' => 'unique:purchase_suppliers,id'
-        ];
+        $supplier = PurchaseSupplier::with(['getSupplier'])->where('add_by', '=', auth()->user()->id)->get();
 
-        $eMessage = [
-            'supplier_id.unique' => 'Supplier sudah anda pilih !',
-        ];
-        
-        $validator = Validator::make($request->all(), $rules, $eMessage);
-
-        foreach ($supplierOrder as $order) {
-            if ($count > 0) {
-                return redirect()->back()->with('error', "Terdapat supplier {$order->getSupplier->name} sudah di input, hapus terlebih dahulu jika ingin mengganti supplier!");
+        foreach ($supplier as $supplier) {
+            if($supplier->count() > 1){
+                return redirect()->back()->with('warning', ' '.$supplier->getSupplier->name.' sudah diinput ');
             }
-        }
-
-        if ($validator->fails()){
-            return redirect()->back()->with('warning', $validator->errors()->first());
         }
 
         $add              = new PurchaseSupplier;
         $add->supplier_id = $request->supplier_id;
+        $add->add_by      = $request->add_by;
         $add->save();
         
         return redirect()->back()->with('success', 'Supplier berhasil ditambah !');

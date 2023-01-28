@@ -40,12 +40,13 @@ class SupplierController extends Controller
             'name'         => 'required',
             'address'      => 'nullable',
             'number_phone' => 'nullable|unique:suppliers,number_phone',
-            'desc'         => 'nullable'
+            'desc'         => 'required'
         ];
 
         $eMessage = [
             'number_phone.required' => 'No tlp harus di isi !',
-            'number_phone.unique'   => 'No tlp sudah terdata, coba dengan nomor lain !'
+            'number_phone.unique'   => 'No tlp sudah terdata, coba dengan nomor lain !',
+            'desc.required'         => 'Isi keterangan terlebih dahulu '
         ];
         
         $validator = Validator::make($request->all(), $rules, $eMessage);

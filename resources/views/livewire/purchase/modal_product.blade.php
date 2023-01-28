@@ -43,6 +43,7 @@
                                                 <input type="hidden" name="product_id" value="{{ $product->id }}" >
                                                 <input type="hidden" name="qty" value="0" >
                                                 <input type="hidden" name="total" value="0" >
+                                                <input type="hidden" name="add_by" value="{{ auth()->user()->id }}" >
                                                 <button type="submit" class="btn btn-sm btn-primary"> <i class="fas fa-plus"></i></button>
                                             </form>
                                         </div>

@@ -32,6 +32,7 @@
                                             <form action="{{ route('purchase.add-supplier') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="supplier_id" value="{{ $supplier->id  }}" >
+                                                <input type="hidden" name="add_by" value="{{ auth()->user()->id }}" >
                                                 <button type="submit" class="btn btn-sm btn-primary"> <i class="fas fa-plus"></i></button>
                                             </form>
                                         </div>

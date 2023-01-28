@@ -20,6 +20,7 @@ class CreatePurchaseTransactionsTable extends Migration
                 ->references('id')
                 ->on('products')
                 ->onUpdate('cascade');
+            $table->integer('add_by');
             $table->integer('qty');
             $table->integer('total');
             $table->timestamps();

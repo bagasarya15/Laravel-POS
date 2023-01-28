@@ -20,6 +20,7 @@ class PurchaseSupplier extends Migration
                 ->references('id')
                 ->on('suppliers')
                 ->onUpdate('cascade');
+            $table->integer('add_by');
             $table->timestamps();
         });
     }
